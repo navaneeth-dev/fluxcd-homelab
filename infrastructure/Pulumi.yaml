@@ -1,0 +1,16 @@
+name: fluxcd-homelab
+description: A minimal Kubernetes TypeScript Pulumi program
+runtime:
+  name: nodejs
+  options:
+    packagemanager: pnpm
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: kubernetes-typescript
+packages:
+  talos:
+    source: terraform-provider
+    version: 0.11.0
+    parameters:
+      - siderolabs/talos
