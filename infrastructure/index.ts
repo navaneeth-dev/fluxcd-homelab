@@ -1,56 +1,52 @@
 import * as talos from "@pulumi/talos";
+import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const CONTROLPLANE_IP = "192.168.2.131";
+const CLUSTERNAME = "homelab-cluster";
 
 const secrets = new talos.MachineSecrets("this", {});
 
-// Generate machine configuration for controlplane
-const machineConfig = talos.getMachineConfiguration({
-    clusterName: "homelab-cluster",
-    machineType: "controlplane",
-    clusterEndpoint: "https://cluster.local:6443",
-    machineSecrets: secrets.machineSecrets,
-});
+const machineConfig = secrets.machineSecrets.apply(machineSecrets =>
+    talos.getMachineConfiguration({
+        clusterName: CLUSTERNAME,
+        machineType: "controlplane",
+        clusterEndpoint: `https://${CONTROLPLANE_IP}:6443`,
+        machineSecrets,
+    })
+);
 
-// Get Talos client configuration
-const clientConfig = talos.getClientConfiguration({
-    clusterName: "rizexor-cluster",
-    clientConfiguration: secrets.clientConfiguration,
-    nodes: [CONTROLPLANE_IP],
-});
+const clientConfig = secrets.clientConfiguration.apply(clientConfiguration =>
+    talos.getClientConfiguration({
+        clusterName: CLUSTERNAME,
+        clientConfiguration: clientConfiguration,
+        nodes: [CONTROLPLANE_IP],
+    }).then(r => r.clientConfiguration)
+);
 
-// Apply the configuration to the node
-const configApply = new talos.MachineConfigurationApply("this", {
-    clientConfiguration: secrets.clientConfiguration,
-    machineConfigurationInput: machineConfig.then(m => m.machineConfiguration),
-    node: CONTROLPLANE_IP,
-    // configPatches: [
-    //     JSON.stringify({
-    //         machine: {
-    //             install: {
-    //                 disk: "/dev/sdd",
-    //             },
-    //         },
-    //     }),
-    // ],
-});
+const applyConfig = pulumi.all([clientConfig, machineConfig]).apply(([clientConfiguration, machineConfiguration]) =>
+    new talos.MachineConfigurationApply("this", {
+        clientConfiguration: clientConfiguration,
+        machineConfigurationInput: machineConfiguration.machineConfiguration,
+        node: CONTROLPLANE_IP,
+        configPatches: [`machine:
+    install:
+        disk: /dev/sda
+        image: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515:v1.10.5
+        wipe: false
+`
+        ],
+    })
+);
 
-// Bootstrap the cluster
 const bootstrap = new talos.MachineBootstrap("this", {
     node: CONTROLPLANE_IP,
-    clientConfiguration: secrets.clientConfiguration,
-}, { dependsOn: [configApply] });
+    clientConfiguration: clientConfig,
+}, { dependsOn: [applyConfig] });
 
-// const appLabels = { app: "nginx" };
-// const deployment = new k8s.apps.v1.Deployment("nginx", {
-//     spec: {
-//         selector: { matchLabels: appLabels },
-//         replicas: 1,
-//         template: {
-//             metadata: { labels: appLabels },
-//             spec: { containers: [{ name: "nginx", image: "nginx" }] }
-//         }
-//     }
-// });
-// export const name = deployment.metadata.name;
+const kubeconfig = new talos.ClusterKubeconfig("this", {
+    node: CONTROLPLANE_IP,
+    clientConfiguration: clientConfig,
+}, { dependsOn: [bootstrap] });
+
+export const kubeconfigRaw = kubeconfig.kubeconfigRaw;
