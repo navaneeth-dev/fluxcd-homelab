@@ -1,3 +1,4 @@
 # GitHub actions binaries
 bin/
 kubeconfig
+talosconfig
