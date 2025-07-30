@@ -132,7 +132,9 @@ const cilium = new k8s.helm.v3.Chart("cilium", {
 }, { dependsOn: [ bootstrap ], provider });
 
 const fluxProvider = new flux.Provider("fluxProvider", {
-    kubernetes: kubeconfig.clientConfiguration,
+    kubernetes: {
+        configPath: "../kubeconfig",
+    },
     git: {
         url: pulumi.interpolate`https://github.com/navaneeth-dev/fluxcd-homelab.git`,
         http: {
@@ -146,6 +148,7 @@ const fluxBootstrap = new flux.BootstrapGit("this", {
     path: "k8s/clusters/staging",
 }, {
     dependsOn: [cilium],
+    provider: fluxProvider,
 });
 
 export const kubeconfigRaw = kubeconfig.kubeconfigRaw;
