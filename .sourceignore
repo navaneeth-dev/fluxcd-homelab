@@ -5,6 +5,6 @@
 /*
 
 # Include manifest directories
-!/apps/
-!/clusters/
-!/infrastructure/
+!/k8s/apps/
+!/k8s/clusters/
+!/k8s/infrastructure/
