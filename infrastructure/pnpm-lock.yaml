@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@pulumi/flux':
+        specifier: file:sdks/flux
+        version: file:sdks/flux(typescript@5.8.3)
       '@pulumi/kubernetes':
         specifier: ^4.0.0
         version: 4.23.0(typescript@5.8.3)
@@ -217,6 +220,9 @@ packages:
 
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
+
+  '@pulumi/flux@file:sdks/flux':
+    resolution: {directory: sdks/flux, type: directory}
 
   '@pulumi/kubernetes@4.23.0':
     resolution: {integrity: sha512-sMNV8cNx+MdvwNXCze3EiYgfRCTilJ9PMq4hqT8lOz7hgX5Un9yyDILJCkrt0wlGlB11Dgbq39mjwCeoImOEgg==}
@@ -1371,6 +1377,16 @@ snapshots:
   '@protobufjs/pool@1.1.0': {}
 
   '@protobufjs/utf8@1.1.0': {}
+
+  '@pulumi/flux@file:sdks/flux(typescript@5.8.3)':
+    dependencies:
+      '@pulumi/pulumi': 3.186.0(typescript@5.8.3)
+      async-mutex: 0.5.0
+    transitivePeerDependencies:
+      - bluebird
+      - supports-color
+      - ts-node
+      - typescript
 
   '@pulumi/kubernetes@4.23.0(typescript@5.8.3)':
     dependencies:

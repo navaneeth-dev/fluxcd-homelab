@@ -1,5 +1,6 @@
 import * as talos from "@pulumi/talos";
 import * as pulumi from "@pulumi/pulumi";
+import * as flux from "@pulumi/flux";
 import * as k8s from "@pulumi/kubernetes";
 
 const CONTROLPLANE_IP = "192.168.2.131";
@@ -19,6 +20,7 @@ cluster:
         disabled: true
 `;
 
+const cfg = new pulumi.Config();
 
 const secrets = new talos.MachineSecrets("this", {});
 
@@ -128,6 +130,23 @@ const cilium = new k8s.helm.v3.Chart("cilium", {
         k8sServicePort: 7445,
     }
 }, { dependsOn: [ bootstrap ], provider });
+
+const fluxProvider = new flux.Provider("fluxProvider", {
+    kubernetes: kubeconfig.clientConfiguration,
+    git: {
+        url: pulumi.interpolate`https://github.com/navaneeth-dev/fluxcd-homelab.git`,
+        http: {
+            username: "git",
+            password: cfg.requireSecret("githubToken"),
+        },
+    },
+});
+
+const fluxBootstrap = new flux.BootstrapGit("this", {
+    path: "k8s/clusters/staging",
+}, {
+    dependsOn: [cilium],
+});
 
 export const kubeconfigRaw = kubeconfig.kubeconfigRaw;
 export const talosConfig = talosClientConfig.talosConfig;
