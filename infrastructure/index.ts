@@ -102,7 +102,7 @@ const cilium = new k8s.helm.v3.Chart("cilium", {
         },
         ingressController: {
             enabled: true,
-            loadbalancerMode: "dedicated",
+            loadbalancerMode: "shared",
             default: true,
         },
         l2announcements: {
