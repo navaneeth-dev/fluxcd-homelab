@@ -4,6 +4,6 @@ metadata:
   name: l2-announcement-policy
 spec:
   interfaces:
-  - ^eth[0-9]+
-  externalIPs: true
+  - eth0
+  loadBalancerIPs: true
 
