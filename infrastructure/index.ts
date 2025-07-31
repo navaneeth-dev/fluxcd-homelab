@@ -94,6 +94,7 @@ const cilium = new k8s.helm.v3.Chart("cilium", {
         repo: "https://helm.cilium.io/",
     },
     values: {
+        devices: ["eth0"],
         loadBalancer: {
             l7: {
                 backend: "envoy",
