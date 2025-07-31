@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
   - cluster-issuers.yaml
   - cilium-ip-pool.yaml
+  - cilium-l2-announcement-policy.yaml
+
