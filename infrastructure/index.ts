@@ -51,16 +51,16 @@ const talosClientConfig = secrets.clientConfiguration.apply(clientConfiguration 
 );
 
 const workerApplyConfig = new talos.MachineConfigurationApply("worker", {
-        clientConfiguration: talosClientConfig.clientConfiguration,
-        machineConfigurationInput: workerMachineConfig.machineConfiguration,
-        node: WORKER_IPS[0],
-        configPatches: [CONFIG_PATCH],
+    clientConfiguration: talosClientConfig.clientConfiguration,
+    machineConfigurationInput: workerMachineConfig.machineConfiguration,
+    node: WORKER_IPS[0],
+    configPatches: [CONFIG_PATCH],
 });
 const controlplaneApplyConfig = new talos.MachineConfigurationApply("this", {
-        clientConfiguration: talosClientConfig.clientConfiguration,
-        machineConfigurationInput: controlplaneMachineConfig.machineConfiguration,
-        node: CONTROLPLANE_IP,
-        configPatches: [CONFIG_PATCH],
+    clientConfiguration: talosClientConfig.clientConfiguration,
+    machineConfigurationInput: controlplaneMachineConfig.machineConfiguration,
+    node: CONTROLPLANE_IP,
+    configPatches: [CONFIG_PATCH],
 });
 
 const bootstrap = new talos.MachineBootstrap("this", {
@@ -94,10 +94,17 @@ const cilium = new k8s.helm.v3.Chart("cilium", {
         repo: "https://helm.cilium.io/",
     },
     values: {
+        l2announcements: {
+            enabled: true,
+        },
+        k8sClientRateLimit: {
+            qps: 10,
+            burst: 15,
+        },
         ipam: {
             mode: "kubernetes",
         },
-        kubeProxyReplacement: false,
+        kubeProxyReplacement: true,
         securityContext: {
             capabilities: {
                 ciliumAgent: [
@@ -129,7 +136,7 @@ const cilium = new k8s.helm.v3.Chart("cilium", {
         k8sServiceHost: "localhost",
         k8sServicePort: 7445,
     }
-}, { dependsOn: [ bootstrap ], provider });
+}, { dependsOn: [bootstrap], provider });
 
 const fluxProvider = new flux.Provider("fluxProvider", {
     kubernetes: {
