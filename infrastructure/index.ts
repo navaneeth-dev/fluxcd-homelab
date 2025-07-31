@@ -88,7 +88,7 @@ const provider = new k8s.Provider("talos", {
 
 const cilium = new k8s.helm.v3.Chart("cilium", {
     chart: "cilium",
-    version: "1.15.6",
+    version: "1.18.0",
     namespace: "kube-system",
     fetchOpts: {
         repo: "https://helm.cilium.io/",
