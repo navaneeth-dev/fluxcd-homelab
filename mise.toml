@@ -1,2 +1,7 @@
+[env]
+KUBECONFIG = "{{config_root}}/kubeconfig"
+SOPS_AGE_KEY_FILE = "/home/rize/.ssh/key.txt"
+TALOSCONFIG = "{{config_root}}/talosconfig"
+
 [tools]
 sops = "latest"
