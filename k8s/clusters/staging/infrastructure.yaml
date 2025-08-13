@@ -30,6 +30,9 @@ spec:
     kind: GitRepository
     name: flux-system
   path: ./k8s/infrastructure/configs
+  postBuild:
+    substitute:
+      DOMAIN: 'flux.rizexor.com'
   prune: true
   patches:
     - patch: |
