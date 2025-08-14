@@ -18,6 +18,7 @@ data "talos_client_configuration" "this" {
   cluster_name         = var.cluster_name
   client_configuration = talos_machine_secrets.this.client_configuration
   endpoints            = [for k, v in var.node_data.controlplanes : k]
+  nodes                = [for k, v in merge(var.node_data.controlplanes, var.node_data.workers) : k]
 }
 
 resource "talos_machine_configuration_apply" "controlplane" {
@@ -30,7 +31,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
       hostname     = each.value.hostname == null ? format("%s-cp-%s", var.cluster_name, index(keys(var.node_data.controlplanes), each.key)) : each.value.hostname
       install_disk = each.value.install_disk
     }),
-    # file("${path.module}/files/cp-scheduling.yaml"),
+    file("${path.module}/files/cni.yaml"),
   ]
 }
 
@@ -54,8 +55,17 @@ resource "talos_machine_bootstrap" "this" {
   node                 = [for k, v in var.node_data.controlplanes : k][0]
 }
 
+# data "talos_cluster_health" "this" {
+#   depends_on = [talos_machine_bootstrap.this]
+#
+#   client_configuration = talos_machine_secrets.this.client_configuration
+#   control_plane_nodes = []
+#   endpoints = [for k, v in merge(var.node_data.controlplanes, var.node_data.workers) : k]
+# }
+
 resource "talos_cluster_kubeconfig" "this" {
   depends_on           = [talos_machine_bootstrap.this]
   client_configuration = talos_machine_secrets.this.client_configuration
+  endpoint             = [for k, v in var.node_data.controlplanes : k][0]
   node                 = [for k, v in var.node_data.controlplanes : k][0]
 }
