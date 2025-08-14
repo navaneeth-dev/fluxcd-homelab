@@ -55,16 +55,16 @@ resource "talos_machine_bootstrap" "this" {
   node                 = [for k, v in var.node_data.controlplanes : k][0]
 }
 
-data "talos_cluster_health" "this" {
-  depends_on = [talos_machine_bootstrap.this]
-
-  client_configuration = talos_machine_secrets.this.client_configuration
-  control_plane_nodes = []
-  endpoints = [for k, v in merge(var.node_data.controlplanes, var.node_data.workers) : k]
-}
+# data "talos_cluster_health" "this" {
+#   depends_on = [talos_machine_bootstrap.this]
+#
+#   client_configuration = talos_machine_secrets.this.client_configuration
+#   control_plane_nodes = []
+#   endpoints = [for k, v in merge(var.node_data.controlplanes, var.node_data.workers) : k]
+# }
 
 resource "talos_cluster_kubeconfig" "this" {
-  depends_on           = [data.talos_cluster_health.this]
+  depends_on           = [talos_machine_bootstrap.this]
   client_configuration = talos_machine_secrets.this.client_configuration
   endpoint             = [for k, v in var.node_data.controlplanes : k][0]
   node                 = [for k, v in var.node_data.controlplanes : k][0]

@@ -13,7 +13,7 @@ tasks:
       - cilium status --wait
       - |
         flux bootstrap github \
-          --context=admin@talos-proxmox-cluster \
+          --context=admin@hoopa \
           --owner=navaneeth-dev \
           --repository=fluxcd-homelab \
           --branch=main \
