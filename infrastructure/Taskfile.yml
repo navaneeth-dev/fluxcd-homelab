@@ -11,4 +11,12 @@ tasks:
       - helmfile init
       - helmfile apply
       - cilium status --wait
+      - |
+        flux bootstrap github \
+          --context=admin@talos-proxmox-cluster \
+          --owner=navaneeth-dev \
+          --repository=fluxcd-homelab \
+          --branch=main \
+          --personal \
+          --path=clusters/sp
     silent: true
