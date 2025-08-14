@@ -8,6 +8,11 @@ variable "cluster_endpoint" {
   type        = string
 }
 
+variable "SOPS_AGEKEY" {
+  description = "SOPS age private key"
+  sensitive = true
+}
+
 variable "node_data" {
   description = "A map of node data"
   type = object({

@@ -4,6 +4,11 @@ terraform {
       source  = "siderolabs/talos"
       version = "0.9.0-alpha.0"
     }
+
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "2.38.0"
+    }
   }
 
   backend "s3" {
@@ -15,3 +20,8 @@ terraform {
 }
 
 provider "talos" {}
+
+provider "kubernetes" {
+  config_path    = "../kubeconfig"
+  config_context = "admin@hoopa"
+}
