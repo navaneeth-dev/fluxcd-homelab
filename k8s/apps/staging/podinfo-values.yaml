@@ -15,4 +15,4 @@ spec:
         - host: podinfo.rizexor.com
           paths:
             - path: /
-              pathType: ImplementationSpecific
+              pathType: Prefix
