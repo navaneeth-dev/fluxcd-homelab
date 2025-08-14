@@ -18,5 +18,6 @@ tasks:
           --repository=fluxcd-homelab \
           --branch=main \
           --personal \
-          --path=clusters/sp
+          --path=k8s/clusters/sp \
+          --force
     silent: true
