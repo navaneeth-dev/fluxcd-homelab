@@ -7,6 +7,8 @@ releases:
     namespace: kube-system
     chart: cilium/cilium
     set:
+      - name: nodePort.directRoutingDevice
+        value: eth0
       - name: devices
         value: eth0
       - name: loadBalancer.l7.backend

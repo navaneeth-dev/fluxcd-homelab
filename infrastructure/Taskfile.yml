@@ -5,7 +5,7 @@ version: '3'
 tasks:
   default:
     cmds:
-      - terraform apply -auto-approve
+      - infisical run --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 -- terraform apply -auto-approve
       - terraform output -raw kubeconfig > ../kubeconfig
       - terraform output -raw talosconfig > ../talosconfig
       - helmfile init
