@@ -12,7 +12,7 @@ spec:
   values:
     ingress:
       hosts:
-        - host: podinfo.lab.rizexor.com
+        - host: podinfo.rizexor.com
           paths:
             - path: /
               pathType: ImplementationSpecific
