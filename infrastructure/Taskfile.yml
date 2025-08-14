@@ -8,4 +8,7 @@ tasks:
       - terraform apply -auto-approve
       - terraform output -raw kubeconfig > ../kubeconfig
       - terraform output -raw talosconfig > ../talosconfig
+      - helmfile init
+      - helmfile apply
+      - cilium status --wait
     silent: true

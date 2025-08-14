@@ -8,7 +8,7 @@ releases:
     chart: cilium/cilium
     set:
       - name: devices
-        value: "{eth0}"
+        value: eth0
       - name: loadBalancer.l7.backend
         value: envoy
       - name: ingressController.enabled
@@ -28,9 +28,23 @@ releases:
       - name: kubeProxyReplacement
         value: true
       - name: securityContext.capabilities.ciliumAgent
-        value: "{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}"
+        values:
+          - CHOWN
+          - KILL
+          - NET_ADMIN
+          - NET_RAW
+          - IPC_LOCK
+          - SYS_ADMIN
+          - SYS_RESOURCE
+          - DAC_OVERRIDE
+          - FOWNER
+          - SETGID
+          - SETUID
       - name: securityContext.capabilities.cleanCiliumState
-        value: "{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}"
+        values:
+          - NET_ADMIN
+          - SYS_ADMIN
+          - SYS_RESOURCE
       - name: cgroup.autoMount.enabled
         value: false
       - name: cgroup.hostRoot
