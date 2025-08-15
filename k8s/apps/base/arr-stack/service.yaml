@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: arr-stack
+  namespace: homelab
+spec:
+  type: ClusterIP
+  ports:
+    - name: jellyfin
+      port: 8096
+      targetPort: 8096
+    - name: jellyfin-discovery
+      port: 7359
+      targetPort: 7359
+      protocol: UDP
+    - name: radarr
+      port: 7878
+      targetPort: 7878
+    - name: sonarr
+      port: 8989
+      targetPort: 8989
+    - name: prowlarr
+      port: 9696
+      targetPort: 9696
+    - name: sabnzbd
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: arr-stack

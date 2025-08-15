@@ -1,0 +1,138 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: arr-stack
+  namespace: homelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arr-stack
+  template:
+    metadata:
+      labels:
+        app: arr-stack
+    spec:
+      containers:
+        - name: jellyfin
+          image: ghcr.io/hotio/jellyfin@sha256:4480c8357704554f2ec0f343ea219884a34645cc32a5dc90ae5829bfb056a19e
+          ports:
+            - containerPort: 8096
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Kolkata"
+            - name: JELLYFIN_PublishedServerUrl
+              value: "https://jellyfin.home.rizexor.com"
+          volumeMounts:
+            - name: jellyfin-config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+        - name: radarr
+          image: ghcr.io/hotio/radarr@sha256:79c751100d1398305f05290068cef7367dc8cf1c3d7642db1da70a10da9dfa6e
+          ports:
+            - containerPort: 7878
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Kolkata"
+          volumeMounts:
+            - name: radarr-config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+        - name: sonarr
+          image: ghcr.io/hotio/sonarr@sha256:6a8f771b42a96683af146aff683122102193767c12f3fb9b5c1c90e42a111896
+          ports:
+            - containerPort: 8989
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Kolkata"
+          volumeMounts:
+            - name: sonarr-config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+        - name: sabnzbd
+          image: ghcr.io/hotio/sabnzbd@sha256:aff501a8144b64f8bd318768e37987d7d6c02c41b95917519343eb960c41ae0a
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Kolkata"
+            - name: WEBUI_PORTS
+              value: "8080/tcp,8080/udp"
+          volumeMounts:
+            - name: sabnzbd-config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+        - name: prowlarr
+          image: ghcr.io/hotio/prowlarr@sha256:37c1e95c5015db2b22fa0beafc53c3bf60d57c6cf8e27b7626f067e8a2f09941
+          ports:
+            - containerPort: 9696
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Kolkata"
+          volumeMounts:
+            - name: prowlarr-config
+              mountPath: /config
+        - name: recyclarr
+          image: ghcr.io/recyclarr/recyclarr:7.4
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          env:
+            - name: TZ
+              value: "Asia/Kolkata"
+          volumeMounts:
+            - name: recyclarr-config
+              mountPath: /config
+      volumes:
+        - name: data
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/data"
+        - name: jellyfin-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/jellyfin"
+        - name: radarr-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/radarr"
+        - name: sonarr-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/sonarr"
+        - name: prowlarr-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/prowlarr"
+        - name: recyclarr-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/recyclarr"
+        - name: sabnzbd-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/sabnzbd"
