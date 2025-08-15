@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: 'jellyfin.${DOMAIN}'
+    - host: "jellyfin.${DOMAIN}"
       http:
         paths:
           - path: /
@@ -28,7 +28,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: 'radarr.${DOMAIN}'
+    - host: "radarr.${DOMAIN}"
       http:
         paths:
           - path: /
@@ -49,7 +49,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: 'sonarr.${DOMAIN}'
+    - host: "sonarr.${DOMAIN}"
       http:
         paths:
           - path: /
@@ -70,7 +70,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: 'prowlarr.${DOMAIN}'
+    - host: "prowlarr.${DOMAIN}"
       http:
         paths:
           - path: /
@@ -91,7 +91,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: 'sabnzbd.${DOMAIN}''
+    - host: "sabnzbd.${DOMAIN}"
       http:
         paths:
           - path: /
