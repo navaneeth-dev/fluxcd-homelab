@@ -15,5 +15,6 @@ spec:
   wait: true
   timeout: 5m0s
   postBuild:
-    substitute:
-      DOMAIN: "flux.rizexor.com"
+    substituteFrom:
+      - kind: ConfigMap
+        name: variables

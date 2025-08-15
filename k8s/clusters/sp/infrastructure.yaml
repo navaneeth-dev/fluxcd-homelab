@@ -31,8 +31,9 @@ spec:
     name: flux-system
   path: ./k8s/infrastructure/configs
   postBuild:
-    substitute:
-      DOMAIN: 'flux.rizexor.com'
+    substituteFrom:
+      - kind: ConfigMap
+        name: variables
   prune: true
   patches:
     - patch: |
