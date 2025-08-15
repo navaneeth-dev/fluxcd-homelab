@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name librespeed
+  namespace: homelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: *name
+  template:
+    metadata:
+      labels:
+        app: *name
+    spec:
+      containers:
+        - name: *name
+          image: ghcr.io/linuxserver/librespeed:5.4.1-ls240@sha256:c371ca6f866f1b24ff815a110eb6091eb360ee4a575309aa568c495c9d0a7ba3
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Kolkata"
+          volumeMounts:
+            - name: librespeed-config
+              mountPath: /config
+      volumes:
+        - name: librespeed-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/librespeed"

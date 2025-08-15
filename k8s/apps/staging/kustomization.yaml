@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../base/podinfo
   - ../base/arr-stack
+  - ../base/librespeed
 patches:
   - path: podinfo-values.yaml
     target:
