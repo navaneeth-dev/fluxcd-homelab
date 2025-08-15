@@ -14,20 +14,6 @@ spec:
         app: arr-stack
     spec:
       containers:
-        - name: librespeed
-          image: ghcr.io/linuxserver/librespeed:5.4.1-ls240@sha256:c371ca6f866f1b24ff815a110eb6091eb360ee4a575309aa568c495c9d0a7ba3
-          ports:
-            - containerPort: 8080
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: "Asia/Kolkata"
-          volumeMounts:
-            - name: librespeed-config
-              mountPath: /config
         - name: jellyfin
           image: ghcr.io/hotio/jellyfin@sha256:4480c8357704554f2ec0f343ea219884a34645cc32a5dc90ae5829bfb056a19e
           ports:
@@ -150,7 +136,3 @@ spec:
           nfs:
             server: 192.168.2.180
             path: "/srv/nfs4/config/sabnzbd"
-        - name: librespeed-config
-          nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/config/librespeed"
