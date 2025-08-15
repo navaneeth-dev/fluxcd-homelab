@@ -5,4 +5,5 @@ TALOSCONFIG = "{{config_root}}/talosconfig"
 
 [tools]
 helmfile = "latest"
+kustomize = "latest"
 sops = "latest"
