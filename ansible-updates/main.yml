@@ -1,0 +1,14 @@
+- name: Update and reboot all machines
+  hosts: ubuntu_servers
+  remote_user: ubuntu
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Upgrade apt cache
+      ansible.builtin.apt:
+        upgrade: full
+        autoclean: true
+        autoremove: true
