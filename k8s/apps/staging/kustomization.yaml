@@ -4,6 +4,7 @@ resources:
   - ../base/podinfo
   - ../base/arr-stack
   - ../base/librespeed
+  - ../base/jellyseerr
 patches:
   - path: podinfo-values.yaml
     target:

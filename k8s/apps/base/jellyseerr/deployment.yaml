@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name jellyseerr
+  namespace: homelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: *name
+  template:
+    metadata:
+      labels:
+        app: *name
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: *name
+          image: ghcr.io/hotio/jellyseerr:release-75ef568@sha256:9b4ff13a6cc56413524fb75bf721f3d5957f66d0d67329d4cfa9da923ca60ed3
+          ports:
+            - containerPort: 5055
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Kolkata"
+          volumeMounts:
+            - name: jellyseerr-config
+              mountPath: /config
+      volumes:
+        - name: jellyseerr-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/jellyseerr"
