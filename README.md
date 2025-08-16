@@ -9,3 +9,4 @@ Current version of my homelab.
 ## TODO
 
 - Bootstrap sops secret
+- Add terraform nas system syncthing
