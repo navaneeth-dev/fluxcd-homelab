@@ -22,13 +22,6 @@ spec:
             limits:
               cpu: "100m"
               memory: "512Mi"
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: "Asia/Kolkata"
           volumeMounts:
             - name: librespeed-config
               mountPath: /config
