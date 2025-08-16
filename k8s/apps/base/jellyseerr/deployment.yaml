@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: ghcr.io/hotio/jellyseerr:release-75ef568@sha256:9b4ff13a6cc56413524fb75bf721f3d5957f66d0d67329d4cfa9da923ca60ed3
+          image: ghcr.io/hotio/jellyseerr:release-75ef568@sha256:409a6139c72c4a4d0a7be6b5cddb56380276eb107efcd0db4abdaa679238e74d
           ports:
             - containerPort: 5055
           resources:
