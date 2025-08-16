@@ -22,11 +22,3 @@ spec:
             limits:
               cpu: "100m"
               memory: "512Mi"
-          volumeMounts:
-            - name: librespeed-config
-              mountPath: /config
-      volumes:
-        - name: librespeed-config
-          nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/config/librespeed"
