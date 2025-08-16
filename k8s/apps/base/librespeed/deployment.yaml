@@ -13,10 +13,6 @@ spec:
       labels:
         app: *name
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
       containers:
         - name: *name
           image: ghcr.io/linuxserver/librespeed:5.4.1-ls240@sha256:c371ca6f866f1b24ff815a110eb6091eb360ee4a575309aa568c495c9d0a7ba3
