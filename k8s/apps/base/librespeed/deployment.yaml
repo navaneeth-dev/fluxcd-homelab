@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: *name
-          image: ghcr.io/librespeed/speedtest:latest@sha256:7e43e57ee4c26645fc337b678db5f982f2b2cffe1116b807e7a16f7d8824635f
+          image: ghcr.io/librespeed/speedtest:latest@sha256:96eeeb4bad3d25f46636bef672eebf52a34ac967c6cd66644294cc585ab799b9
           ports:
             - containerPort: 80
           resources:
