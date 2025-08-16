@@ -24,7 +24,7 @@ spec:
             - containerPort: 80
           resources:
             limits:
-              cpu: "500m"
+              cpu: "100m"
               memory: "512Mi"
           env:
             - name: PUID
