@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - variables.yaml
   - cloudflare-tunnel.yaml
+  - bjw-s-helmrepository.yaml
