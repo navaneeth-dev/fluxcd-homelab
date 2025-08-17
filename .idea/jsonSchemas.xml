@@ -3,16 +3,16 @@
   <component name="JsonSchemaMappingsProjectConfiguration">
     <state>
       <map>
-        <entry key="Ansible Playbook">
+        <entry key="HelmRelease BJW">
           <value>
             <SchemaInfo>
-              <option name="name" value="Ansible Playbook" />
-              <option name="relativePathToSchema" value="https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook" />
-              <option name="applicationDefined" value="true" />
+              <option name="generatedName" value="New Schema" />
+              <option name="name" value="HelmRelease BJW" />
+              <option name="relativePathToSchema" value="https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.2.0/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json" />
               <option name="patterns">
                 <list>
                   <Item>
-                    <option name="path" value="ansible-updates/main.yml" />
+                    <option name="path" value="k8s/apps/base/audiobookshelf/helmrelease.yaml" />
                   </Item>
                 </list>
               </option>
