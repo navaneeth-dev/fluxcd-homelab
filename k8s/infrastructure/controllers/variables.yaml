@@ -5,3 +5,4 @@ metadata:
   namespace: flux-system
 data:
   DOMAIN: "fossindia.ovh"
+  TZ: "Asia/Kolkata"

@@ -5,6 +5,7 @@ resources:
   - ../base/arr-stack
   - ../base/librespeed
   - ../base/jellyseerr
+  - ../base/audiobookshelf
 patches:
   - path: podinfo-values.yaml
     target:
