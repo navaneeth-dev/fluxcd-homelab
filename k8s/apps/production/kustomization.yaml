@@ -4,7 +4,3 @@ resources:
   - ../base/arr-stack
   - ../base/jellyseerr
   - ../base/librespeed
-#patches:
-#  - path: podinfo-values.yaml
-#    target:
-#      kind: HelmRelease

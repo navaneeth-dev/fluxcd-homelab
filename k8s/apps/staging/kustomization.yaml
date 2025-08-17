@@ -5,7 +5,3 @@ resources:
   - ../base/librespeed
   - ../base/jellyseerr
   - ../base/audiobookshelf
-patches:
-  - path: podinfo-values.yaml
-    target:
-      kind: HelmRelease
