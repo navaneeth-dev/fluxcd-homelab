@@ -23,14 +23,14 @@ spec:
   values:
     controllers:
       audiobookshelf:
-#        pod:
-#          securityContext:
-#            runAsNonRoot: true
-#            runAsUser: 1001
-#            runAsGroup: 1001
-#            fsGroup: 1001
-#            fsGroupChangePolicy: OnRootMismatch
-#            seccompProfile: { type: RuntimeDefault }
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
         containers:
           app:
             image:
@@ -55,10 +55,10 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-#            securityContext:
-#              allowPrivilegeEscalation: false
-#              readOnlyRootFilesystem: true
-#              capabilities: { drop: ["ALL"] }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
