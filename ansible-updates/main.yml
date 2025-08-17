@@ -1,6 +1,7 @@
+
 - name: Update and reboot all machines
-  hosts: ubuntu_servers
-  remote_user: ubuntu
+  hosts: [ubuntu_servers, proxmox]
+  serial: 1
   tasks:
     - name: Update apt cache
       become: true
@@ -14,3 +15,19 @@
         upgrade: full
         autoclean: true
         autoremove: true
+
+    - name: Check if reboot is required
+      become: true
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
+    - name: Reboot if required
+      become: true
+      ansible.builtin.reboot:
+        msg: "Reboot initiated by Ansible after upgrade"
+        connect_timeout: 5
+        reboot_timeout: 600
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+      when: reboot_required.stat.exists

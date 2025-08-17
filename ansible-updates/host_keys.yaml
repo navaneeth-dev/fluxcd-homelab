@@ -1,0 +1,13 @@
+- name: Add keys to known_hosts
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - debug:
+        msg: "{{ groups.all }}"
+
+    - name: Ensure servers are present in known_hosts file
+      known_hosts:
+        name: "{{ item }}"
+        state: present
+        key: "{{ lookup('pipe', 'ssh-keyscan {{ item }}') }}"
+      loop: "{{ groups.all }}"
