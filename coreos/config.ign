@@ -35,7 +35,7 @@
     ],
     "files": [
       {
-        "path": "/etc/containers/systemd/users/jellyfin.container",
+        "path": "/etc/containers/systemd/jellyfin.container",
         "contents": {
           "compression": "gzip",
           "source": "data:;base64,H4sIAAAAAAAC/3SQ0UrzQBCF7/cp/hdoN/+NaGEvqhWpggS0CoZcjOkkGbs7I7OTSPv0UmkLgr05Zzhn4MBXrZisdgvMjdKnkXC4xxi3LfG/J9SRGnSvwJYDo32JbibCkRinBtqhuXlrqGc6V90IGxCj1u50PkLC8HHYcMsEHYaub3RK4nsxEn8qb3kkFU7IFsrVchH+F0XxK737M31+C/NM4B8kbsDAlcN7pNyXohYui6uL2V7ci8QhYfAjqO8loW9E98ItdbOj7868JVwTzA62c65acjaIsf6hhevrbUhDNJoMGfUI5DsAAP//0X/b+20BAAA="

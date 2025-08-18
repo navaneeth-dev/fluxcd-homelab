@@ -20,7 +20,7 @@ storage:
       group:
         name: core
   files:
-    - path: /etc/containers/systemd/users/jellyfin.container
+    - path: /etc/containers/systemd/jellyfin.container
       contents:
         inline: |
           [Unit]
