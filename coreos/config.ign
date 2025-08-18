@@ -1,0 +1,26 @@
+{
+  "ignition": {
+    "version": "3.5.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/containers/systemd/jellyfin.container",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/3SPwUrDYBCE7/sUfYE28SIq7KFakShIQItgyGGN22Ttn13Zf1Pp24uiufUyfPAdZqbZqkQLG86dy2eIKd5zSsed6OKJ/SAdwwtpZFSOL/P90jSJ8irIew5Y74L9hIPmxjRIlL2FGR9pZPz464BqpJ6xHzpfiRWDhVgxy1s9iJuOrIH1ttrgWVmWi7uZnl9xnYWKB0t7CoJ6ekuSh9o88KK8PL/6CYCm0hyUUvv7hN+vjzhOKWQ5Zfb/sd8BAAD//9eBHBAJAQAA"
+        }
+      }
+    ]
+  }
+}
