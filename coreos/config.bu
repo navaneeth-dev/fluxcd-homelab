@@ -35,8 +35,8 @@ storage:
           Environment=GUID=1000
           Environment=TZ=Asia/Kolkata
           PublishPort=8096:8096
-          Volume=/var/home/core/config:/config
-          Volume=/var/home/core/media:/media
+          Volume=/var/home/core/config:/config:z
+          Volume=/var/home/core/media:/media:z
 
           [Install]
           WantedBy=multi-user.target
