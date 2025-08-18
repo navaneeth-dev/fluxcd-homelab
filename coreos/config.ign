@@ -13,12 +13,32 @@
     ]
   },
   "storage": {
+    "directories": [
+      {
+        "group": {
+          "name": "core"
+        },
+        "path": "/var/home/core/config",
+        "user": {
+          "name": "core"
+        }
+      },
+      {
+        "group": {
+          "name": "core"
+        },
+        "path": "/var/home/core/media",
+        "user": {
+          "name": "core"
+        }
+      }
+    ],
     "files": [
       {
         "path": "/etc/containers/systemd/jellyfin.container",
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/3SPwUrDYBCE7/sUfYE28SIq7KFakShIQItgyGGN22Ttn13Zf1Pp24uiufUyfPAdZqbZqkQLG86dy2eIKd5zSsed6OKJ/SAdwwtpZFSOL/P90jSJ8irIew5Y74L9hIPmxjRIlL2FGR9pZPz464BqpJ6xHzpfiRWDhVgxy1s9iJuOrIH1ttrgWVmWi7uZnl9xnYWKB0t7CoJ6ekuSh9o88KK8PL/6CYCm0hyUUvv7hN+vjzhOKWQ5Zfb/sd8BAAD//9eBHBAJAQAA"
+          "source": "data:;base64,H4sIAAAAAAAC/3SQwUrDQBCG7/sUfYF240W0sIdqRaogAa2CIYcxnSRjd2dkdhLp20u15tbL/3/wDQwz1ZbJarfG3Ch9GQmHB4zx0BLPnlFHatC9AVsOjPYtup8LR2JcGGiH5latoZ5xrroVNiBGrd2ET5AwfJ52uE2CDkPXN7og8b0YiZ/kHY+kwgnZQrndrMNFURSz+4le3sMqE/hHiXswcOXwESn3paiFq+L6cnkM9ypxSBj8COp7Segb0WNwS93y1GeGEu4Iln/lXLXhbBBj/fsR3N0cQhqi0XzIqP9H/wQAAP//uYMWklEBAAA="
         }
       }
     ]
