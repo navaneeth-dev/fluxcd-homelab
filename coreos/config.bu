@@ -20,6 +20,15 @@ storage:
       group:
         name: core
   files:
+    - path: /var/home/core/backup.sh
+      contents:
+        source: "https://raw.githubusercontent.com/navaneeth-dev/fluxcd-homelab/refs/heads/main/coreos/backup.sh"
+      mode: 0744
+      user:
+        name: core
+      group:
+        name: core
+
     - path: /etc/containers/systemd/jellyfin.container
       contents:
         inline: |
@@ -40,3 +49,25 @@ storage:
 
           [Install]
           WantedBy=multi-user.target
+
+systemd:
+  units:
+    - name: restic.service
+      contents: |
+        [Unit]
+        Description=Backup data
+
+        [Service]
+        Type=oneshot
+        ExecStart=/var/home/core/backup.sh
+    - name: restic.timer
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Run restic.service every 10 minutes
+
+        [Timer]
+        OnCalendar=*:0/10
+
+        [Install]
+        WantedBy=multi-user.target
