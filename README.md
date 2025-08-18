@@ -1,6 +1,6 @@
 # Homelab v4
 
-Current version of my homelab.
+Monorepo. Current version of my homelab.
 
 ![Jellyfin](https://cronitor.io/badges/fM5CuI/production/mO5x8nd7p3CaNIfguz368Gkn-IM.svg)
 
