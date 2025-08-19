@@ -4,3 +4,4 @@ resources:
   - variables.yaml
   - cloudflare-tunnel.yaml
   - bjw-s-helmrepository.yaml
+  - kube-prometheus-stack
