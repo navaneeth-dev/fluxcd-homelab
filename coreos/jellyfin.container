@@ -1,0 +1,17 @@
+[Unit]
+Description=Jellyfin Service
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+ContainerName=jellyfin
+Image=ghcr.io/hotio/jellyfin
+Environment=PUID=1000
+Environment=GUID=1000
+Environment=TZ=Asia/Kolkata
+PublishPort=8096:8096
+Volume=/var/home/core/config/jellyfin:/config:z
+Volume=/var/home/core/media:/media:z
+
+[Install]
+WantedBy=multi-user.target

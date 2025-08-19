@@ -35,11 +35,44 @@
     ],
     "files": [
       {
+        "group": {
+          "name": "core"
+        },
+        "path": "/var/home/core/backup.sh",
+        "user": {
+          "name": "core"
+        },
+        "contents": {
+          "source": "https://raw.githubusercontent.com/navaneeth-dev/fluxcd-homelab/refs/heads/main/coreos/backup.sh"
+        },
+        "mode": 484
+      },
+      {
         "path": "/etc/containers/systemd/jellyfin.container",
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/3SQ0UrzQBCF7/cp/hdoN/+NaGEvqhWpggS0CoZcjOkkGbs7I7OTSPv0UmkLgr05Zzhn4MBXrZisdgvMjdKnkXC4xxi3LfG/J9SRGnSvwJYDo32JbibCkRinBtqhuXlrqGc6V90IGxCj1u50PkLC8HHYcMsEHYaub3RK4nsxEn8qb3kkFU7IFsrVchH+F0XxK737M31+C/NM4B8kbsDAlcN7pNyXohYui6uL2V7ci8QhYfAjqO8loW9E98ItdbOj7868JVwTzA62c65acjaIsf6hhevrbUhDNJoMGfUI5DsAAP//0X/b+20BAAA="
+          "source": "data:;base64,H4sIAAAAAAAC/3SQQUvDQBCF7/sr/APtxotoYA/VikRBAloFQw5rOknG7s7I7CTS/nqphIDQXt4M3xuYx6s2hFqbNaRG8FuRyT1CCPsW6eIFZMQGzLsnTY5Af1h2C6aABEv10oGaVasgZzxT3TGpRwKpzbw++wjua/phiug7cF3fyBLZ9qzIdjbvaURhikDqyk2xdpdZlv2jDyfp64dbJfT2icPOqzfl8Bkw9SWLuuvs5io/innjMERwdvRie45gG5ajUIvdnCGfQH44cx9hiz6fxsGYqqCkPoT6rzbY3u5dHILiYkggUzO/AQAA//8ZEOABdQEAAA=="
         }
+      },
+      {
+        "path": "/etc/containers/systemd/jdownloader.container",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/4yQ0UrrQBCG7/cpzgu0aQsHJLAXabJoBJOQNPailLAmY7p1d6dMJhX79FIQtaLozc8w3zcw/JvaG96KBIaWzIENenmb4LO3qDugxb8K6GhaEGITo2dtPNBWvI+ZdiD33YcvUqd7kB22T0BTg8HewqB7CD5Jk4Uoxgdrhl2BxPL/1WwWnkMofzSE3oFnWVeqbNJEzmdfwHWZ18W3pFJxXaomzrNMxas0z+T8gq/Vsonq1Y3KVmkc/Ulozm9k0Z2SZE7wm1xEVbXOy0SKe7SjAxkcNQU7dBC0SOfwj6a/rCJ824anH44cdEaHAY58GDk8CbFJ/cDa2q1Ya8/QLV+kGy2byTgATVlTD/waAAD//0kMpO7WAQAA"
+        }
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nDescription=Run restic backup\n\n[Service]\nType=oneshot\nExecStart=/var/home/core/backup.sh",
+        "name": "restic.service"
+      },
+      {
+        "contents": "[Unit]\nDescription=Run restic.service every 10 minutes\n\n[Timer]\nOnCalendar=*-*-* 4:00:00\n\n[Install]\nWantedBy=timers.target",
+        "enabled": true,
+        "name": "restic.timer"
       }
     ]
   }

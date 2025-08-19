@@ -1,0 +1,6 @@
+[Unit]
+Description=Run restic backup
+
+[Service]
+Type=oneshot
+ExecStart=/var/home/core/backup.sh

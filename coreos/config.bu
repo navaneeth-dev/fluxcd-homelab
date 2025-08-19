@@ -19,6 +19,7 @@ storage:
         name: core
       group:
         name: core
+
   files:
     - path: /var/home/core/backup.sh
       contents:
@@ -31,43 +32,17 @@ storage:
 
     - path: /etc/containers/systemd/jellyfin.container
       contents:
-        inline: |
-          [Unit]
-          Description=Jellyfin Service
-          Wants=network-online.target
-          After=network-online.target
-          
-          [Container]
-          ContainerName=jellyfin
-          Image=ghcr.io/hotio/jellyfin
-          Environment=PUID=1000
-          Environment=GUID=1000
-          Environment=TZ=Asia/Kolkata
-          PublishPort=8096:8096
-          Volume=/var/home/core/config:/config:z
-          Volume=/var/home/core/media:/media:z
+        local: jellyfin.container
 
-          [Install]
-          WantedBy=multi-user.target
+    - path: /etc/containers/systemd/jdownloader.container
+      contents:
+        local: jdownloader.container
 
 systemd:
   units:
     - name: restic.service
-      contents: |
-        [Unit]
-        Description=Backup data
+      contents_local: restic.service
 
-        [Service]
-        Type=oneshot
-        ExecStart=/var/home/core/backup.sh
     - name: restic.timer
       enabled: true
-      contents: |
-        [Unit]
-        Description=Run restic.service every 10 minutes
-
-        [Timer]
-        OnCalendar=*:0/10
-
-        [Install]
-        WantedBy=multi-user.target
+      contents_local: restic.timer

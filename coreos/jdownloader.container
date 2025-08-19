@@ -1,0 +1,18 @@
+[Unit]
+Description=JDownloader2 Service
+
+[Container]
+ContainerName=jdownloader2
+Image=docker.io/jlesage/jdownloader-2
+PublishPort=5800:5800
+Environment=USER_ID=1000
+Environment=GROUP_ID=1000
+Environment=SECURE_CONNECTION=1
+Environment=WEB_AUTHENTICATION=1
+Environment=WEB_AUTHENTICATION_USERNAME=rize
+Environment=WEB_AUTHENTICATION_PASSWORD=
+Volume=/var/home/core/config/jdownloader-2:/config:z
+Volume=/var/home/core/media:/output:z
+
+[Install]
+WantedBy=multi-user.target
