@@ -11,7 +11,6 @@ spec:
     name: kube-prometheus-stack
   install:
     crds: CreateReplace
-    createNamespace: true
   upgrade:
     remediation:
       remediateLastFailure: true
