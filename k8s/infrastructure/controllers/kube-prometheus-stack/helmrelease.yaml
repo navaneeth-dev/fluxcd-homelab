@@ -33,5 +33,17 @@ spec:
   maxHistory: 3
   timeout: 30m
   values:
+    grafana:
+      ingress:
+        enabled: true
+        ingressClassName: cilium
+        hosts:
+          - grafana.fossindia.ovh
+    prometheus:
+      ingress:
+        enabled: true
+        ingressClassName: cilium
+        hosts:
+          - prometheus.fossindia.ovh
     kubeProxy:
       enabled: false
