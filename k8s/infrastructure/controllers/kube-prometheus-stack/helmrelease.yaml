@@ -33,6 +33,24 @@ spec:
   timeout: 30m
   values:
     grafana:
+      # Provision grafana-dashboards-kubernetes
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+            - name: 'grafana-dashboards-kubernetes'
+              orgId: 1
+              folder: 'Kubernetes'
+              type: file
+              disableDeletion: true
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/grafana-dashboards-kubernetes
+      dashboards:
+        grafana-dashboards-kubernetes:
+          k8s-views-global:
+            url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+            token: ''
       ingress:
         enabled: true
         ingressClassName: cilium
