@@ -5,3 +5,4 @@ resources:
   - ../base/librespeed
   - ../base/jellyseerr
   - ../base/audiobookshelf
+  - ../base/qbittorrent
