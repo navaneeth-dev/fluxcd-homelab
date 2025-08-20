@@ -38,6 +38,7 @@ spec:
               tag: latest
             env:
               TZ: "${TZ}"
+              QBT_DOWNLOADS_PATH: "/data"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -68,7 +69,7 @@ spec:
         enabled: true
         type: nfs
         server: "nas.home.arpa"
-        path: "/srv/nfs4/data"
+        path: "/srv/nfs4/data/torrents"
         globalMounts:
           - path: /data
             readOnly: true
