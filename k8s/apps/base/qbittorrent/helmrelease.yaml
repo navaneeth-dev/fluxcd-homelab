@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/hotio/qbittorrent
-              tag: sha256:13efbfced187703eb45e685fa43184110c1c57a95ff70e1b53cdb8fa974790f5
+              tag: release-5.1.2
             env:
               TZ: "${TZ}"
               PUID: 1000
