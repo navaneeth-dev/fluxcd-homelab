@@ -58,6 +58,11 @@ spec:
         ports:
           http:
             port: 8080
+      bittorrent:
+        controller: *name
+        ports:
+          http:
+            port: 5252
 
     persistence:
       config:
