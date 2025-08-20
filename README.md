@@ -2,8 +2,6 @@
 
 # FluxCD Homelab
 
----
-
 4<sup>th</sup> edition of my homelab in a monorepo, completely GitOps driven.
 
 </div>
