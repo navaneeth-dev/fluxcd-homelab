@@ -39,6 +39,7 @@ spec:
             env:
               TZ: "${TZ}"
               QBT_DOWNLOADS_PATH: "/data"
+              QBT_CONFIG_PATH: "/config"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
