@@ -34,14 +34,10 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/hotio/qbittorrent
-              tag: release-5.1.2
+              repository: qbittorrentofficial/qbittorrent-nox
+              tag: latest
             env:
               TZ: "${TZ}"
-              PUID: 1000
-              GUID: 1000
-              WEBUI_PORTS: "8080/tcp,8080/udp"
-              LIBTORRENT: "v1"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
