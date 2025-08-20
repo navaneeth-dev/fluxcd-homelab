@@ -63,7 +63,7 @@ spec:
         enabled: true
         type: nfs
         server: "nas.home.arpa"
-        path: "/srv/nfs4/config/qbittorrent"
+        path: "/srv/nfs4/config"
         globalMounts:
           - path: /config
       data:
