@@ -33,6 +33,21 @@ spec:
   timeout: 30m
   values:
     grafana:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+      extraVolumeMounts:
+        - name: grafana-config
+          mountPath: /var/lib/grafana
+      extraVolumes:
+        - name: grafana-config
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/config/grafana"
       # Provision grafana-dashboards-kubernetes
       dashboardProviders:
         dashboardproviders.yaml:
