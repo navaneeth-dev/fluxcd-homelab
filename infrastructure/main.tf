@@ -32,6 +32,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
       install_disk = each.value.install_disk
     }),
     file("${path.module}/files/cni.yaml"),
+    file("${path.module}/files/subnets.yaml"),
   ]
 }
 
@@ -44,7 +45,9 @@ resource "talos_machine_configuration_apply" "worker" {
     templatefile("${path.module}/templates/install-disk-and-hostname.yaml.tmpl", {
       hostname     = each.value.hostname == null ? format("%s-worker-%s", var.cluster_name, index(keys(var.node_data.workers), each.key)) : each.value.hostname
       install_disk = each.value.install_disk
-    })
+    }),
+    file("${path.module}/files/cni.yaml"),
+    file("${path.module}/files/subnets.yaml"),
   ]
 }
 
