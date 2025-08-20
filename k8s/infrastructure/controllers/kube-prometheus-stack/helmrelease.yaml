@@ -9,6 +9,9 @@ spec:
   chartRef:
     kind: OCIRepository
     name: kube-prometheus-stack
+  dependsOn:
+    - name: nfs-subdir-external-provisioner
+      namespace: nfs-subdir-external-provisioner
   install:
     crds: CreateReplace
   upgrade:
