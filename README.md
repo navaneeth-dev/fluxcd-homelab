@@ -64,7 +64,7 @@ This repository is automatically managed by [Renovate](https://renovatebot.com/)
 - Bootstrap sops secret
 - Add terraform nas system syncthing
 
--## 👥 Contributing
+## 👥 Contributing
 
 Our project welcomes contributions from any member of our community. To get started contributing, please see our [Contributor Guide](.github/CONTRIBUTING.md).
 
