@@ -73,7 +73,6 @@ spec:
         path: "/srv/nfs4/data/torrents"
         globalMounts:
           - path: /data
-            readOnly: true
       tmpfs:
         type: emptyDir
         globalMounts:
