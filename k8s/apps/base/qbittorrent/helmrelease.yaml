@@ -40,7 +40,7 @@ spec:
               TZ: "${TZ}"
               QBT_DOWNLOADS_PATH: "/data"
               QBT_CONFIG_PATH: "/config"
-              QBT_TORRENTING_PORT: "52525/tcp,52525/udp"
+              QBT_TORRENTING_PORT: "52525"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
