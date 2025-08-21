@@ -83,11 +83,13 @@ spec:
       ingress:
         enabled: true
         ingressClassName: cilium
+        storageClassName: &storageClassName nas
         hosts:
           - grafana.fossindia.ovh
     prometheus:
       persistence:
         enabled: true
+        storageClassName: *storageClassName
         size: 20Gi
       ingress:
         enabled: true
