@@ -69,8 +69,8 @@ spec:
         parentRefs:
           - name: gateway
             namespace: homelab
-            # sectionName: gateway-section
-
+        hostnames:
+          - test.fossindia.ovh
         rules:
           - matches:
             - path:
