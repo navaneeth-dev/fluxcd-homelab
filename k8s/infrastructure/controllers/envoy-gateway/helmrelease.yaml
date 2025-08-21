@@ -31,4 +31,7 @@ spec:
     mode: enabled
   maxHistory: 3
   timeout: 30m
-  values: {}
+  values:
+    crds:
+      envoyGateway:
+        enabled: true
