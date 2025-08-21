@@ -6,4 +6,3 @@ spec:
   interfaces:
   - eth0
   loadBalancerIPs: true
-
