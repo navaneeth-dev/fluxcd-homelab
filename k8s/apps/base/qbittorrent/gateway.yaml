@@ -9,3 +9,11 @@ spec:
       protocol: HTTP
       port: 80
       IPFamily: DualStack
+    - name: bittorrent
+      protocol: TCP
+      port: 52525
+      IPFamily: IPv6
+    - name: bittorrent
+      protocol: UDP
+      port: 52525
+      IPFamily: IPv6

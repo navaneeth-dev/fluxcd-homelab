@@ -47,10 +47,10 @@ spec:
 #      l7:
 #        backend: envoy
 
-    ingressController:
-      enabled: true
-      loadbalancerMode: shared
-      default: true
+#    ingressController:
+#      enabled: true
+#      loadbalancerMode: shared
+#      default: true
 
 #    l2announcements:
 #      enabled: true
