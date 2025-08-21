@@ -78,8 +78,8 @@ spec:
                 value: /
             backendRefs:
               - kind: Service
-                port: 80
-                name: app
+                port: 8080
+                name: qbittorrent-app
                 namespace: homelab
                 weight: 1
 
