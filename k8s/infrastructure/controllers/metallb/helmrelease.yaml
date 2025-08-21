@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cilium
+  name: &name metallb
   namespace: kube-system
 spec:
   interval: 1h
@@ -43,24 +43,24 @@ spec:
 
     devices: eth0
 
-#    loadBalancer:
-#      l7:
-#        backend: envoy
+    loadBalancer:
+      l7:
+        backend: envoy
 
     ingressController:
       enabled: true
       loadbalancerMode: shared
       default: true
 
-#    l2announcements:
-#      enabled: true
+    l2announcements:
+      enabled: true
 
-#    k8sClientRateLimit:
-#      qps: 10
-#      burst: 15
+    k8sClientRateLimit:
+      qps: 10
+      burst: 15
 
-#    ipam:
-#      mode: kubernetes
+    ipam:
+      mode: kubernetes
 
     kubeProxyReplacement: true
 
