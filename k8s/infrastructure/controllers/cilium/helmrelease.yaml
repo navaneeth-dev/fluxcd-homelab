@@ -51,6 +51,12 @@ spec:
       enabled: true
       loadbalancerMode: shared
       default: true
+      service:
+        type: LoadBalancer
+        ipFamilies:
+          - IPv4
+          - IPv6
+        ipFamilyPolicy: PreferDualStack
 
     l2announcements:
       enabled: true
