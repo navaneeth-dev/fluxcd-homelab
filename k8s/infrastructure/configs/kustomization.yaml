@@ -1,5 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - cilium/cilium-ip-pool.yaml
-  - cilium/cilium-l2-announcement-policy.yaml
+  - cilium
