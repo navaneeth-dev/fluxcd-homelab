@@ -1,4 +1,4 @@
-apiVersion: gateway.envoyproxy.io/v1alpha1
+apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: eg
