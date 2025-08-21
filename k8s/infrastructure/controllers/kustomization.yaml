@@ -3,7 +3,8 @@ kind: Kustomization
 resources:
   - variables.yaml
   - cilium
+  - nfs-subdir-external-provisioner
+  - metallb
   - cloudflare-tunnel.yaml
   - bjw-s-helmrepository.yaml
-  - nfs-subdir-external-provisioner
   - kube-prometheus-stack
