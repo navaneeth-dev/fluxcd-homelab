@@ -61,6 +61,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
       persistence:
         enabled: true
+        storageClassName: &storageClassName nas
         size: 10Gi
       # Provision grafana-dashboards-kubernetes
       dashboardProviders:
@@ -83,7 +84,6 @@ spec:
       ingress:
         enabled: true
         ingressClassName: cilium
-        storageClassName: &storageClassName nas
         hosts:
           - grafana.fossindia.ovh
     prometheus:
