@@ -17,7 +17,7 @@ spec:
         - name: *name
           image: ghcr.io/librespeed/speedtest:latest@sha256:96eeeb4bad3d25f46636bef672eebf52a34ac967c6cd66644294cc585ab799b9
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           resources:
             limits:
               cpu: "100m"
