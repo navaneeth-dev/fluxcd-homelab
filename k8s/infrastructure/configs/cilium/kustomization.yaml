@@ -9,6 +9,6 @@ patches:
       name: cilium-ingress
       namespace: kube-system
     patch: |-
-      - op: add
+      - op: replace
         path: /spec/ipFamilyPolicy
         value: RequireDualStack
