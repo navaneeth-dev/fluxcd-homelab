@@ -87,10 +87,15 @@ spec:
         hosts:
           - grafana.fossindia.ovh
     prometheus:
-      persistence:
-        enabled: true
-        storageClassName: *storageClassName
-        size: 20Gi
+      prometheusSpec:
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: *storageClassName
+              resources:
+                requests:
+                  storage: 50Gi
+
       ingress:
         enabled: true
         ingressClassName: cilium
