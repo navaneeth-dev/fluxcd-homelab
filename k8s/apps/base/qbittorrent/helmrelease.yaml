@@ -67,7 +67,7 @@ spec:
     route:
       main:
         parentRefs:
-          - name: gateway
+          - name: eg
             namespace: homelab
         hostnames:
           - test.fossindia.ovh
