@@ -64,6 +64,25 @@ spec:
           http:
             port: 5252
 
+    route:
+      main:
+        parentRefs:
+          - name: gateway
+            namespace: homelab
+            # sectionName: gateway-section
+
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - kind: Service
+                port: 80
+                name: main
+                namespace: default
+                weight: 1
+
     persistence:
       config:
         enabled: true
