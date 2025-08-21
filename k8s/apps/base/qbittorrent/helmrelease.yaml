@@ -73,14 +73,14 @@ spec:
 
         rules:
           - matches:
-              - path:
-                  type: PathPrefix
-                  value: /
+            - path:
+                type: PathPrefix
+                value: /
             backendRefs:
               - kind: Service
                 port: 80
-                name: main
-                namespace: default
+                name: app
+                namespace: homelab
                 weight: 1
 
     persistence:
