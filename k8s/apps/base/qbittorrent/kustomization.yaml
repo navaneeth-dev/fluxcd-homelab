@@ -4,3 +4,5 @@ namespace: homelab
 resources:
   - gateway.yaml
   - helmrelease.yaml
+#  - tcproute.yaml
+  - udproute.yaml

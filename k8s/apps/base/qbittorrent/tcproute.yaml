@@ -1,0 +1,12 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  name: coredns
+spec:
+  parentRefs:
+    - name: eg
+      sectionName: bittorrent-tcp
+  rules:
+    - backendRefs:
+        - name: qbittorrent-bittorrent
+          port: 52525
