@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: kube-prometheus-stack
+  name: &name kube-prometheus-stack
   namespace: observability
 spec:
   interval: 1h
@@ -92,7 +92,7 @@ spec:
           hostnames:
             - grafana.proxy.home.arpa
           parentRefs:
-            - name: eg
+            - name: *name
 
           # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
           ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
@@ -125,7 +125,7 @@ spec:
           hostnames:
             - prometheus.proxy.home.arpa
           parentRefs:
-            - name: eg
+            - name: *name
 
           # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
           ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.

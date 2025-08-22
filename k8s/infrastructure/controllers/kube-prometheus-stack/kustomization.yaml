@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: observability
 resources:
   - namespace.yaml
+  - gateway.yaml
   - ocirepository.yaml
   - blackbox-ocirepository.yaml
   - helmrelease.yaml
