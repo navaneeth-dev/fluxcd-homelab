@@ -11,9 +11,9 @@ spec:
     - name: bittorrent-tcp
       protocol: TCP
       port: 52525
-#      allowedRoutes:
-#        kinds:
-#          - kind: UDPRoute
+      allowedRoutes:
+        kinds:
+          - kind: TCPRoute
     - name: bittorrent-udp
       protocol: UDP
       port: 52525
