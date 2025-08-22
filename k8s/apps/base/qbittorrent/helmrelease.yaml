@@ -70,7 +70,7 @@ spec:
           - name: eg
             namespace: homelab
         hostnames:
-          - test.fossindia.ovh
+          - proxy.home.arpa
         rules:
           - matches:
             - path:
