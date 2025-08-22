@@ -106,6 +106,7 @@ spec:
 
     prometheus:
       prometheusSpec:
+        probeSelectorNilUsesHelmValues: false
         storageSpec:
           volumeClaimTemplate:
             spec:
