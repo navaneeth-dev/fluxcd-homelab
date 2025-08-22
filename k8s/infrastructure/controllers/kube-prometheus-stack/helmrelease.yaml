@@ -81,11 +81,29 @@ spec:
           k8s-views-global:
             url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
             token: ''
-      ingress:
-        enabled: true
-        ingressClassName: cilium
-        hosts:
-          - grafana.fossindia.ovh
+      route:
+        main:
+          enabled: true
+
+          # -- Set the route apiVersion, e.g. gateway.networking.k8s.io/v1 or gateway.networking.k8s.io/v1alpha2
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+
+          hostnames:
+            - grafana.proxy.home.arpa
+          parentRefs:
+            - name: eg
+
+          # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
+          ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
+          ## matches, filters and additionalRules will be ignored if this is set to true. Be are
+          httpsRedirect: false
+
+          matches:
+            - path:
+                type: PathPrefix
+                value: /
+
     prometheus:
       prometheusSpec:
         storageSpec:
@@ -96,10 +114,28 @@ spec:
                 requests:
                   storage: 50Gi
 
-      ingress:
-        enabled: true
-        ingressClassName: cilium
-        hosts:
-          - prometheus.fossindia.ovh
+      route:
+        main:
+          enabled: true
+
+          # -- Set the route apiVersion, e.g. gateway.networking.k8s.io/v1 or gateway.networking.k8s.io/v1alpha2
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+
+          hostnames:
+            - grafana.proxy.home.arpa
+          parentRefs:
+            - name: eg
+
+          # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
+          ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
+          ## matches, filters and additionalRules will be ignored if this is set to true. Be are
+          httpsRedirect: false
+
+          matches:
+            - path:
+                type: PathPrefix
+                value: /
+
     kubeProxy:
       enabled: false
