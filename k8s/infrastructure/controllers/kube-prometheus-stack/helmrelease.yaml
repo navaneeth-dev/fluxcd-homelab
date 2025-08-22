@@ -123,7 +123,7 @@ spec:
           kind: HTTPRoute
 
           hostnames:
-            - grafana.proxy.home.arpa
+            - prometheus.proxy.home.arpa
           parentRefs:
             - name: eg
 
