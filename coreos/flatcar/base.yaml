@@ -1,0 +1,12 @@
+variant: flatcar
+version: 1.0.0
+storage:
+  files:
+    - path: /home/core/.config/token
+      contents:
+        inline: Hello, world!
+      mode: 0400
+      user:
+        id: 1000
+      group:
+        id: 1000

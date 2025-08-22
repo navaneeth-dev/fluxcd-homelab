@@ -1,0 +1,23 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "storage": {
+    "files": [
+      {
+        "group": {
+          "id": 1000
+        },
+        "path": "/home/core/.config/token",
+        "user": {
+          "id": 1000
+        },
+        "contents": {
+          "compression": "",
+          "source": "data:,Hello%2C%20world!"
+        },
+        "mode": 256
+      }
+    ]
+  }
+}
