@@ -1,7 +1,7 @@
 kind: Probe
 apiVersion: monitoring.coreos.com/v1
 metadata:
-  name: librespeed
+  name: homelab-services
 spec:
   interval: 30s
   module: http_2xx
@@ -9,14 +9,72 @@ spec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
   targets:
     staticConfig:
-      static:
-        - http://librespeed.homelab.svc.cluster.local:8080
-        - http://audiobookshelf.homelab.svc.cluster.local:80
-        - http://qbittorrent-app.homelab.svc.cluster.local:8080
-        - http://arr-stack.homelab.svc.cluster.local:8096
-        - http://arr-stack.homelab.svc.cluster.local:8080
-        - http://arr-stack.homelab.svc.cluster.local:7878
-        - http://arr-stack.homelab.svc.cluster.local:8989
-        - http://jellyseerr.homelab.svc.cluster.local:5055
-        - http://arr-stack.homelab.svc.cluster.local:9696
-        - http://kube-prometheus-stack-grafana.observability.svc.cluster.local
+      # LibreSpeed
+      - static:
+          - http://librespeed.homelab.svc.cluster.local:8080
+        labels:
+          service_name: LibreSpeed
+          category: Network Tools
+
+      # Audiobookshelf
+      - static:
+          - http://audiobookshelf.homelab.svc.cluster.local:80
+        labels:
+          service_name: Audiobookshelf
+          category: Media
+
+      # qBittorrent
+      - static:
+          - http://qbittorrent-app.homelab.svc.cluster.local:8080
+        labels:
+          service_name: qBittorrent
+          category: Download
+
+      # Jellyfin
+      - static:
+          - http://arr-stack.homelab.svc.cluster.local:8096
+        labels:
+          service_name: Jellyfin
+          category: Media
+
+      # SABnzbd
+      - static:
+          - http://arr-stack.homelab.svc.cluster.local:8080
+        labels:
+          service_name: SABnzbd
+          category: Download
+
+      # Radarr
+      - static:
+          - http://arr-stack.homelab.svc.cluster.local:7878
+        labels:
+          service_name: Radarr
+          category: Arr Suite
+
+      # Sonarr
+      - static:
+          - http://arr-stack.homelab.svc.cluster.local:8989
+        labels:
+          service_name: Sonarr
+          category: Arr Suite
+
+      # Jellyseerr
+      - static:
+          - http://jellyseerr.homelab.svc.cluster.local:5055
+        labels:
+          service_name: Jellyseerr
+          category: Arr Suite
+
+      # Prowlarr
+      - static:
+          - http://arr-stack.homelab.svc.cluster.local:9696
+        labels:
+          service_name: Prowlarr
+          category: Arr Suite
+
+      # Grafana
+      - static:
+          - http://kube-prometheus-stack-grafana.observability.svc.cluster.local
+        labels:
+          service_name: Grafana
+          category: Observability
