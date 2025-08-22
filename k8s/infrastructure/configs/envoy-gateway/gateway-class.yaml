@@ -4,8 +4,8 @@ metadata:
   name: eg
 spec:
   controllerName: gateway.envoyproxy.io/gatewayclass-controller
-#  parametersRef:
-#    group: gateway.envoyproxy.io
-#    kind: EnvoyProxy
-#    name: ipv6-proxy
-#    namespace: envoy-gateway-system
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: ipv6-proxy
+    namespace: envoy-gateway-system
