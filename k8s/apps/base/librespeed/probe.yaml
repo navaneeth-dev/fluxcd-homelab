@@ -3,11 +3,20 @@ apiVersion: monitoring.coreos.com/v1
 metadata:
   name: librespeed
 spec:
-  interval: 60s
+  interval: 30s
   module: http_2xx
   prober:
     url: blackbox-exporter.observability.svc.cluster.local:9115
   targets:
     staticConfig:
       static:
-        - https://example.com
+        - http://librespeed.homelab.svc.cluster.local:8080
+        - http://audiobookshelf.homelab.svc.cluster.local:80
+        - http://qbittorrent-app.homelab.svc.cluster.local:8080
+        - http://arr-stack.homelab.svc.cluster.local:8096
+        - http://arr-stack.homelab.svc.cluster.local:8080
+        - http://arr-stack.homelab.svc.cluster.local:7878
+        - http://arr-stack.homelab.svc.cluster.local:8989
+        - http://jellyseerr.homelab.svc.cluster.local:5055
+        - http://arr-stack.homelab.svc.cluster.local:9696
+        - http://kube-prometheus-stack-grafana.observability.svc.cluster.local
