@@ -3,4 +3,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - ocirepository.yaml
+  - ocirepository-addon.yaml
   - helmrelease.yaml
+  - helmrelease-addon.yaml
