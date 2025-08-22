@@ -4,4 +4,6 @@ namespace: observability
 resources:
   - namespace.yaml
   - ocirepository.yaml
+  - blackbox-ocirepository.yaml
   - helmrelease.yaml
+  - blackbox-helmrelease.yaml
