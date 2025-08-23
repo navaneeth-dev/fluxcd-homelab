@@ -7,4 +7,4 @@ resources:
   - ocirepository.yaml
   - ocirepository-addon.yaml
   - helmrelease.yaml
-  - helmrelease-addon.yaml
+#  - helmrelease-addon.yaml
