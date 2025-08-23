@@ -5,14 +5,10 @@ metadata:
   namespace: observability
 spec:
   interval: 5m
-  chart:
-    spec:
-      chart: victoria-metrics-k8s-stack
-      version: "0.27.2"
-      sourceRef:
-        kind: OCIRepository
-        name: victoria-metrics-k8s-stack
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: victoria-metrics-k8s-stack
+    namespace: flux-system
   maxHistory: 3
   install:
     remediation:
