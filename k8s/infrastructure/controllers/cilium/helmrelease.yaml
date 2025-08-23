@@ -94,7 +94,7 @@ spec:
     ipv6:
       enabled: true
 
-    gatewayAPI:
-      enabled: true
+#    gatewayAPI:
+#      enabled: false
 #      enableAlpn: true
 #      xffNumTrustedHops: 1
