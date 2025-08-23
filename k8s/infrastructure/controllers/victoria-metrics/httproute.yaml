@@ -1,0 +1,25 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: grafana
+spec:
+  parentRefs:
+    - name: reverse-proxy
+      sectionName: http
+  rules:
+    - backendRefs:
+        - name: victoria-metrics-k8s-stack-grafana
+          port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: prometheus
+spec:
+  parentRefs:
+    - name: reverse-proxy
+      sectionName: http
+  rules:
+    - backendRefs:
+        - name: vmsingle-victoria-metrics-k8s-stack
+          port: 8428
