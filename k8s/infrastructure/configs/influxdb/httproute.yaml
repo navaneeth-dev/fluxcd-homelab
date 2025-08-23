@@ -1,11 +1,11 @@
 apiVersion: gateway.networking.k8s.io/v1alpha2
-kind: UDPRoute
+kind: HTTPRoute
 metadata:
-  name: qbittorrent
+  name: influxdb
 spec:
   parentRefs:
     - name: eg
-      sectionName: bittorrent-udp
+      sectionName: http
   rules:
     - backendRefs:
         - name: qbittorrent-bittorrent
