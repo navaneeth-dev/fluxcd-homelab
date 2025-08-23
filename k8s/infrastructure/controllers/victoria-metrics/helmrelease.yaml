@@ -65,7 +65,8 @@ spec:
         receivers:
           - name: "discord-infra"
             discord_configs:
-              - username: 'CRITICAL ALERT'
+              - webhook_url: 'replacedfromvalues'
+                username: 'CRITICAL ALERT'
                 avatar_url: 'https://cdn-icons-png.flaticon.com/512/564/564619.png'
                 title: '🚨 CRITICAL ALERT'
                 message: '@everyone **CRITICAL ISSUE DETECTED!**'
