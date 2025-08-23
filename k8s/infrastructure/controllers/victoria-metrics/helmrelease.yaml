@@ -53,7 +53,7 @@ spec:
     vmsingle:
       enabled: true
 
-    alertmanager:
+#    alertmanager:
 #      config:
 #        route:
 #          receiver: "discord-infra"
