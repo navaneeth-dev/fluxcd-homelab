@@ -1,189 +1,219 @@
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: librespeed
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: librespeed
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://librespeed.homelab.svc.cluster.local:8080
       labels:
         name: LibreSpeed
         category: Network Tools
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: audiobookshelf
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: audiobookshelf
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://audiobookshelf.homelab.svc.cluster.local:80
       labels:
         name: Audiobookshelf
         category: Media
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: qbittorrent
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: qbittorrent
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://qbittorrent-app.homelab.svc.cluster.local:8080
       labels:
         name: qBittorrent
         category: Download
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: jellyfin
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: jellyfin
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://arr-stack.homelab.svc.cluster.local:8096
       labels:
         name: Jellyfin
         category: Media
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: sabnzbd
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: sabnzbd
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://arr-stack.homelab.svc.cluster.local:8080
       labels:
         name: SABnzbd
         category: Download
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: radarr
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: radarr
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://arr-stack.homelab.svc.cluster.local:7878
       labels:
         name: Radarr
         category: Arr Suite
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: sonarr
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: sonarr
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://arr-stack.homelab.svc.cluster.local:8989
       labels:
         name: Sonarr
         category: Arr Suite
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: jellyseerr
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: jellyseerr
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://jellyseerr.homelab.svc.cluster.local:5055
       labels:
         name: Jellyseerr
         category: Media Request
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: prowlarr
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: prowlarr
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
+      targets:
         - http://arr-stack.homelab.svc.cluster.local:9696
       labels:
         name: Prowlarr
         category: Arr Suite
 
 ---
-kind: Probe
-apiVersion: monitoring.coreos.com/v1
+kind: VMProbe
+apiVersion: operator.victoriametrics.com/v1beta1
 metadata:
   name: grafana
   namespace: homelab
 spec:
-  interval: 30s
+  interval: "30s"
   module: http_2xx
-  prober:
+  jobName: grafana
+  vmProberSpec:
     url: blackbox-exporter.observability.svc.cluster.local:9115
+    path: /probe
+    scheme: http
   targets:
     staticConfig:
-      static:
-        - http://kube-prometheus-stack-grafana.observability.svc.cluster.local
+      targets:
+        - http://kube-prometheus-stack-grafana.observability.svc.cluster.local:80
       labels:
         name: Grafana
         category: Observability
