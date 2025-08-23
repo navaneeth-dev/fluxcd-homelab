@@ -5,7 +5,7 @@ resources:
   - cilium
   - nfs-subdir-external-provisioner
   - metallb
+  - victoria-metrics
   - cloudflare-tunnel.yaml
   - bjw-s-helmrepository.yaml
   - envoy-gateway
-  - victoria-metrics
