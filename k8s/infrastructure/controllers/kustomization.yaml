@@ -7,6 +7,5 @@ resources:
   - metallb
   - cloudflare-tunnel.yaml
   - bjw-s-helmrepository.yaml
-  - kube-prometheus-stack
   - envoy-gateway
   - victoria-metrics
