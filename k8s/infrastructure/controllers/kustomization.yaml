@@ -9,3 +9,4 @@ resources:
   - bjw-s-helmrepository.yaml
   - kube-prometheus-stack
   - envoy-gateway
+  - influxdb
