@@ -56,21 +56,21 @@ spec:
 
     alertmanager:
       enabled: true
-      config:
-        route:
-          receiver: "discord-infra"
-          group_by: ["alertgroup", "job"]
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 4h
-
-        receivers:
-          - name: "discord-infra"
-            discord_configs:
-              - webhook_url: 'replacedfromvalues'
-                username: 'CRITICAL ALERT'
-                title: '🚨 CRITICAL ALERT'
-                message: '@everyone **CRITICAL ISSUE DETECTED!**'
+#      config:
+#        route:
+#          receiver: "discord-infra"
+#          group_by: ["alertgroup", "job"]
+#          group_wait: 30s
+#          group_interval: 5m
+#          repeat_interval: 4h
+#
+#        receivers:
+#          - name: "discord-infra"
+#            discord_configs:
+#              - webhook_url: 'replacedfromvalues'
+#                username: 'CRITICAL ALERT'
+#                title: '🚨 CRITICAL ALERT'
+#                message: '@everyone **CRITICAL ISSUE DETECTED!**'
   valuesFrom:
     - kind: Secret
       name: discord-webhook
