@@ -82,8 +82,8 @@ spec:
 #                  footer:
 #                    text: 'Homelab Monitoring'
 #                  timestamp: '{{ .Alerts.Firing | first | index 0 | index "StartsAt" }}'
-  valuesFrom:
-    - kind: Secret
-      name: discord-webhook
-      valuesKey: token
-      targetPath: alertmanager.config.receivers[0].discord_configs[0].webhook_url
+#  valuesFrom:
+#    - kind: Secret
+#      name: discord-webhook
+#      valuesKey: token
+#      targetPath: alertmanager.config.receivers[0].discord_configs[0].webhook_url
