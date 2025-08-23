@@ -4,7 +4,7 @@ metadata:
   name: influxdb
 spec:
   parentRefs:
-    - name: eg
+    - name: reverse-proxy
       sectionName: http
   rules:
     - backendRefs:
