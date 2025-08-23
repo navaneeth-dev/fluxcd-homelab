@@ -20,5 +20,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    grafana:
+      persistence:
+        enabled: true
+        storageClassName: &storageClassName nas
+        size: 2Gi
     vmsingle:
       enabled: true
