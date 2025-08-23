@@ -54,34 +54,34 @@ spec:
       enabled: true
 
     alertmanager:
-      config:
-        route:
-          receiver: "discord-infra"
-          group_by: ["alertgroup", "job"]
-          group_wait: 30s
-          group_interval: 5m
-          repeat_interval: 4h
-
-        receivers:
-          - name: "discord-infra"
-            discord_configs:
-              - webhook_url: 'replacedfromvalues'
-                username: 'CRITICAL ALERT'
-                avatar_url: 'https://cdn-icons-png.flaticon.com/512/564/564619.png'
-                title: '🚨 CRITICAL ALERT'
-                message: '@everyone **CRITICAL ISSUE DETECTED!**'
-                embed:
-                  title: 'Critical Service Alert'
-                  description: |
-                    {{ range .Alerts }}
-                    🔥 **{{ .Labels.name }}** is {{ .Labels.severity | upper }}
-                    📋 **Details:** {{ .Annotations.description }}
-                    ⏰ **Started:** {{ .StartsAt.Format "15:04:05" }}
-                    {{ end }}
-                  color: 16711680  # Red color
-                  footer:
-                    text: 'Homelab Monitoring'
-                  timestamp: '{{ .Alerts.Firing | first | index 0 | index "StartsAt" }}'
+#      config:
+#        route:
+#          receiver: "discord-infra"
+#          group_by: ["alertgroup", "job"]
+#          group_wait: 30s
+#          group_interval: 5m
+#          repeat_interval: 4h
+#
+#        receivers:
+#          - name: "discord-infra"
+#            discord_configs:
+#              - webhook_url: 'replacedfromvalues'
+#                username: 'CRITICAL ALERT'
+#                avatar_url: 'https://cdn-icons-png.flaticon.com/512/564/564619.png'
+#                title: '🚨 CRITICAL ALERT'
+#                message: '@everyone **CRITICAL ISSUE DETECTED!**'
+#                embed:
+#                  title: 'Critical Service Alert'
+#                  description: |
+#                    {{ range .Alerts }}
+#                    🔥 **{{ .Labels.name }}** is {{ .Labels.severity | upper }}
+#                    📋 **Details:** {{ .Annotations.description }}
+#                    ⏰ **Started:** {{ .StartsAt.Format "15:04:05" }}
+#                    {{ end }}
+#                  color: 16711680  # Red color
+#                  footer:
+#                    text: 'Homelab Monitoring'
+#                  timestamp: '{{ .Alerts.Firing | first | index 0 | index "StartsAt" }}'
   valuesFrom:
     - kind: Secret
       name: discord-webhook
