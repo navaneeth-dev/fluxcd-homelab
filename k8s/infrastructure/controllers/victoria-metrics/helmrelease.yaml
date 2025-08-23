@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: victoria-metrics-k8s-stack
+  namespace: observability
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: victoria-metrics-k8s-stack
+      version: "0.27.2"
+      sourceRef:
+        kind: OCIRepository
+        name: victoria-metrics-k8s-stack
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
