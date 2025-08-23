@@ -41,6 +41,13 @@ spec:
   maxHistory: 3
   timeout: 30m
   values:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+      seccompProfile: { type: RuntimeDefault }
     persistence:
       enabled: true
       size: 20Gi
