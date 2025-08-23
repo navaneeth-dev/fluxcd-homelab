@@ -54,6 +54,7 @@ spec:
       enabled: true
 
     alertmanager:
+      enabled: true
       config:
         route:
           receiver: "discord-infra"
