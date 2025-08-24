@@ -68,13 +68,13 @@ spec:
           - name: "discord-infra"
             discord_configs:
               - webhook_url: 'replacedfromvalues'
-                username: 'CRITICAL ALERT'
+                username: 'Homelab'
                 title: |-
                   [{{ .Status | toUpper -}}
                    {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
                   ]
                   {{ if ne .Status "firing" -}}
-                  :lgtm:
+                  :white_check_mark: 
                   {{- else if eq .CommonLabels.severity "critical" -}}
                   :fire:
                   {{- else if eq .CommonLabels.severity "warning" -}}

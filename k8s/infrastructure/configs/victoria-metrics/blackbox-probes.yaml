@@ -13,5 +13,5 @@ spec:
           labels:
             severity: critical
           annotations:
-            summary: "Blackbox probe failed (instance {{ $labels.instance }})"
-            description: "Probe failed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+            summary: "Blackbox probe failed (instance {{ $labels.name }})"
+            description: "Probe failed {{ $labels.name }} is down"
