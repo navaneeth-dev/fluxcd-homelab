@@ -56,21 +56,43 @@ spec:
 
     alertmanager:
       enabled: true
-#      config:
-#        route:
-#          receiver: "discord-infra"
-#          group_by: ["alertgroup", "job"]
-#          group_wait: 30s
-#          group_interval: 5m
-#          repeat_interval: 4h
-#
-#        receivers:
-#          - name: "discord-infra"
-#            discord_configs:
-#              - webhook_url: 'replacedfromvalues'
-#                username: 'CRITICAL ALERT'
-#                title: '🚨 CRITICAL ALERT'
-#                message: '@everyone **CRITICAL ISSUE DETECTED!**'
+      config:
+        route:
+          receiver: "discord-infra"
+          group_by: ["alertgroup", "job"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 4h
+
+        receivers:
+          - name: "discord-infra"
+            discord_configs:
+              - webhook_url: 'replacedfromvalues'
+                username: 'CRITICAL ALERT'
+                title: |-
+                  [{{ .Status | toUpper -}}
+                   {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+                  ]
+                  {{ if ne .Status "firing" -}}
+                  :lgtm:
+                  {{- else if eq .CommonLabels.severity "critical" -}}
+                  :fire:
+                  {{- else if eq .CommonLabels.severity "warning" -}}
+                  :warning:
+                  {{- else if eq .CommonLabels.severity "info" -}}
+                  :information_source:
+                  {{- else -}}
+                  :question:
+                  {{- end }}
+                message: |
+                  {{ range .Alerts }}
+                  {{- if .Annotations.summary }}
+                  Summary:  {{ .Annotations.summary }}
+                  {{- end }}
+                  {{- if .Annotations.description }}
+                  Description: {{ .Annotations.description }}
+                  {{- end }}
+                  {{- end }}
   valuesFrom:
     - kind: Secret
       name: discord-webhook
