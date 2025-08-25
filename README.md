@@ -34,21 +34,22 @@ The below showcases the collection of open-source solutions currently implemente
 
 The Cloud Native Computing Foundation (CNCF) has played a crucial role in the development and popularization of many of these tools, driving the adoption of cloud-native technologies and enabling projects like this one to thrive.
 
-|                                                                                                                             | Name                                             | Description                                                                                                                   |
-| --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |-------------------------------------------------------------------------------------------------------------------------------|
-| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/kubernetes/icon/color/kubernetes-icon-color.svg">    | [Kubernetes](https://kubernetes.io/)             | An open-source system for automating deployment, scaling, and management of containerized applications                        |
-| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/flux/icon/color/flux-icon-color.svg">                | [FluxCD](https://fluxcd.io/)                     | GitOps tool for deploying applications to Kubernetes                                                                          |
-| <img width="32" src="https://www.talos.dev/images/logo.svg">                                                                | [Talos Linux](https://www.talos.dev/)            | Talos Linux is Linux designed for Kubernetes                                                                                  |
-| <img width="62" src="https://github.com/cncf/artwork/raw/main/projects/cilium/icon/color/cilium_icon-color.svg">            | [Cilium](https://cilium.io/)                     | Cilium is an open source, cloud native solution for providing, securing, and observing network connectivity between workloads |
-| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/containerd/icon/color/containerd-icon-color.svg">    | [containerd](https://containerd.io/)             | Container runtime integrated with Talos Linux                                                                                 |
-| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/coredns/icon/color/coredns-icon-color.svg">          | [CoreDNS](https://coredns.io/)                   | A DNS server that operates via chained plugins                                                                                |
-| <img width="32" src="https://metallb.universe.tf/images/logo/metallb-blue.png">                                             | [MetalLB](https://metallb.universe.tf/)          | Load-balancer implementation for bare metal Kubernetes clusters, using standard routing protocols.                            |
-| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/prometheus/icon/color/prometheus-icon-color.svg">    | [Prometheus](https://prometheus.io)              | Monitoring system and time series database                                                                                    |
-| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/helm/icon/color/helm-icon-color.svg">                | [Helm](https://helm.sh)                          | The Kubernetes package manager                                                                                                |
-| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/cert-manager/icon/color/cert-manager-icon-color.svg">   | [Cert Manager](https://cert-manager.io/)         | X.509 certificate management for Kubernetes                                                                                   |
-| <img width="32" src="https://grafana.com/static/img/menu/grafana2.svg">                                                     | [Grafana](https://grafana.com)                   | Analytics & monitoring solution for every database.                                                                           |
-| <img width="32" src="https://github.com/grafana/loki/blob/main/docs/sources/logo.png?raw=true">                             | [Loki](https://grafana.com/oss/loki/)            | Horizontally-scalable, highly-available, multi-tenant log aggregation system                                                  |
-| <img width="62" src="https://velero.io/img/Velero.svg">                                                                     | [Velero](https://velero.io/)                     | Backup and restore, perform disaster recovery, and migrate Kubernetes cluster resources and persistent volumes.               |
+|                                                                                                                             | Name                                     | Description                                                                                                                   |
+| --------------------------------------------------------------------------------------------------------------------------- |------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| <img width="32" src="https://raw.githubusercontent.com/openwrt/branding/refs/heads/master/logo/openwrt_logo_blue_and_dark_blue.svg">    | [OpenWRT](https://kubernetes.io/)        | The OpenWrt Project is a Linux operating system targeting embedded devices.                                                   |
+| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/kubernetes/icon/color/kubernetes-icon-color.svg">    | [Kubernetes](https://kubernetes.io/)     | An open-source system for automating deployment, scaling, and management of containerized applications                        |
+| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/flux/icon/color/flux-icon-color.svg">                | [FluxCD](https://fluxcd.io/)             | GitOps tool for deploying applications to Kubernetes                                                                          |
+| <img width="32" src="https://www.talos.dev/images/logo.svg">                                                                | [Talos Linux](https://www.talos.dev/)    | Talos Linux is Linux designed for Kubernetes                                                                                  |
+| <img width="62" src="https://github.com/cncf/artwork/raw/main/projects/cilium/icon/color/cilium_icon-color.svg">            | [Cilium](https://cilium.io/)             | Cilium is an open source, cloud native solution for providing, securing, and observing network connectivity between workloads |
+| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/containerd/icon/color/containerd-icon-color.svg">    | [containerd](https://containerd.io/)     | Container runtime integrated with Talos Linux                                                                                 |
+| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/coredns/icon/color/coredns-icon-color.svg">          | [CoreDNS](https://coredns.io/)           | A DNS server that operates via chained plugins                                                                                |
+| <img width="32" src="https://metallb.universe.tf/images/logo/metallb-blue.png">                                             | [MetalLB](https://metallb.universe.tf/)  | Load-balancer implementation for bare metal Kubernetes clusters, using standard routing protocols.                            |
+| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/prometheus/icon/color/prometheus-icon-color.svg">    | [Prometheus](https://prometheus.io)      | Monitoring system and time series database                                                                                    |
+| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/helm/icon/color/helm-icon-color.svg">                | [Helm](https://helm.sh)                  | The Kubernetes package manager                                                                                                |
+| <img width="32" src="https://github.com/cncf/artwork/raw/main/projects/cert-manager/icon/color/cert-manager-icon-color.svg">   | [Cert Manager](https://cert-manager.io/) | X.509 certificate management for Kubernetes                                                                                   |
+| <img width="32" src="https://grafana.com/static/img/menu/grafana2.svg">                                                     | [Grafana](https://grafana.com)           | Analytics & monitoring solution for every database.                                                                           |
+| <img width="32" src="https://github.com/grafana/loki/blob/main/docs/sources/logo.png?raw=true">                             | [Loki](https://grafana.com/oss/loki/)    | Horizontally-scalable, highly-available, multi-tenant log aggregation system                                                  |
+| <img width="62" src="https://velero.io/img/Velero.svg">                                                                     | [Velero](https://velero.io/)             | Backup and restore, perform disaster recovery, and migrate Kubernetes cluster resources and persistent volumes.               |
 
 ## 🤖 Automation
 
@@ -57,11 +58,7 @@ This repository is automatically managed by [Renovate](https://renovatebot.com/)
 ## Goals
 
 - Monthly updates ONLY to ensure high uptime
-
-## TODO
-
-- Bootstrap sops secret
-- Add terraform nas system syncthing
+- Focus on IPv6
 
 ## 👥 Contributing
 
