@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrelease-helm-v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -59,9 +60,16 @@ spec:
           http:
             port: 8080
       bittorrent:
+        type: LoadBalancer
         controller: *name
+        ipFamilyPolicy: PreferDualStack
+        loadBalancerClass: "io.cilium/node"
         ports:
-          http:
+          bittorrent-tcp:
+            port: 5252
+            protocol: TCP
+          bittorrent-udp:
+            protocol: UDP
             port: 5252
 
     persistence:
