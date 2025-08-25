@@ -59,18 +59,22 @@ spec:
         ports:
           http:
             port: 8080
-      bittorrent:
+      bittorrent-tcp:
         type: LoadBalancer
         controller: *name
-        ipFamilyPolicy: PreferDualStack
+        ipFamilyPolicy: SingleStack
+        ipFamilies:
+          - IPv6
         loadBalancerClass: "io.cilium/node"
         ports:
-          bittorrent-tcp:
+          tcp:
+            enabled: true
             port: &bittorrent_port 52525
             protocol: TCP
-          bittorrent-udp:
-            protocol: UDP
-            port: *bittorrent_port
+#          udp:
+#            enabled: true
+#            protocol: UDP
+#            port: *bittorrent_port
 
     persistence:
       config:
