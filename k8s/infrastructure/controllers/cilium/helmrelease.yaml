@@ -43,6 +43,9 @@ spec:
 
     devices: eth0
 
+    nodeIPAM:
+      enabled: true
+
 #    loadBalancer:
 #      l7:
 #        backend: envoy
