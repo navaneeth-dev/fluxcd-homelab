@@ -66,11 +66,11 @@ spec:
         loadBalancerClass: "io.cilium/node"
         ports:
           bittorrent-tcp:
-            port: 5252
+            port: &bittorrent_port 52525
             protocol: TCP
           bittorrent-udp:
             protocol: UDP
-            port: 5252
+            port: *bittorrent_port
 
     persistence:
       config:
