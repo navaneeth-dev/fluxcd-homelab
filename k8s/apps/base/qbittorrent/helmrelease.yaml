@@ -64,25 +64,6 @@ spec:
           http:
             port: 5252
 
-    route:
-      main:
-        parentRefs:
-          - name: eg
-            namespace: homelab
-        hostnames:
-          - proxy.home.arpa
-        rules:
-          - matches:
-            - path:
-                type: PathPrefix
-                value: /
-            backendRefs:
-              - kind: Service
-                port: 8080
-                name: qbittorrent-app
-                namespace: homelab
-                weight: 1
-
     persistence:
       config:
         enabled: true
