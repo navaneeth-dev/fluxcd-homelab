@@ -52,6 +52,7 @@ spec:
                 memory: 4Gi
     service:
       app:
+        type: LoadBalancer
         primary: true
         controller: *name
         ports:
