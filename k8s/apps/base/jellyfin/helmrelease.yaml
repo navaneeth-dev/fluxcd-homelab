@@ -66,7 +66,7 @@ spec:
             namespace: envoy-gateway-system
             sectionName: http
         hostnames:
-          - jellyfin.home.arpa
+          - jellyfin.proxy.home.arpa
 
     persistence:
       config:
