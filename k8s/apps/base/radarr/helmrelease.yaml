@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/hotio/radarr
-              tag: 5.27.5@sha256:af67ce80302e21f7228e2da671943c48b27a25faf27e19c4fcb7ad33c1c0e3c0
+              tag: 5.27.5@sha256:6bbf7e7dd329b982dc5989e4b6256d60cfc76ba4286d44db36869930956c11c7
             env:
               PUID: 1000
               PGID: 1000
