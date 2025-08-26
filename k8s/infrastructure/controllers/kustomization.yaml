@@ -9,3 +9,4 @@ resources:
   - cloudflare-tunnel.yaml
   - bjw-s-helmrepository.yaml
   - envoy-gateway
+  - intel-device-plugins-for-kubernetes
