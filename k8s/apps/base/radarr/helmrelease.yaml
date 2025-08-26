@@ -1,0 +1,84 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &name radarr
+  namespace: homelab
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: app-template
+      version: 4.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-helm-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      *name:
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+        containers:
+          app:
+            image:
+              repository: ghcr.io/hotio/radarr
+              tag: @sha256:79c751100d1398305f05290068cef7367dc8cf1c3d7642db1da70a10da9dfa6e
+            env:
+              PUID: 1000
+              PGID: 1000
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              limits:
+                memory: 1Gi
+                cpu: 100m
+              requests:
+                cpu: 100m
+                memory: 500Mi
+    service:
+      app:
+        primary: true
+        controller: *name
+        ports:
+          http:
+            port: 7878
+
+    route:
+      main:
+        enabled: true
+        kind: HTTPRoute
+        parentRefs:
+          - kind: Gateway
+            name: reverse-proxy
+            namespace: envoy-gateway-system
+            sectionName: http
+        hostnames:
+          - jellyfin.proxy.home.arpa
+
+    persistence:
+      config:
+        enabled: true
+        type: nfs
+        server: "nas.home.arpa"
+        path: "/srv/nfs4/config/radarr"
+        globalMounts:
+          - path: /config
+      data:
+        enabled: true
+        type: nfs
+        server: "nas.home.arpa"
+        path: "/srv/nfs4/data"
+        globalMounts:
+          - path: /data
