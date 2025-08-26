@@ -56,6 +56,18 @@ spec:
           http:
             port: 8096
 
+    route:
+      main:
+        enabled: true
+        kind: HTTPRoute
+        parentRefs:
+          - kind: Gateway
+            name: reverse-proxy
+            namespace: envoy-gateway-system
+            sectionName: http
+        hostnames:
+          - jellyfin.home.arpa
+
     persistence:
       config:
         enabled: true

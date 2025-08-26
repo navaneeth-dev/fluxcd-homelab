@@ -33,7 +33,8 @@ spec:
             image:
               repository: ghcr.io/home-operations/plex
               tag: 1.42
-            env: {}
+            env:
+              TZ: "${TZ}"
             securityContext:
               privileged: true
 #              allowPrivilegeEscalation: false
@@ -54,6 +55,18 @@ spec:
         ports:
           http:
             port: 8096
+
+    route:
+      main:
+        enabled: true
+        kind: HTTPRoute
+        parentRefs:
+          - kind: Gateway
+            name: reverse-proxy
+            namespace: envoy-gateway-system
+            sectionName: http
+        hostnames:
+          - plex.home.arpa
 
     persistence:
       config:
