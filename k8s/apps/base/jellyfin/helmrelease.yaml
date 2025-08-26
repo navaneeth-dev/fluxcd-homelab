@@ -34,9 +34,6 @@ spec:
               repository: jellyfin/jellyfin
               tag: latest
             env:
-              TZ: "${TZ}"
-              PUID: 1000
-              PGID: 1000
               JELLYFIN_PublishedServerUrl: "https://jellyfin.${DOMAIN}"
             securityContext:
               privileged: true
