@@ -81,7 +81,7 @@ spec:
   targets:
     staticConfig:
       targets:
-        - http://arr-stack.homelab.svc.cluster.local:8096
+        - http://jellyfin.homelab.svc.cluster.local:8096
       labels:
         name: Jellyfin
         category: Media
