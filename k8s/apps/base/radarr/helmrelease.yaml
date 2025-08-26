@@ -31,11 +31,10 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/hotio/radarr
+              repository: ghcr.io/home-operations/radarr
               tag: 5.27.5
             env:
-              PUID: 1000
-              PGID: 1000
+              TZ: "${TZ}"
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
