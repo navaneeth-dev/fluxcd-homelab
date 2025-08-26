@@ -1,7 +1,13 @@
 machine:
   install:
     disk: ${install_disk}
-    image: factory.talos.dev/nocloud-installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515:v1.10.6
+    image: factory.talos.dev/nocloud-installer/d3dc673627e9b94c6cd4122289aa52c2484cddb31017ae21b75309846e257d30:v1.10.6
     wipe: false
   network:
     hostname: ${hostname}
+
+#customization:
+#  systemExtensions:
+#    officialExtensions:
+#      - siderolabs/i915
+#      - siderolabs/qemu-guest-agent
