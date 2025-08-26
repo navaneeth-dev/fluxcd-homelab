@@ -35,6 +35,8 @@ spec:
               tag: latest
             env:
               JELLYFIN_PublishedServerUrl: "https://jellyfin.${DOMAIN}"
+              PLEX_ADVERTISE_URL: http://plex.proxy.home.arpa,https://plex.fossindia.ovh
+              PLEX_NO_AUTH_NETWORKS: 192.168.2.0/24
             securityContext:
               privileged: true
 #              allowPrivilegeEscalation: false
