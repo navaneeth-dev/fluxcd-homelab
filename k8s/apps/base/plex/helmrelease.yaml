@@ -31,7 +31,7 @@ spec:
         containers:
           app:
             image:
-              repository: home-operations/plex
+              repository: ghcr.io/home-operations/plex
               tag: 1.42
             env: {}
             securityContext:
