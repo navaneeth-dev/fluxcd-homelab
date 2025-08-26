@@ -14,27 +14,6 @@ spec:
         app: arr-stack
     spec:
       containers:
-        - name: jellyfin
-          image: ghcr.io/hotio/jellyfin@sha256:48c06189526f615dccc6cdaa9889c77485d21192cdf9cf3e5a740d65d073c1be
-          resources:
-            limits:
-              gpu.intel.com/i915: "1"
-          ports:
-            - containerPort: 8096
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: "Asia/Kolkata"
-            - name: JELLYFIN_PublishedServerUrl
-              value: "https://jellyfin.${DOMAIN}"
-          volumeMounts:
-            - name: jellyfin-config
-              mountPath: /config
-            - name: data
-              mountPath: /data
         - name: radarr
           image: ghcr.io/hotio/radarr@sha256:79c751100d1398305f05290068cef7367dc8cf1c3d7642db1da70a10da9dfa6e
           ports:
