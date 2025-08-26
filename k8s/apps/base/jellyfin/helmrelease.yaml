@@ -43,10 +43,11 @@ spec:
             resources:
               limits:
                 gpu.intel.com/i915: "1"
-                memory: 500Mi
+                memory: 8Gi
+                cpu: 2000m
               requests:
-                cpu: 50m
-                memory: 100Mi
+                cpu: 1000m
+                memory: 4Gi
     service:
       app:
         primary: true
