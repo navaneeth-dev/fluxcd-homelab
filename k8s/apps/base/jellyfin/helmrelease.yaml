@@ -31,8 +31,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/hotio/jellyfin
-              tag: release-10.10.7
+              repository: jellyfin/jellyfin
+              tag: latest
             env:
               TZ: "${TZ}"
               PUID: 1000
