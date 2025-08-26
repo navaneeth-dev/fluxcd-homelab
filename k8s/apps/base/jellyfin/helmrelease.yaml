@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/hotio/jellyfin
-              tag: sha256:48c06189526f615dccc6cdaa9889c77485d21192cdf9cf3e5a740d65d073c1be
+              tag: release-10.10.7
             env:
               TZ: "${TZ}"
               PUID: 1000
