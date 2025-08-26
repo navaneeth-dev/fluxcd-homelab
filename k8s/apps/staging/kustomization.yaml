@@ -7,3 +7,4 @@ resources:
   - ../base/audiobookshelf
   - ../base/qbittorrent
   - ../base/jellyfin
+  - ../base/plex
