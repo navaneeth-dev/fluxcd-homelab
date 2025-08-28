@@ -62,7 +62,6 @@ spec:
           - kind: Gateway
             name: reverse-proxy
             namespace: envoy-gateway-system
-            sectionName: http
         hostnames:
           - 'radarr.${DOMAIN}'
 

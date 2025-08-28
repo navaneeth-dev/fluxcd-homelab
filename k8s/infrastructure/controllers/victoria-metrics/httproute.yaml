@@ -7,7 +7,6 @@ spec:
   parentRefs:
     - name: reverse-proxy
       namespace: envoy-gateway-system
-      sectionName: http
   hostnames:
     - 'grafana.${DOMAIN}'
   rules:
@@ -24,7 +23,6 @@ spec:
   parentRefs:
     - name: reverse-proxy
       namespace: envoy-gateway-system
-      sectionName: http
   hostnames:
     - 'vm.${DOMAIN}'
   rules:
