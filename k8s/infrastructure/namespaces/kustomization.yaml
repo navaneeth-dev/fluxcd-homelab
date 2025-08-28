@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - homelab.yaml
   - cert-manager.yaml
+  - envoy-gateway-system.yaml
