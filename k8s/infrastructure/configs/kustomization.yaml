@@ -4,3 +4,4 @@ resources:
   - metallb
   - victoria-metrics
   - cert-manager
+  - envoy-gateway-system
