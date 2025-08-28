@@ -9,10 +9,10 @@ spec:
     #server: https://acme-staging-v02.api.letsencrypt.org/directory
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-prod-account-key
+      name: acme-private-keys
     solvers:
       - dns01:
           cloudflare:
             apiTokenSecretRef:
-              name: cloudflare-api-token-secret-infisical
-              key: api-token
+              name: cf
+              key: cert-manager
