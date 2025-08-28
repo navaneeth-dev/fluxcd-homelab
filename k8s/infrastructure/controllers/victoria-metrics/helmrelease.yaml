@@ -76,7 +76,7 @@ spec:
                   {{ if ne .Status "firing" -}}
                   :white_check_mark: 
                   {{- else if eq .CommonLabels.severity "critical" -}}
-                  :fire:
+                  :x:
                   {{- else if eq .CommonLabels.severity "warning" -}}
                   :warning:
                   {{- else if eq .CommonLabels.severity "info" -}}
