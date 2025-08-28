@@ -10,3 +10,4 @@ resources:
   - bjw-s-helmrepository.yaml
   - envoy-gateway
   - intel-device-plugins-for-kubernetes
+  - cert-manager
