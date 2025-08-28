@@ -14,9 +14,15 @@ spec:
           - kind: HTTPRoute
         namespaces:
           from: All
-#    - name: https
-#      protocol: HTTPS
-#      port: 443
-#      allowedRoutes:
-#        kinds:
-#          - kind: HTTPRoute
+    - name: https
+      protocol: HTTPS
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+        - kind: Secret
+          group: ""
+          name: homelab-cert-private-keys
+      allowedRoutes:
+        kinds:
+          - kind: HTTPRoute

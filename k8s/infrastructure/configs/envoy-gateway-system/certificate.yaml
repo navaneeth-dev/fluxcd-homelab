@@ -10,5 +10,5 @@ spec:
     - '${DOMAIN}'
     - '*.${DOMAIN}'
   issuerRef:
-    name: cert-manager
+    name: homelab
     kind: ClusterIssuer
