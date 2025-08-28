@@ -125,7 +125,7 @@ spec:
   targets:
     staticConfig:
       targets:
-        - http://arr-stack.homelab.svc.cluster.local:7878
+        - http://radarr.homelab.svc.cluster.local:7878
       labels:
         name: Radarr
         category: Arr Suite
