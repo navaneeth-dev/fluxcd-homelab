@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prod-rizexor-com-cert
+spec:
+  secretName: prod-rizexor-com-tls
+  dnsNames:
+    - '${DOMAIN}'
+    - '*.${DOMAIN}'
+  issuerRef:
+    name: homelab
+    kind: ClusterIssuer
