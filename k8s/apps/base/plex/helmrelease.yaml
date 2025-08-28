@@ -35,7 +35,7 @@ spec:
               tag: 1.42
             env:
               TZ: "${TZ}"
-              PLEX_ADVERTISE_URL: http://plex.proxy.home.arpa,https://plex.fossindia.ovh
+              PLEX_ADVERTISE_URL: https://plex.fossindia.ovh
               PLEX_NO_AUTH_NETWORKS: 192.168.2.0/24
             securityContext:
               privileged: true
@@ -69,7 +69,7 @@ spec:
             namespace: envoy-gateway-system
             sectionName: http
         hostnames:
-          - plex.proxy.home.arpa
+          - 'plex.${DOMAIN}'
 
     persistence:
       config:

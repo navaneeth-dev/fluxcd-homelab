@@ -54,4 +54,4 @@ spec:
             namespace: envoy-gateway-system
             sectionName: http
         hostnames:
-          - speed.proxy.home.arpa
+          - 'speed.${DOMAIN}'

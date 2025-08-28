@@ -64,7 +64,7 @@ spec:
             namespace: envoy-gateway-system
             sectionName: http
         hostnames:
-          - radarr.proxy.home.arpa
+          - 'radarr.${DOMAIN}'
 
     persistence:
       config:

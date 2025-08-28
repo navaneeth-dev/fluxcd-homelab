@@ -9,7 +9,7 @@ spec:
       namespace: envoy-gateway-system
       sectionName: http
   hostnames:
-    - grafana.proxy.home.arpa
+    - 'grafana.${DOMAIN}'
   rules:
     - backendRefs:
         - name: victoria-metrics-k8s-stack-grafana
@@ -26,7 +26,7 @@ spec:
       namespace: envoy-gateway-system
       sectionName: http
   hostnames:
-    - vm.proxy.home.arpa
+    - 'vm.${DOMAIN}'
   rules:
     - backendRefs:
         - name: vmsingle-victoria-metrics-k8s-stack
