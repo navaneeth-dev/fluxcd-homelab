@@ -1,0 +1,66 @@
+# Sonarr
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: sonarr-route
+  namespace: homelab
+spec:
+  parentRefs:
+    - kind: Gateway
+      name: reverse-proxy
+      namespace: envoy-gateway-system
+  hostnames:
+    - "sonarr.${DOMAIN}"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: arr-stack
+          port: 8989   # <-- replace with actual Sonarr service port (you used "sonarr" named port in Ingress)
+---
+
+# Prowlarr
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: prowlarr-route
+  namespace: homelab
+spec:
+  parentRefs:
+    - kind: Gateway
+      name: reverse-proxy
+      namespace: envoy-gateway-system
+  hostnames:
+    - "prowlarr.${DOMAIN}"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: arr-stack
+          port: 9696   # <-- replace with actual Prowlarr service port (you used "prowlarr" named port in Ingress)
+---
+# Sabnzbd
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: sabnzbd-route
+  namespace: homelab
+spec:
+  parentRefs:
+    - kind: Gateway
+      name: reverse-proxy
+      namespace: envoy-gateway-system
+  hostnames:
+    - "sabnzbd.${DOMAIN}"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: arr-stack
+          port: 8080   # <-- replace with actual Sabnzbd service port (you used "sabnzbd" named port in Ingress)
