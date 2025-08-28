@@ -88,7 +88,7 @@ spec:
         enabled: true
         type: nfs
         server: "nas.home.arpa"
-        path: "/srv/nfs4/data/torrents"
+        path: "/srv/nfs4/data"
         globalMounts:
           - path: /data
       tmpfs:
