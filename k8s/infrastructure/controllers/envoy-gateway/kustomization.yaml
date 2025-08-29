@@ -5,6 +5,5 @@ resources:
   - gateway-class.yaml
   - gateway.yaml
   - ocirepository.yaml
-  - ocirepository-addon.yaml
   - helmrelease.yaml
-#  - helmrelease-addon.yaml
+  - vmpodscrape.yaml

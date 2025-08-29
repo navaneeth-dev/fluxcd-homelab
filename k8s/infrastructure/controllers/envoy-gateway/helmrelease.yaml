@@ -11,6 +11,9 @@ spec:
     name: eg
   install:
     crds: CreateReplace
+  dependsOn:
+    - namespace: observability
+      name: victoria-metrics-k8s-stack
   upgrade:
     remediation:
       remediateLastFailure: true
