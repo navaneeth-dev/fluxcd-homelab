@@ -20,7 +20,7 @@ spec:
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMPodScrape
 metadata:
-  name: envoy-gateway-controller
+  name: envoy-gateway-reverse-proxy
   namespace: envoy-gateway-system
 spec:
   selector:
