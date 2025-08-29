@@ -8,8 +8,9 @@ spec:
     matchLabels:
       control-plane: envoy-gateway
       app.kubernetes.io/instance: eg
-  endpoints:
-    - port: "19001"
+  podMetricsEndpoints:
+    - portNumber: 19001
+      scheme: http
       path: /metrics
       interval: 30s
   namespaceSelector:
