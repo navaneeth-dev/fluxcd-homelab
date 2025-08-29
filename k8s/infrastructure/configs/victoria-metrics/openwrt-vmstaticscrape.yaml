@@ -7,6 +7,7 @@ spec:
   targetEndpoints:
     - schema: http
       path: /metrics
+      portNumber: 9100
       scrape_interval: 30s
       targets:
         - "openwrt.home.arpa"
