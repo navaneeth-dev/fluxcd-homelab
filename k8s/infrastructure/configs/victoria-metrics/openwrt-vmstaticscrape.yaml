@@ -10,4 +10,5 @@ spec:
       interval: 30s
       targets:
         - "openwrt.home.arpa:9100"
+        - "ap.home.arpa:9100"
   jobName: "OpenWrt"
