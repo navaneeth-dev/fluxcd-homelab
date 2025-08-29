@@ -5,7 +5,7 @@ metadata:
   namespace: observability
 spec:
   targetEndpoints:
-    - schema: http
+    - scheme: http
       path: /metrics
       interval: 30s
       targets:
