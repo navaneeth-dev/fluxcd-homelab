@@ -9,3 +9,4 @@ resources:
   - ../base/jellyfin
   - ../base/plex
   - ../base/radarr
+  - ../base/homepage
