@@ -7,6 +7,6 @@ resources:
   - ../base/audiobookshelf
   - ../base/qbittorrent
   - ../base/jellyfin
-  - ../base/plex
+#  - ../base/plex
   - ../base/radarr
   - ../base/homepage
