@@ -89,3 +89,13 @@ spec:
         path: "/srv/nfs4/config/jellyseerr"
         globalMounts:
           - path: /app/config
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          jellyseerr:
+            app:
+              - path: /app/config/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
