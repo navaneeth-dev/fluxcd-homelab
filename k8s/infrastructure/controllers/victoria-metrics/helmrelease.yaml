@@ -89,6 +89,12 @@ spec:
           group_wait: 30s
           group_interval: 5m
           repeat_interval: 4h
+          routes:
+            - receiver: 'null'
+              matchers:
+                - matchType: "="
+                  name: alertname
+                  value: Watchdog
 
         receivers:
           - name: "discord-infra"
@@ -119,6 +125,7 @@ spec:
                   Description: {{ .Annotations.description }}
                   {{- end }}
                   {{- end }}
+          - name: "null"
   valuesFrom:
     - kind: Secret
       name: discord-webhook
