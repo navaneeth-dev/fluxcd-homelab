@@ -20,7 +20,7 @@ spec:
             - containerPort: 5055
           resources:
             limits:
-              cpu: "500m"
+              cpu: "800m"
               memory: "512Mi"
           env:
             - name: PUID
