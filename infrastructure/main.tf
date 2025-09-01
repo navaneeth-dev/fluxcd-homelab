@@ -33,6 +33,7 @@ resource "talos_machine_configuration_apply" "controlplane" {
     }),
     file("${path.module}/files/cni.yaml"),
     file("${path.module}/files/subnets.yaml"),
+    file("${path.module}/files/kube-scheduler-bind-addr.yaml"),
   ]
 }
 
@@ -48,6 +49,7 @@ resource "talos_machine_configuration_apply" "worker" {
     }),
     file("${path.module}/files/cni.yaml"),
     file("${path.module}/files/subnets.yaml"),
+    file("${path.module}/files/kube-scheduler-bind-addr.yaml"),
   ]
 }
 
