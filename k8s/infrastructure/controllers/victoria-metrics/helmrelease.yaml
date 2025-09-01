@@ -66,6 +66,9 @@ spec:
                 serverName: kubernetes
                 insecureSkipVerify: true
 
+    kubeEtcd:
+      enabled: false
+
     kubeScheduler:
       vmScrape:
         spec:
