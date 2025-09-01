@@ -22,12 +22,15 @@ spec:
     remediation:
       retries: 3
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       *name:
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
         containers:
           app:
             image:
@@ -57,13 +60,7 @@ spec:
                 memory: 4Gi
               requests:
                 cpu: 100m
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+
     service:
       app:
         primary: true
@@ -98,3 +95,5 @@ spec:
         path: "/srv/nfs4/data"
         globalMounts:
           - path: /data
+      tmp:
+        type: emptyDir
