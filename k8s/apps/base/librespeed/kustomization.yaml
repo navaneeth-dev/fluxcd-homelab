@@ -3,5 +3,3 @@ kind: Kustomization
 namespace: homelab
 resources:
   - helmrelease.yaml
-  - service.yaml
-  - probe.yaml
