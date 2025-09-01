@@ -54,6 +54,15 @@ spec:
     vmsingle:
       enabled: true
 
+    vmagent:
+      spec:
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 200m
+            memory: 500Mi
+
     kubeControllerManager:
       vmScrape:
         spec:
