@@ -29,6 +29,8 @@ spec:
             image:
               repository: ghcr.io/librespeed/speedtest
               tag: latest@sha256:96eeeb4bad3d25f46636bef672eebf52a34ac967c6cd66644294cc585ab799b9
+            env:
+              MODE: standalone
             resources:
               limits:
                 memory: 200Mi
