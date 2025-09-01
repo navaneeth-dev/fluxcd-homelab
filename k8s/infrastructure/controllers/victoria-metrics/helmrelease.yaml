@@ -92,7 +92,7 @@ spec:
           routes:
             - receiver: 'null'
               matchers:
-                - "alertname=Watchdog"
+                - alertname =~ "InfoInhibitor|Watchdog"
 
         receivers:
           - name: "discord-infra"
