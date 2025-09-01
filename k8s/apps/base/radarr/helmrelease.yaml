@@ -35,17 +35,35 @@ spec:
               tag: 5.27.5
             env:
               TZ: "${TZ}"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities: { drop: [ "ALL" ] }
             resources:
               limits:
-                memory: 1Gi
-                cpu: 100m
+                memory: 4Gi
               requests:
                 cpu: 100m
-                memory: 500Mi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         primary: true
