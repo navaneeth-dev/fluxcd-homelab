@@ -16,6 +16,12 @@ storage:
         name: *user
       group:
         name: *user
+    - path: /var/log/traefik
+      mode:
+      user:
+        name: *user
+      group:
+        name: *user
     - path: /etc/letsencrypt
       mode:
       user:
@@ -58,4 +64,6 @@ storage:
 systemd:
   units:
     - name: docker.service
+      enabled: true
+    - name: traefik.service
       enabled: true

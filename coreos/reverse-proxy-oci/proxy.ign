@@ -27,6 +27,15 @@
         "group": {
           "name": "core"
         },
+        "path": "/var/log/traefik",
+        "user": {
+          "name": "core"
+        }
+      },
+      {
+        "group": {
+          "name": "core"
+        },
         "path": "/etc/letsencrypt",
         "user": {
           "name": "core"
@@ -58,7 +67,7 @@
         },
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/3RSwY7UMAy99yusHJGaDuwioZzQsojrCsQHmMRtw6ZNZWfKlq9HadqdMgOaQ0bP7z0/2504zt4Ri6kAWh8ov+XfiAMZUA0l2yRGav1zk/F61+gFh6AqABftM3FR0ssUhdzD8kgtnkMy0GIQqqoQu8wINFMw8Pj54fuXreUTpv660fbqEDtVVWgtiWwO/5MU0qagMfHyFP2Y1sl+0Y8SD51jEjGgzIeTWqE+pakUAZicZ7LJx1F2DOBidsEAUjTZV8iemQ642J7y5rKvlN6Fc5Pg/v7uNkIKh86WOH0liWEmNhAoSU2j5WVK+QruvCZ9Zbs4oD8GB6ghQwZUG0X86DzqOPfqwAAQ/FtTdOqNvtJUOY1vvcVEsqeSctR/BtsGtgPt9jSgDwbUQB/Z/6aXyNrGYY8jKTJ2ZGC9azbdPJvsoX/K66wWvxGvO1Hrmk2zUmpJ2Pmxq+fTO42T1wcPHblrynUjL3tLN8qnHkOgsaPLDvYv3IAN8ezagIcL83Hyw77e6vVn3t+p68JJn7bCnwAAAP//1SpVoXADAAA="
+          "source": "data:;base64,H4sIAAAAAAAC/3xSzY7UMAy+9ymsHJGaDuwioZzQsojrCsQDmMRtw6ZNZWfKlqdHadqZsoNQD6mc7892Jo6zd8RiKoDWB8pn+RtxIAOqoWSbxEitf25yvd45esEhqArARftMXJj0MkUh97A8UovnkAy0GISqKsQuIwLNFAw8fn74/mWzfMLUZ6MZuQmxu5htpw6xU1WF1pLIpvI/WgFuLBoTL0/Rj2nt8Bf9KDHROSYRA8p8OKm11Kc0lUsAJueZbPJxlL0GcBW71gBSNFlXyJ6ZDnWxPeUJZl0p3gVzk+D+/u42QgoHZ0ucvpLEMBMbCJSkptHyMqW8DXdek17QLg7oj8EBasglA6qNIn50HnWce3VAAAj+zSk89Ua/4lQ5jW+9xUSyp5Ky3H8G2xq2A+3yNKAPBtRAH9n/ppfI2sZhjyMpMnZkYH17WXTTbLKG/imXXi1+I15notYxm2aF1JKw82NXz6d3GievDxo6cteU7UZedks3yqceQ6Cxo+sM9pduwIZ4dm3Aw4b52PlhXm/1+pn3d+r1xUmftos/AQAA//8SxBjceAMAAA=="
         },
         "mode": 420
       },
@@ -90,6 +99,10 @@
       {
         "enabled": true,
         "name": "docker.service"
+      },
+      {
+        "enabled": true,
+        "name": "traefik.service"
       }
     ]
   }

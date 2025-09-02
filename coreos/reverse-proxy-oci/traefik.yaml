@@ -6,10 +6,10 @@ providers:
 
 log:
   level: DEBUG
-  filePath: "/etc/traefik/traefik.log"
+  filePath: "/var/log/traefik/traefik.log"
 
 accesslog:
-  filePath: "/etc/traefik/access.log"
+  filePath: "/var/log/traefik/access.log"
 
 entryPoints:
   web:
