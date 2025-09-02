@@ -7,8 +7,10 @@ Requires=docker.service
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker rm --force traefik
 ExecStart=/usr/bin/docker run --name traefik --pull always \
-    -v /var/run/docker.sock:/var/run/docker.sock:ro \
-    -v /etc/letsencrypt:/etc/letsencrypt \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro,Z \
+    -v /etc/letsencrypt:/etc/letsencrypt:Z \
+    -v /etc/traefik:/etc/traefik:Z \
+    -v /var/log/traefik:/var/log/traefik:Z \
     -p 80:80 -p 443:443 \
     -e CLOUDFLARE_DNS_API_TOKEN='' \
      docker.io/traefik \
