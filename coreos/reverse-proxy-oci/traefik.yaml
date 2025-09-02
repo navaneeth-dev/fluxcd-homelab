@@ -1,6 +1,6 @@
 providers:
   file:
-    filename: "/etc/traefik/file-provider.yml"
+    filename: "/etc/traefik/file-provider.yaml"
   docker:
     exposedByDefault: false
 
