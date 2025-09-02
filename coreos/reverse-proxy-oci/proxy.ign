@@ -1,0 +1,96 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "directories": [
+      {
+        "group": {
+          "name": "core"
+        },
+        "path": "/etc/traefik",
+        "user": {
+          "name": "core"
+        }
+      },
+      {
+        "group": {
+          "name": "core"
+        },
+        "path": "/etc/letsencrypt",
+        "user": {
+          "name": "core"
+        }
+      }
+    ],
+    "files": [
+      {
+        "group": {
+          "name": "core"
+        },
+        "path": "/etc/traefik/file-provider.yaml",
+        "user": {
+          "name": "core"
+        },
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/0yPvW4DIRCE+3uKkdMkxZ17uqRymUcwgY1AwizaXZyfp49IzMXdaMR8fJvMmlsA4W4kOiKQ+EJ/CaBq8vXKuZrOCljxQW9KoQvdOiW55kDud7tqu9XSCzkcTqz2eH5n1Vxj9htf0/npsCzAA55jhCWahGVn3cms2ubnhX188cXXQPIvNCa7/nTsUhzGgeqOx4HZJH/TJ8sW+LK/bF51+J3IRxIHk04/AQAA//+8qrcmFgEAAA=="
+        },
+        "mode": 420
+      },
+      {
+        "group": {
+          "name": "core"
+        },
+        "path": "/etc/traefik/traefik.yaml",
+        "user": {
+          "name": "core"
+        },
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/3RSwY7UMAy99yusHJGaDuwioZzQsojrCsQHmMRtw6ZNZWfKlq9HadqdMgOaQ0bP7z0/2504zt4Ri6kAWh8ov+XfiAMZUA0l2yRGav1zk/F61+gFh6AqABftM3FR0ssUhdzD8kgtnkMy0GIQqqoQu8wINFMw8Pj54fuXreUTpv660fbqEDtVVWgtiWwO/5MU0qagMfHyFP2Y1sl+0Y8SD51jEjGgzIeTWqE+pakUAZicZ7LJx1F2DOBidsEAUjTZV8iemQ642J7y5rKvlN6Fc5Pg/v7uNkIKh86WOH0liWEmNhAoSU2j5WVK+QruvCZ9Zbs4oD8GB6ghQwZUG0X86DzqOPfqwAAQ/FtTdOqNvtJUOY1vvcVEsqeSctR/BtsGtgPt9jSgDwbUQB/Z/6aXyNrGYY8jKTJ2ZGC9azbdPJvsoX/K66wWvxGvO1Hrmk2zUmpJ2Pmxq+fTO42T1wcPHblrynUjL3tLN8qnHkOgsaPLDvYv3IAN8ezagIcL83Hyw77e6vVn3t+p68JJn7bCnwAAAP//1SpVoXADAAA="
+        },
+        "mode": 420
+      },
+      {
+        "group": {
+          "name": "root"
+        },
+        "path": "/etc/systemd/system/traefik.service",
+        "user": {
+          "name": "root"
+        },
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/2yRT4vqMBTF9/kU2blKK9gHUsjC91SQJypWeQufSCbeSjBNOjc3zvTbD2org84q9885OeSX3dYZ2rMxBI2mJuOd3KCC0pzZqCRAefT6DJgEwIvRwNbwHg1CeJ6zXXGv9mxjKvCRClJIBWjZZ5NP0Ld2hSBFGgOmb8al9ys4VlyI0qMGTm30wyBfxNFxIZyqHmIuRB2t5cp+qCbw/4xzzsWFpxeFKcbOmQSvz/mPQ/TfXEA6tUABnMampvx50ElrPuznw/61yLJBnmWDbgP8z3y5HU/no/XkMF4Uh9Fqdtgs/04WstdrRbzNNz7tntG6hfauNKepsSBv2e2+O5NGVbYF5OsXPoF8/cC4hnCDeEfTtdc/+RUY281cIGXtnv1TjuD4u5FVtGREDIAJKTwBfQUAAP//CZ5h/h8CAAA="
+        }
+      }
+    ],
+    "links": [
+      {
+        "overwrite": true,
+        "path": "/etc/systemd/system/multi-user.target.wants/docker.service",
+        "hard": false,
+        "target": "/usr/lib/systemd/system/docker.service"
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "enabled": true,
+        "name": "docker.service"
+      }
+    ]
+  }
+}
