@@ -7,6 +7,7 @@ Requires=docker.service
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker rm --force traefik
 ExecStart=/usr/bin/docker run --name traefik --pull always \
+    --network host \
     -v /var/run/docker.sock:/var/run/docker.sock:ro,Z \
     -v /etc/letsencrypt:/etc/letsencrypt:Z \
     -v /etc/traefik:/etc/traefik:Z \

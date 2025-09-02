@@ -4,12 +4,12 @@ http:
       entryPoints:
         - websecure
       service: home-sp
-      rule: "Host(`fossindia.ovh`)"
+      rule: 'Host(`fossindia.ovh`) || HostRegexp(`^.+\.fossindia\.ovh$`)'
 
   # Add the service
   services:
     home-sp:
       loadBalancer:
         servers:
-          - url: https://home.rizexor.com
+          - url: https://fossindia.ovh
         passHostHeader: true
