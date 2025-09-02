@@ -7,17 +7,17 @@ passwd:
       ssh_authorized_keys:
         - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
 
-directories:
-  - path: /etc/traefik
-    user:
-      name: *user
-    group:
-      name: *user
-  - path: /etc/letsencrypt
-    user:
-      name: *user
-    group:
-      name: *user
+#directories:
+#  - path: /etc/traefik
+#    user:
+#      name: *user
+#    group:
+#      name: *user
+#  - path: /etc/letsencrypt
+#    user:
+#      name: *user
+#    group:
+#      name: *user
 
 storage:
   # from docs: Ensure docker starts automatically
@@ -27,6 +27,14 @@ storage:
       hard: false
       overwrite: true
   files:
+    - path: /etc/traefik/file-provider.yaml
+      contents:
+        local: file-provider.yaml
+      mode: 0644
+      user:
+        name: *user
+      group:
+        name: *user
     - path: /etc/traefik/traefik.yaml
       contents:
         local: traefik.yaml
