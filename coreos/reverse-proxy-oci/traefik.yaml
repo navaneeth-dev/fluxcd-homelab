@@ -1,0 +1,42 @@
+providers:
+  file:
+    filename: "/etc/traefik/file-provider.yml"
+  docker:
+    exposedByDefault: false
+
+log:
+  level: DEBUG
+  filePath: "/etc/traefik/traefik.log"
+
+accesslog:
+  filePath: "/etc/traefik/access.log"
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: lets-encrypt-production
+        domains:
+          - main: "fossindia.ovh"
+            sans:
+              - "*.fossindia.ovh"
+
+certificatesResolvers:
+  lets-encrypt-production:
+    acme:
+      email: "me@rizexor.com"
+      storage: /etc/letsencrypt/acme.json
+      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - "1.1.1.1:53"
+          - "1.0.0.1:53"

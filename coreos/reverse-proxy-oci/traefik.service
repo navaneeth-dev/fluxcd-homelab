@@ -1,0 +1,19 @@
+[Unit]
+Description=Traefik
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker rm --force traefik
+ExecStart=/usr/bin/docker run --name traefik --pull always docker.io/traefik \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    -v /etc/letsencrypt:/etc/letsencrypt \
+    -p 80:80 -p 443:443 \
+    -e CLOUDFLARE_DNS_API_TOKEN=''
+ExecStop=/usr/bin/docker stop traefik
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,42 @@
+variant: flatcar
+version: 1.0.0
+
+passwd:
+  users:
+    - name: &user core
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
+
+directories:
+  - path: /etc/traefik
+    user:
+      name: *user
+    group:
+      name: *user
+  - path: /etc/letsencrypt
+    user:
+      name: *user
+    group:
+      name: *user
+
+storage:
+  # from docs: Ensure docker starts automatically
+  links:
+    - path: /etc/systemd/system/multi-user.target.wants/docker.service
+      target: /usr/lib/systemd/system/docker.service
+      hard: false
+      overwrite: true
+  files:
+    - path: /etc/traefik/traefik.yaml
+      contents:
+        local: traefik.yaml
+      mode: 0644
+      user:
+        name: *user
+      group:
+        name: *user
+
+systemd:
+  units:
+    - name: docker.service
+      enabled: true

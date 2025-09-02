@@ -1,0 +1,15 @@
+http:
+  routers:
+    home:
+      entryPoints:
+        - websecure
+      service: home-sp
+      rule: "Host(`fossindia.ovh`)"
+
+  # Add the service
+  services:
+    home-sp:
+      loadBalancer:
+        servers:
+          - url: https://home.rizexor.com
+        passHostHeader: true
