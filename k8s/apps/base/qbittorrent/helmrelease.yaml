@@ -58,7 +58,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: &webui_port
+            port: 8080
       bittorrent-tcp:
         type: LoadBalancer
         controller: *name
@@ -94,7 +94,7 @@ spec:
                   value: /
             backendRefs:
               - kind: Service
-                port: *webui_port
+                port: 8080
                 name: qbittorrent-app
                 namespace: homelab
                 weight: 1
