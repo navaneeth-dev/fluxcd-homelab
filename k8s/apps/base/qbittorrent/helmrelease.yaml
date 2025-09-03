@@ -22,36 +22,52 @@ spec:
     remediation:
       retries: 3
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     controllers:
       *name:
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: { type: RuntimeDefault }
         containers:
           app:
             image:
-              repository: qbittorrentofficial/qbittorrent-nox
-              tag: latest
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.1.2@sha256:9dd0164cc23e9c937e0af27fd7c3f627d1df30c182cf62ed34d3f129c55dc0e8
             env:
               TZ: "${TZ}"
               QBT_DOWNLOADS_PATH: "/data"
               QBT_CONFIG_PATH: "/config"
-              QBT_TORRENTING_PORT: "52525"
+              QBT_TORRENTING_PORT: &port 52525
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/v2/app/version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 50m
-                memory: 100Mi
+                cpu: 100m
               limits:
-                memory: 500Mi
+                memory: 8Gi
     service:
       app:
         primary: true
@@ -114,7 +130,5 @@ spec:
         path: "/srv/nfs4/data"
         globalMounts:
           - path: /data
-      tmpfs:
+      tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
