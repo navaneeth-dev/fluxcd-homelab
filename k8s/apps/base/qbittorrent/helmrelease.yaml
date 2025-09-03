@@ -62,9 +62,9 @@ spec:
       bittorrent-tcp:
         type: LoadBalancer
         controller: *name
-        ipFamilyPolicy: SingleStack
-        ipFamilies:
-          - IPv6
+#        ipFamilyPolicy: SingleStack
+#        ipFamilies:
+#          - IPv6
         loadBalancerClass: "io.cilium/node"
         ports:
           tcp:
