@@ -38,9 +38,8 @@ spec:
               tag: 5.1.2@sha256:9dd0164cc23e9c937e0af27fd7c3f627d1df30c182cf62ed34d3f129c55dc0e8
             env:
               TZ: "${TZ}"
-              QBT_DOWNLOADS_PATH: "/data"
-              QBT_CONFIG_PATH: "/config"
-              QBT_TORRENTING_PORT: &port 52525
+              QBT_TORRENTING_PORT: &bittorrent_port 52525
+              QBT_WEBUI_PORT: &port 80
             probes:
               liveness: &probes
                 enabled: true
@@ -48,8 +47,7 @@ spec:
                 spec:
                   httpGet:
                     path: /api/v2/app/version
-                    port: 8080
-                    host: localhost
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 6
@@ -76,24 +74,21 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: *port
       bittorrent-tcp:
         type: LoadBalancer
         controller: *name
-#        ipFamilyPolicy: SingleStack
-#        ipFamilies:
-#          - IPv6
         loadBalancerClass: "io.cilium/node"
         ports:
           tcp:
             enabled: true
-            port: &bittorrent_port 52525
+            port: *bittorrent_port
             protocol: TCP
-# NEED TO DISABLE UDP because cant expose different protocol in same port
-#          udp:
-#            enabled: true
-#            protocol: UDP
-#            port: *bittorrent_port
+            # NEED TO DISABLE UDP because cant expose different protocol in same port
+            # udp:
+            #   enabled: true
+            #   protocol: UDP
+            #   port: *bittorrent_port
 
     route:
       main:
@@ -112,7 +107,7 @@ spec:
                   value: /
             backendRefs:
               - kind: Service
-                port: 8080
+                port: *port
                 name: qbittorrent-app
                 namespace: homelab
                 weight: 1
