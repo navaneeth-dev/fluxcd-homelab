@@ -40,6 +40,7 @@ spec:
               TZ: "${TZ}"
               QBT_TORRENTING_PORT: &bittorrent_port 52525
               QBT_WEBUI_PORT: &port 80
+              QBT_WEBUI_LOCALHOST_AUTH_ENABLED: true
             probes:
               liveness: &probes
                 enabled: true
