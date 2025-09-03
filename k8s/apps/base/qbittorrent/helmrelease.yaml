@@ -58,7 +58,7 @@ spec:
         controller: *name
         ports:
           http:
-            port: 8080
+            port: &webui_port
       bittorrent-tcp:
         type: LoadBalancer
         controller: *name
@@ -71,6 +71,7 @@ spec:
             enabled: true
             port: &bittorrent_port 52525
             protocol: TCP
+# NEED TO DISABLE UDP because cant expose different protocol in same port
 #          udp:
 #            enabled: true
 #            protocol: UDP
@@ -86,6 +87,17 @@ spec:
             namespace: envoy-gateway-system
         hostnames:
           - 'qbittorrent.${DOMAIN}'
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - kind: Service
+                port: *webui_port
+                name: qbittorrent-app
+                namespace: homelab
+                weight: 1
 
     persistence:
       config:
