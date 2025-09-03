@@ -35,6 +35,24 @@ spec:
               tag: latest
             env:
               JELLYFIN_PublishedServerUrl: "https://jellyfin.${DOMAIN}"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 8096
+                  initialDelaySeconds: 20
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             securityContext:
               privileged: true
 #              allowPrivilegeEscalation: false
