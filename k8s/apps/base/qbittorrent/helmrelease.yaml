@@ -76,6 +76,17 @@ spec:
 #            protocol: UDP
 #            port: *bittorrent_port
 
+    route:
+      main:
+        enabled: true
+        kind: HTTPRoute
+        parentRefs:
+          - kind: Gateway
+            name: reverse-proxy
+            namespace: envoy-gateway-system
+        hostnames:
+          - 'qbittorrent.${DOMAIN}'
+
     persistence:
       config:
         enabled: true
