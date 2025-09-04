@@ -80,7 +80,7 @@ spec:
         hostnames:
           - 'radarr.${DOMAIN}'
         timeouts:
-          request:  "60s"
+          request:  "180s"
 
     persistence:
       config:
