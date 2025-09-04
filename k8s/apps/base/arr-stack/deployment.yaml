@@ -14,22 +14,6 @@ spec:
         app: arr-stack
     spec:
       containers:
-        - name: sonarr
-          image: ghcr.io/hotio/sonarr@sha256:6a8f771b42a96683af146aff683122102193767c12f3fb9b5c1c90e42a111896
-          ports:
-            - containerPort: 8989
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: "Asia/Kolkata"
-          volumeMounts:
-            - name: sonarr-config
-              mountPath: /config
-            - name: data
-              mountPath: /data
         - name: sabnzbd
           image: ghcr.io/hotio/sabnzbd@sha256:aff501a8144b64f8bd318768e37987d7d6c02c41b95917519343eb960c41ae0a
           ports:

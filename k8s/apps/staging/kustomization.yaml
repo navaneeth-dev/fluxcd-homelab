@@ -9,4 +9,5 @@ resources:
   - ../base/jellyfin
 #  - ../base/plex
   - ../base/radarr
+  - ../base/sonarr
   - ../base/homepage
