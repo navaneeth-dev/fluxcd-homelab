@@ -11,4 +11,4 @@ spec:
       name: reverse-proxy
   clientIPDetection:
     xForwardedFor:
-      numTrustedHops: 1
+      numTrustedHops: 2
