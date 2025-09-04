@@ -79,6 +79,8 @@ spec:
             namespace: envoy-gateway-system
         hostnames:
           - 'radarr.${DOMAIN}'
+        timeouts:
+          request:  "60s"
 
     persistence:
       config:
