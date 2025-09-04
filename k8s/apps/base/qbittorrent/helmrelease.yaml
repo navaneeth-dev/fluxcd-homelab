@@ -41,6 +41,8 @@ spec:
               QBT_TORRENTING_PORT: &bittorrent_port 52525
               QBT_WEBUI_PORT: &port 80
               QBT_WEBUI_LOCALHOST_AUTH_ENABLED: true
+              QBT_WEBUI_AUTH_SUBNET_WHITELIST_ENABLED: true
+              QBT_WEBUI_AUTH_SUBNET_WHITELIST: '10.244.0.0/16'
             probes:
               liveness: &probes
                 enabled: true
