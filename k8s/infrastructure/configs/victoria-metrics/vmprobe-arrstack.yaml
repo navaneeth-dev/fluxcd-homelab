@@ -59,7 +59,7 @@ spec:
   targets:
     staticConfig:
       targets:
-        - http://qbittorrent-app.homelab.svc.cluster.local:8080
+        - http://qbittorrent-app.homelab.svc.cluster.local:80
       labels:
         name: qBittorrent
         category: Download
