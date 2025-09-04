@@ -79,6 +79,7 @@ spec:
         type: LoadBalancer
         controller: *name
         loadBalancerClass: "io.cilium/node"
+        externalTrafficPolicy: Local
         ports:
           tcp:
             enabled: true
