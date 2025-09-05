@@ -85,11 +85,10 @@ spec:
             enabled: true
             port: *bittorrent_port
             protocol: TCP
-            # NEED TO DISABLE UDP because cant expose different protocol in same port
-            # udp:
-            #   enabled: true
-            #   protocol: UDP
-            #   port: *bittorrent_port
+          udp:
+             enabled: true
+             protocol: UDP
+             port: *bittorrent_port
 
     route:
       main:
