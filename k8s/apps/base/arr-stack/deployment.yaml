@@ -44,6 +44,10 @@ spec:
             - name: recyclarr-config
               mountPath: /config
       volumes:
+        - name: data
+          nfs:
+            server: 192.168.2.180
+            path: "/srv/nfs4/data"
         - name: recyclarr-config
           nfs:
             server: 192.168.2.180
