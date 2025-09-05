@@ -75,7 +75,7 @@ spec:
         ports:
           http:
             port: *port
-      bittorrent-tcp:
+      bittorrent:
         type: LoadBalancer
         controller: *name
         loadBalancerClass: "io.cilium/node"
