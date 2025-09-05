@@ -1,0 +1,4 @@
+- name: Install monitoring
+  hosts: nas
+  roles:
+    - prometheus.prometheus.node_exporter

@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - vmrule-blackbox.yaml
   - openwrt-vmstaticscrape.yaml
+  - nas-vmstaticscrape.yaml
   - vmprobe-arrstack.yaml
