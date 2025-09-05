@@ -11,3 +11,4 @@ resources:
   - ../base/radarr
   - ../base/sonarr
   - ../base/homepage
+  - ../base/prowlarr

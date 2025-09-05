@@ -32,20 +32,6 @@ spec:
               mountPath: /config
             - name: data
               mountPath: /data
-        - name: prowlarr
-          image: ghcr.io/hotio/prowlarr@sha256:37c1e95c5015db2b22fa0beafc53c3bf60d57c6cf8e27b7626f067e8a2f09941
-          ports:
-            - containerPort: 9696
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: "Asia/Kolkata"
-          volumeMounts:
-            - name: prowlarr-config
-              mountPath: /config
         - name: recyclarr
           image: ghcr.io/recyclarr/recyclarr:7.4
           securityContext:
@@ -58,26 +44,6 @@ spec:
             - name: recyclarr-config
               mountPath: /config
       volumes:
-        - name: data
-          nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/data"
-        - name: jellyfin-config
-          nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/config/jellyfin"
-        - name: radarr-config
-          nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/config/radarr"
-        - name: sonarr-config
-          nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/config/sonarr"
-        - name: prowlarr-config
-          nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/config/prowlarr"
         - name: recyclarr-config
           nfs:
             server: 192.168.2.180
