@@ -80,6 +80,10 @@ spec:
         controller: *name
         loadBalancerClass: "io.cilium/node"
         externalTrafficPolicy: Local
+        ipFamilyPolicy: SingleStack
+        ipFamilies:
+          - IPv4
+          - IPv6
         ports:
           tcp:
             enabled: true
