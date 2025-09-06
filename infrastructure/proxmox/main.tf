@@ -1,6 +1,7 @@
 resource "proxmox_virtual_environment_vm" "nas2_vm" {
   name      = "nas2"
   node_name = "pve"
+  vm_id = "100"
 
   agent {
     enabled = true
@@ -28,11 +29,18 @@ resource "proxmox_virtual_environment_vm" "nas2_vm" {
     iothread     = true
     discard      = "on"
     ssd = true
-    size         = 20
+    # size         = 20
+  }
+
+  disk {
+    interface = "virtio1"
+    datastore_id = ""
+    path_in_datastore  = "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_SSD_23196K805535"
+    file_format = "raw"
   }
 
   initialization {
-    user_data_file_id = proxmox_virtual_environment_file.coreos_config.id
+    user_data_file_id = proxmox_virtual_environment_file.ignition_config.id
     ip_config {
       ipv4 {
         address = "192.168.2.9/24"
@@ -45,12 +53,12 @@ resource "proxmox_virtual_environment_vm" "nas2_vm" {
   }
 }
 
-resource "proxmox_virtual_environment_file" "coreos_config" {
+resource "proxmox_virtual_environment_file" "ignition_config" {
   content_type = "snippets"
   datastore_id = "local"
   node_name    = "pve"
 
   source_file {
-    path = "files/config.ign"
+    path = "files/nas.ign"
   }
 }

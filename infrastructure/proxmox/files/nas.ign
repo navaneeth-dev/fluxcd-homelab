@@ -1,0 +1,62 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "directories": [
+      {
+        "group": {
+          "name": "core"
+        },
+        "path": "/srv/nfs4/nvme/config",
+        "user": {
+          "name": "core"
+        },
+        "mode": 493
+      }
+    ],
+    "files": [
+      {
+        "group": {
+          "name": "root"
+        },
+        "path": "/etc/flatcar/enabled-sysext.conf",
+        "user": {
+          "name": "root"
+        },
+        "contents": {
+          "compression": "",
+          "source": "data:,zfs"
+        },
+        "mode": 420
+      }
+    ],
+    "filesystems": [
+      {
+        "device": "/dev/vdb",
+        "format": "btrfs",
+        "label": "nvme",
+        "wipeFilesystem": false
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nBefore=local-fs.target\n[Mount]\nWhat=/dev/disk/by-label/nvme\nWhere=/srv/nfs4/nvme\nType=btrfs\n[Install]\nWantedBy=local-fs.target\n",
+        "enabled": true,
+        "name": "srv-nfs4-nvme.mount"
+      }
+    ]
+  }
+}
