@@ -14,4 +14,11 @@ terraform {
   }
 }
 
-provider "proxmox" {}
+provider "proxmox" {
+  endpoint = var.endpoint
+  insecure = true
+
+  ssh {
+    agent = true
+  }
+}
