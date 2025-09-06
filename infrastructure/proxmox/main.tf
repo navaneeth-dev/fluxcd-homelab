@@ -1,34 +1,56 @@
-resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
-  name      = "test-ubuntu"
+resource "proxmox_virtual_environment_vm" "nas2_vm" {
+  name      = "nas2"
   node_name = "pve"
 
-  # should be true if qemu agent is not installed / enabled on the VM
-  stop_on_destroy = true
+  agent {
+    enabled = true
+  }
 
-  initialization {
-    user_account {
-      # do not use this in production, configure your own ssh key instead!
-      username = "user"
-      password = "password"
-    }
+  cpu {
+    cores = 1
+    type = "host"
+  }
+
+  memory {
+    dedicated = 2048
+    floating = 2048
+  }
+
+  network_device {
+    enabled = true
   }
 
   disk {
     datastore_id = "local-lvm"
-    import_from  = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
-    #import_from  = "local:import/flatcar_custom.img.raw"
+    import_from  = "local:import/flatcar_custom.qcow2"
+    file_format = "qcow2"
     interface    = "virtio0"
     iothread     = true
     discard      = "on"
+    ssd = true
     size         = 20
+  }
+
+  initialization {
+    user_data_file_id = proxmox_virtual_environment_file.coreos_config.id
+    ip_config {
+      ipv4 {
+        address = "192.168.2.9/24"
+        gateway = "192.168.2.1"
+      }
+      ipv6 {
+        address = "dhcp"
+      }
+    }
   }
 }
 
-resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_image" {
-  content_type = "import"
+resource "proxmox_virtual_environment_file" "coreos_config" {
+  content_type = "snippets"
   datastore_id = "local"
   node_name    = "pve"
-  url          = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
-  # need to rename the file to *.qcow2 to indicate the actual file format for import
-  file_name = "jammy-server-cloudimg-amd64.qcow2"
+
+  source_file {
+    path = "files/config.ign"
+  }
 }
