@@ -18,7 +18,7 @@
         "group": {
           "name": "core"
         },
-        "path": "/srv/nfs4/nvme/config",
+        "path": "/srv/nfs4/nvmeraid1",
         "user": {
           "name": "core"
         },
@@ -27,49 +27,29 @@
     ],
     "files": [
       {
+        "path": "/etc/modules-load.d/nfs.conf",
+        "contents": {
+          "compression": "",
+          "source": "data:,nfs%0Anfsd%0A"
+        },
+        "mode": 420
+      },
+      {
         "path": "/etc/hostname",
         "contents": {
           "compression": "",
           "source": "data:,nas2"
         },
         "mode": 420
-      },
-      {
-        "group": {
-          "name": "root"
-        },
-        "path": "/etc/flatcar/enabled-sysext.conf",
-        "user": {
-          "name": "root"
-        },
-        "contents": {
-          "compression": "",
-          "source": "data:,zfs"
-        },
-        "mode": 420
-      }
-    ],
-    "filesystems": [
-      {
-        "device": "/dev/vdb",
-        "format": "btrfs",
-        "label": "wdblue",
-        "wipeFilesystem": false
-      },
-      {
-        "device": "/dev/vdc",
-        "format": "btrfs",
-        "label": "samsung",
-        "wipeFilesystem": false
       }
     ]
   },
   "systemd": {
     "units": [
       {
-        "contents": "[Unit]\nBefore=local-fs.target\n[Mount]\nWhat=/dev/disk/by-label/wdblue\nWhere=/srv/nfs4/nvme\nType=btrfs\n[Install]\nWantedBy=local-fs.target\n",
+        "contents": "[Unit]\nBefore=local-fs.target\n[Mount]\nWhat=/dev/disk/by-label/nvme-raid1\nWhere=/srv/nfs4/nvmeraid1\nType=btrfs\n[Install]\nWantedBy=local-fs.target\n",
         "enabled": true,
-        "name": "srv-nfs4-nvme.mount"
+        "name": "srv-nfs4-nvmeraid1.mount"
       }
     ]
   }

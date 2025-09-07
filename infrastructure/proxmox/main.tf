@@ -29,13 +29,13 @@ resource "proxmox_virtual_environment_vm" "nas2_vm" {
     iothread     = true
     discard      = "on"
     ssd = true
-    # size         = 20
+    size         = 10
   }
 
   disk {
     interface = "virtio1"
     datastore_id = ""
-    path_in_datastore  = "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_SSD_23196K805535"
+    path_in_datastore  = "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_SSD_23196K805535-part1"
     file_format = "raw"
   }
 
