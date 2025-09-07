@@ -27,6 +27,14 @@
     ],
     "files": [
       {
+        "path": "/etc/hostname",
+        "contents": {
+          "compression": "",
+          "source": "data:,nas2"
+        },
+        "mode": 420
+      },
+      {
         "group": {
           "name": "root"
         },
@@ -45,7 +53,13 @@
       {
         "device": "/dev/vdb",
         "format": "btrfs",
-        "label": "nvme",
+        "label": "wdblue",
+        "wipeFilesystem": false
+      },
+      {
+        "device": "/dev/vdc",
+        "format": "btrfs",
+        "label": "samsung",
         "wipeFilesystem": false
       }
     ]
@@ -53,7 +67,7 @@
   "systemd": {
     "units": [
       {
-        "contents": "[Unit]\nBefore=local-fs.target\n[Mount]\nWhat=/dev/disk/by-label/nvme\nWhere=/srv/nfs4/nvme\nType=btrfs\n[Install]\nWantedBy=local-fs.target\n",
+        "contents": "[Unit]\nBefore=local-fs.target\n[Mount]\nWhat=/dev/disk/by-label/wdblue\nWhere=/srv/nfs4/nvme\nType=btrfs\n[Install]\nWantedBy=local-fs.target\n",
         "enabled": true,
         "name": "srv-nfs4-nvme.mount"
       }

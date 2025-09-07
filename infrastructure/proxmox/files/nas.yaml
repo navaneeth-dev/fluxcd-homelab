@@ -14,7 +14,7 @@ systemd:
         [Unit]
         Before=local-fs.target
         [Mount]
-        What=/dev/disk/by-label/nvme
+        What=/dev/disk/by-label/wdblue
         Where=/srv/nfs4/nvme
         Type=btrfs
         [Install]
@@ -25,7 +25,11 @@ storage:
     - device: /dev/vdb
       format: btrfs
       wipe_filesystem: false
-      label: nvme
+      label: wdblue
+    - device: /dev/vdc
+      format: btrfs
+      wipe_filesystem: false
+      label: samsung
   directories:
     - path: "/srv/nfs4/nvme/config"
       mode: 0755

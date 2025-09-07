@@ -39,6 +39,13 @@ resource "proxmox_virtual_environment_vm" "nas2_vm" {
     file_format = "raw"
   }
 
+  disk {
+    interface = "virtio2"
+    datastore_id = ""
+    path_in_datastore  = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_500GB_S4EVNM0R224774V-part4"
+    file_format = "raw"
+  }
+
   initialization {
     user_data_file_id = proxmox_virtual_environment_file.ignition_config.id
     ip_config {
