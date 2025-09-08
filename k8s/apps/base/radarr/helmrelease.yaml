@@ -48,7 +48,7 @@ spec:
                     port: &port 7878
                   initialDelaySeconds: 20
                   periodSeconds: 10
-                  timeoutSeconds: 6
+                  timeoutSeconds: 15
                   failureThreshold: 3
               readiness: *probes
             securityContext:
