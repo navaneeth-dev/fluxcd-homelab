@@ -54,7 +54,7 @@ data:
         - Audiobookshelf:
             href: 'https://audiobookshelf.${DOMAIN}'
             icon: audiobookshelf
-            description: Audiobooks
+            description: Stream Audiobooks
     
     - 'Arr Stack':
         - Radarr:
