@@ -27,26 +27,42 @@ data:
       showSearchSuggestions: true
       hideVisitURL: true
     layout:
+      Public:
+        style: row
+        columns: 4
       Media:
         style: row
         columns: 4
+      Monitoring:
+        style: row
+        columns: 2
 
-  widgets.yaml: |
-    - search:
-        provider: duckduckgo
-        focus: false
-        target: _blank
+  widgets.yaml: ""
 
   bookmarks.yaml: ""
 
   services.yaml: |
-    - Media:
+    - Public:
         - Jellyfin:
             href: 'https://jellyfin.${DOMAIN}'
-            icon: jellyfin.svg
+            icon: jellyfin
+            description: Movies/TV
+        - Audiobookshelf:
+            href: 'https://audiobookshelf.${DOMAIN}'
+            icon: audiobookshelf
+            description: Audiobooks
+    
+    - 'Arr Stack':
         - Radarr:
             href: 'https://radarr.${DOMAIN}'
-            icon: radarr.svg
+            icon: radarr
         - Sonarr:
             href: 'https://sonarr.${DOMAIN}'
-            icon: sonarr.svg
+            icon: sonarr
+        - qBittorrent:
+            href: 'https://qbittorrent.${DOMAIN}'
+            icon: qbittorrent
+    - Monitoring:
+        - Grafana:
+            href: 'https://grafana.${DOMAIN}'
+            icon: grafana
