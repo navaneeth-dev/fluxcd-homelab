@@ -42,11 +42,11 @@ data:
   services.yaml: |
     - Media:
         - Jellyfin:
-            href: 'http://radarr.homelab.svc.cluster.local:7878'
+            href: 'https://jellyfin.${DOMAIN}'
             icon: jellyfin.svg
         - Radarr:
-            href: 'http://radarr.homelab.svc.cluster.local:7878'
+            href: 'https://radarr.${DOMAIN}'
             icon: radarr.svg
         - Sonarr:
-            href: 'http://radarr.homelab.svc.cluster.local:7878'
+            href: 'https://sonarr.${DOMAIN}'
             icon: sonarr.svg
