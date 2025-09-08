@@ -46,7 +46,11 @@ data:
         - Jellyfin:
             href: 'https://jellyfin.${DOMAIN}'
             icon: jellyfin
-            description: Movies/TV
+            description: Watch Movies/TV
+        - Jellyseerr:
+            href: 'https://requests.${DOMAIN}'
+            icon: jellyseerr
+            description: Download Movies/TV
         - Audiobookshelf:
             href: 'https://audiobookshelf.${DOMAIN}'
             icon: audiobookshelf
