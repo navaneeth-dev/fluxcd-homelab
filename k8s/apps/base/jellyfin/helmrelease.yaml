@@ -101,6 +101,11 @@ spec:
         path: "/srv/nfs4/data"
         globalMounts:
           - path: /data
+      nas2:
+        enabled: true
+        type: nfs
+        server: "nas2.home.arpa"
+        path: "/configs"
       tmpfs:
         type: emptyDir
         advancedMounts:
