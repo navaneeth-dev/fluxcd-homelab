@@ -15,10 +15,6 @@ data:
 
   settings.yaml: |
     title: Homelab
-    # background:
-    #   image: https://raw.githubusercontent.com/joryirving/home-ops/main/.docs/assets/101518784_p0.jpg
-    #   opacity: 20
-    favicon: https://github.com/walkxcode/dashboard-icons/blob/main/png/heimdall.png
     theme: dark
     color: slate
     headerStyle: clean
@@ -31,30 +27,9 @@ data:
       showSearchSuggestions: true
       hideVisitURL: true
     layout:
-      Home Automation:
-        style: column
-        icon: home-assistant
-      LLM/Ai:
-        style: column
-        icon: open-webui
-      Apps:
-        style: column
-        icon: immich
-      Security:
-        style: column
-        icon: pocket-id
-      Social:
-        style: column
-        icon: mastodon
       Media:
-        style: column
-        icon: jellyfin
-      Downloads:
-        style: column
-        icon: sonarr
-      Kubernetes:
-        style: column
-        icon: kubernetes
+        style: row
+        columns: 4
 
   widgets.yaml: |
     - search:
@@ -64,4 +39,14 @@ data:
 
   bookmarks.yaml: ""
 
-  services.yaml: ""
+  services.yaml: |
+    - Media:
+        - Jellyfin:
+            href: 'http://radarr.homelab.svc.cluster.local:7878'
+            icon: jellyfin.svg
+        - Radarr:
+            href: 'http://radarr.homelab.svc.cluster.local:7878'
+            icon: radarr.svg
+        - Sonarr:
+            href: 'http://radarr.homelab.svc.cluster.local:7878'
+            icon: sonarr.svg
