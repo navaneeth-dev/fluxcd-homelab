@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_vm" "talos4" {
-  name      = "nas2"
+  name      = "talos4"
   node_name = "pve-thinkcentre"
   vm_id = "5000"
 
@@ -31,6 +31,42 @@ resource "proxmox_virtual_environment_vm" "talos4" {
     discard      = "on"
     ssd = true
     size         = 32
+  }
+}
+
+resource "proxmox_virtual_environment_vm" "worker-thinkcentre" {
+  name      = "worker-thinkcentre"
+  node_name = "pve-thinkcentre"
+  vm_id = "5001"
+
+  agent {
+    enabled = true
+  }
+
+  cpu {
+    cores = 4
+    type = "host"
+  }
+
+  memory {
+    dedicated = 8192
+    floating = 8192
+  }
+
+  network_device {
+    enabled = true
+  }
+
+  cdrom {
+    file_id = proxmox_virtual_environment_download_file.talos_iso.id
+  }
+
+  disk {
+    datastore_id = "local-lvm"
+    interface    = "virtio0"
+    discard      = "on"
+    ssd = true
+    size         = 60
   }
 }
 
