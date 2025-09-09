@@ -121,7 +121,7 @@ spec:
         enabled: true
         type: nfs
         server: "nas2.home.arpa"
-        path: "/srv/nfs4/config"
+        path: "/config"
         globalMounts:
           - path: /config
       data:
