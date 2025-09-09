@@ -57,8 +57,15 @@ resource "proxmox_virtual_environment_vm" "worker-thinkcentre" {
     enabled = true
   }
 
+  boot_order = ["virtio0", "ide3"]
+
   cdrom {
     file_id = proxmox_virtual_environment_download_file.talos_iso.id
+  }
+
+  hostpci {
+    device = "hostpci0"
+    id = "0000:00:02.0"
   }
 
   disk {
