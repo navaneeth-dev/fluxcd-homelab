@@ -39,6 +39,10 @@ variable "node_data" {
         install_disk = "/dev/sda"
         hostname     = "talos3"
       },
+      "192.168.2.100" = {
+        install_disk = "/dev/vda"
+        hostname     = "talos4"
+      },
     }
     workers = {
       "192.168.2.138" = {

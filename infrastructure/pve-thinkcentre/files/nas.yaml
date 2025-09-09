@@ -1,0 +1,58 @@
+variant: flatcar
+version: 1.0.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
+
+systemd:
+  units:
+    - name: srv-nfs4-nvmeraid1.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Before=local-fs.target
+        [Mount]
+        What=/dev/disk/by-label/nvme-raid1
+        Where=/srv/nfs4/nvmeraid1
+        Type=btrfs
+        [Install]
+        WantedBy=local-fs.target
+
+storage:
+#  filesystems:
+#    - device: /dev/vdb
+#      format: btrfs
+#      wipe_filesystem: false
+#      label: wdblue
+#    - device: /dev/vdc
+#      format: btrfs
+#      wipe_filesystem: false
+#      label: samsung
+  directories:
+    - path: "/srv/nfs4/nvmeraid1"
+      mode: 0755
+      user:
+        name: core
+      group:
+        name: core
+  files:
+    - path: /etc/modules-load.d/nfs.conf
+      mode: 0644
+      contents:
+        inline: |
+          nfs
+          nfsd
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: nas2
+#    - path: /etc/flatcar/enabled-sysext.conf
+#      contents:
+#        inline: zfs
+#      mode: 0644
+#      user:
+#        name: root
+#      group:
+#        name: root
