@@ -91,8 +91,8 @@ spec:
       config:
         enabled: true
         type: nfs
-        server: "nas.home.arpa"
-        path: "/srv/nfs4/config/prowlarr"
+        server: "nas2.home.arpa"
+        path: "/config/prowlarr"
         globalMounts:
           - path: /config
       tmp:

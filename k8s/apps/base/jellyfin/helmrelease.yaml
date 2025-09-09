@@ -90,8 +90,8 @@ spec:
       config:
         enabled: true
         type: nfs
-        server: "nas.home.arpa"
-        path: "/srv/nfs4/config/jellyfin"
+        server: "nas2.home.arpa"
+        path: "/config/jellyfin"
         globalMounts:
           - path: /config
       data:

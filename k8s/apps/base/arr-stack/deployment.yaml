@@ -46,13 +46,13 @@ spec:
       volumes:
         - name: data
           nfs:
-            server: 192.168.2.180
+            server: 'nas.home.arpa'
             path: "/srv/nfs4/data"
         - name: recyclarr-config
           nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/config/recyclarr"
+            server: "nas2.home.arpa"
+            path: "/config/recyclarr"
         - name: sabnzbd-config
           nfs:
-            server: 192.168.2.180
-            path: "/srv/nfs4/config/sabnzbd"
+            server: "nas2.home.arpa"
+            path: "/config/sabnzbd"

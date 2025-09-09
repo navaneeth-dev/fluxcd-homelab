@@ -85,8 +85,8 @@ spec:
       config:
         enabled: true
         type: nfs
-        server: "nas.home.arpa"
-        path: "/srv/nfs4/config/jellyseerr"
+        server: "nas2.home.arpa"
+        path: "/config/jellyseerr"
         globalMounts:
           - path: /app/config
 
