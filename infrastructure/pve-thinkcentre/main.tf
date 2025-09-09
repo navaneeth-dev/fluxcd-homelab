@@ -2,6 +2,7 @@ resource "proxmox_virtual_environment_vm" "talos4" {
   name      = "talos4"
   node_name = "pve-thinkcentre"
   vm_id = "5000"
+  boot_order = ["virtio0", "ide3"]
 
   agent {
     enabled = true
