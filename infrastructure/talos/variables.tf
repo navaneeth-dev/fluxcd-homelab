@@ -53,6 +53,10 @@ variable "node_data" {
         install_disk = "/dev/sda"
         hostname     = "talos-worker2"
       }
+      "192.168.2.238" = {
+        install_disk = "/dev/vda"
+        hostname     = "worker-thinkcentre"
+      }
     }
   }
 }
