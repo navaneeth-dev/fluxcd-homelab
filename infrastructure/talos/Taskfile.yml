@@ -6,8 +6,8 @@ tasks:
   default:
     cmds:
       - infisical run --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 -- terraform apply -auto-approve
-      - terraform output -raw kubeconfig > ../kubeconfig
-      - terraform output -raw talosconfig > ../talosconfig
+      - terraform output -raw kubeconfig > $KUBECONFIG
+      - terraform output -raw talosconfig > $TALOSCONFIG
       - helmfile init
       - helmfile apply
       - cilium status --wait
