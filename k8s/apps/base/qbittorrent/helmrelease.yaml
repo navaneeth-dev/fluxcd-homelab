@@ -79,7 +79,8 @@ spec:
         type: LoadBalancer
         controller: *name
         loadBalancerClass: "io.cilium/node"
-        externalTrafficPolicy: Local
+        allocateLoadBalancerNodePorts: false
+        externalTrafficPolicy: Cluster
         ipFamilyPolicy: PreferDualStack
         ipFamilies:
           - IPv4
