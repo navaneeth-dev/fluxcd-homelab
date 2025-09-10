@@ -78,9 +78,9 @@ spec:
       bittorrent:
         type: LoadBalancer
         controller: *name
-        loadBalancerClass: "io.cilium/node"
-        allocateLoadBalancerNodePorts: false
-        externalTrafficPolicy: Cluster
+#        loadBalancerClass: "io.cilium/node"
+#        allocateLoadBalancerNodePorts: false
+#        externalTrafficPolicy: Cluster
         ipFamilyPolicy: PreferDualStack
         ipFamilies:
           - IPv4
