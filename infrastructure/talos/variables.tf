@@ -35,10 +35,6 @@ variable "node_data" {
         install_disk = "/dev/sda"
         hostname     = "talos2"
       },
-      "192.168.2.184" = {
-        install_disk = "/dev/sda"
-        hostname     = "talos3"
-      },
       "192.168.2.100" = {
         install_disk = "/dev/vda"
         hostname     = "talos4"
