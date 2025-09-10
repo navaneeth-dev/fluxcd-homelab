@@ -81,10 +81,10 @@ spec:
 #        loadBalancerClass: "io.cilium/node"
 #        allocateLoadBalancerNodePorts: false
 #        externalTrafficPolicy: Cluster
-        ipFamilyPolicy: PreferDualStack
-        ipFamilies:
-          - IPv4
-          - IPv6
+#        ipFamilyPolicy: PreferDualStack
+#        ipFamilies:
+#          - IPv4
+#          - IPv6
         ports:
           tcp:
             enabled: true
