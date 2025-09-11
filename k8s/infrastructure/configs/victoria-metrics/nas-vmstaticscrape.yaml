@@ -10,4 +10,5 @@ spec:
       interval: 30s
       targets:
         - "nas.home.arpa:9100"
+        - "nas2.home.arpa:9100"
   jobName: "NAS"
