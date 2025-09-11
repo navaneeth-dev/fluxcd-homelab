@@ -1,4 +1,4 @@
-- name: Install monitoring
+- name: Install monitoring software
   hosts: nas
   roles:
     - prometheus.prometheus.node_exporter
