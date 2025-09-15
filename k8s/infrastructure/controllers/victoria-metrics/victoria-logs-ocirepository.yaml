@@ -4,6 +4,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: victoria-logs-single
+  namespace: observability
 spec:
   interval: 2h
   layerSelector:
