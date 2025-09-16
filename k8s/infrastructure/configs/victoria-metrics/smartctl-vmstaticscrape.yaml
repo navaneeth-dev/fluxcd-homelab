@@ -9,6 +9,7 @@ spec:
       path: /metrics
       interval: 30s
       targets:
-        - "nas.home.arpa:9100"
-        - "nas2.home.arpa:9100"
-  jobName: "NAS"
+        - "pve.home.arpa:9633"
+        - "pve-minipc.home.arpa:9633"
+        - "pve-thinkcentre.home.arpa:9633"
+  jobName: "Proxmox"
