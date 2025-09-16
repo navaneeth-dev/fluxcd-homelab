@@ -1,2 +1,3 @@
 - import_playbook: update_nodes.yml
 - import_playbook: install_monitoring.yml
+- import_playbook: install_smartctl.yml

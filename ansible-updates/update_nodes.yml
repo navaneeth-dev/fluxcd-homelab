@@ -1,4 +1,4 @@
 - name: Update system
-  hosts: nas
+  hosts: all
   roles:
     - common

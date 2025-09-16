@@ -1,0 +1,4 @@
+- name: Install smartctl exporter
+  hosts: proxmox
+  roles:
+    - prometheus.prometheus.smartctl_exporter
