@@ -2,3 +2,6 @@
   hosts: nas
   roles:
     - prometheus.prometheus.node_exporter
+  tasks:
+    - name: Update restic
+      ansible.builtin.command: restic self-update
