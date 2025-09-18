@@ -82,6 +82,6 @@ resource "proxmox_virtual_environment_download_file" "talos_iso" {
   content_type = "iso"
   datastore_id = "local"
   node_name    = "pve-thinkcentre"
-  url          = "https://factory.talos.dev/image/d3dc673627e9b94c6cd4122289aa52c2484cddb31017ae21b75309846e257d30/v1.10.7/nocloud-amd64.iso"
+  url          = "https://factory.talos.dev/image/583560d413df7502f15f3c274c36fc23ce1af48cef89e98b1e563fb49127606e/v1.11.1/nocloud-amd64.iso"
   file_name = "talos.iso"
 }

@@ -22,5 +22,5 @@ tasks:
     silent: true
 
   upgrade:
-    - talosctl upgrade
+    - talosctl upgrade --preserve
     - talosctl upgrade-k8s
