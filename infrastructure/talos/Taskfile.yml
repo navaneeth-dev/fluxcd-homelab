@@ -20,3 +20,7 @@ tasks:
           --personal \
           --path=k8s/clusters/sp
     silent: true
+
+  upgrade:
+    - talosctl upgrade
+    - talosctl upgrade-k8s
