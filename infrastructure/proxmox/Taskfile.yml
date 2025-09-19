@@ -5,10 +5,15 @@ version: '3'
 tasks:
   default:
     cmds:
-      - infisical run --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 --path=/proxmox -- terraform apply -auto-approve
+      - infisical run --path=/proxmox -- terraform {{.CLI_ARGS}}
+    silent: true
+
+  apply:
+    cmds:
+      - infisical run --path=/proxmox -- terraform apply -auto-approve
     silent: true
 
   destroy:
     cmds:
-      - infisical run --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 --path=/proxmox -- terraform destroy
+      - infisical run --path=/proxmox -- terraform destroy
     silent: true

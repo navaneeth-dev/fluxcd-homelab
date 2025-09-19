@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket       = "rize-tfstate"
-    key          = "pve-thinkcentre/terraform.tfstate"
+    key          = "homelab-proxmox/terraform.tfstate"
     region       = "ap-south-1"
     use_lockfile = true
   }
