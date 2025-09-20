@@ -65,13 +65,13 @@ these tools, driving the adoption of cloud-native technologies and enabling proj
 
 ### Networking / Misc
 
-| Device                         | OS          | Function          |
-|--------------------------------|-------------|-------------------|
-| TP-Link Omanda Switch SG3210   | Proprietary | Switch            |
-| MI 4A Gigabit Access Point     | OpenWRT     | Access Point      |
-| NanoPi R2S                     | OpenWRT     | Firewall & Router |
-| APC BX1100C-IN 1100VA Back UPS | -           | UPS               |
-| APC Inverter                   | -           | Invertor          |
+| Device                         | OS          | Function               |
+|--------------------------------|-------------|------------------------|
+| TP-Link Omanda Switch SG3210   | Proprietary | 1GbE Switch            |
+| MI 4A Gigabit Access Point     | OpenWRT     | 1GbE Access Point      |
+| NanoPi R2S                     | OpenWRT     | 1GbE Firewall & Router |
+| APC BX1100C-IN 1100VA Back UPS | -           | UPS                    |
+| APC Inverter                   | -           | Invertor               |
 
 ### Servers
 
