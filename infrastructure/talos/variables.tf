@@ -27,29 +27,29 @@ variable "node_data" {
   })
   default = {
     controlplanes = {
-      "192.168.2.131" = {
-        install_disk = "/dev/sda"
-        hostname     = "talos1"
-      },
-      "192.168.2.128" = {
-        install_disk = "/dev/sda"
-        hostname     = "talos2"
-      },
-      "192.168.2.100" = {
+      "192.168.2.139" = {
         install_disk = "/dev/vda"
-        hostname     = "talos4"
+        hostname     = "controlplane-pve"
+      },
+      "192.168.2.159" = {
+        install_disk = "/dev/vda"
+        hostname     = "controlplane-minipc"
+      },
+      "192.168.2.190" = {
+        install_disk = "/dev/vda"
+        hostname     = "controlplane-thinkcentre"
       },
     }
     workers = {
-      "192.168.2.138" = {
-        install_disk = "/dev/sda"
-        hostname     = "talos-worker1"
+      "192.168.2.149" = {
+        install_disk = "/dev/vda"
+        hostname     = "worker-pve"
       },
-      "192.168.2.221" = {
-        install_disk = "/dev/sda"
-        hostname     = "talos-worker2"
+      "192.168.2.225" = {
+        install_disk = "/dev/vda"
+        hostname     = "worker-minipc"
       }
-      "192.168.2.238" = {
+      "192.168.2.218" = {
         install_disk = "/dev/vda"
         hostname     = "worker-thinkcentre"
       }

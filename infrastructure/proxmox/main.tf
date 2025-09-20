@@ -51,7 +51,7 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   cdrom {
     file_id = proxmox_virtual_environment_download_file.talos_iso[each.key].id
   }
-  
+
   serial_device {}
 
   disk {

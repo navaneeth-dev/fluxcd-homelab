@@ -22,6 +22,11 @@ terraform {
 provider "talos" {}
 
 provider "kubernetes" {
-  config_path    = "../../kubeconfig"
-  config_context = "admin@hoopa"
+  host = var.cluster_endpoint
+
+  client_certificate     = base64decode(talos_machine_secrets.this.client_configuration.client_certificate)
+  client_key             = base64decode(talos_machine_secrets.this.client_configuration.client_key)
+  cluster_ca_certificate = base64decode(talos_machine_secrets.this.client_configuration.ca_certificate)
+
+  # config_context = "admin@hoopa"
 }

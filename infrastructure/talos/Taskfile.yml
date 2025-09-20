@@ -21,6 +21,9 @@ tasks:
           --path=k8s/clusters/sp
     silent: true
 
+  danger_destroy:
+    - infisical run --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 -- terraform destroy -auto-approve
+
   upgrade:
     - talosctl upgrade --preserve
     - talosctl upgrade-k8s

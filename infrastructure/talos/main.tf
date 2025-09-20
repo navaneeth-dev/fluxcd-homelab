@@ -70,6 +70,7 @@ resource "talos_cluster_kubeconfig" "this" {
 }
 
 resource "kubernetes_secret" "sops_age" {
+  depends_on = [talos_cluster_kubeconfig.this]
   metadata {
     name = "sops-age"
     namespace = "flux-system"

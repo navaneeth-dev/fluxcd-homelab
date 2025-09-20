@@ -51,6 +51,21 @@ The Cloud Native Computing Foundation (CNCF) has played a crucial role in the de
 | <img width="32" src="https://github.com/grafana/loki/blob/main/docs/sources/logo.png?raw=true">                             | [Loki](https://grafana.com/oss/loki/)    | Horizontally-scalable, highly-available, multi-tenant log aggregation system                                                  |
 | <img width="62" src="https://velero.io/img/Velero.svg">                                                                     | [Velero](https://velero.io/)             | Backup and restore, perform disaster recovery, and migrate Kubernetes cluster resources and persistent volumes.               |
 
+## Hardware
+
+### Network
+
+**TP-Link Omanda Switch SG3210**
+
+**MI 4A Gigabit Access Point**
+
+### Servers
+
+**Custom built PC**
+
+- 16GB Ram
+
+
 ## 🤖 Automation
 
 This repository is automatically managed by [Renovate](https://renovatebot.com/). Renovate will keep all of the container images within this repository up to date automatically. It can also be configured to keep Helm chart dependencies up to date as well.
@@ -58,7 +73,6 @@ This repository is automatically managed by [Renovate](https://renovatebot.com/)
 ## Goals
 
 - Monthly updates ONLY to ensure high uptime
-- Focus on IPv6
 
 ## 👥 Contributing
 
