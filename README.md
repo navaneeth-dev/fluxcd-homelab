@@ -38,13 +38,6 @@
 
 ## 🖥️ Technology Stack
 
-The below showcases the collection of open-source solutions currently implemented in the cluster. Each of these
-components has been meticulously documented, and their deployment is managed using FluxCD, which adheres to GitOps
-principles.
-
-The Cloud Native Computing Foundation (CNCF) has played a crucial role in the development and popularization of many of
-these tools, driving the adoption of cloud-native technologies and enabling projects like this one to thrive.
-
 |                                                                                                                                      | Name                                           | Description                                                                                                                   |
 |--------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
 | <img width="32" src="https://raw.githubusercontent.com/openwrt/branding/refs/heads/master/logo/openwrt_logo_blue_and_dark_blue.svg"> | [OpenWRT](https://kubernetes.io/)              | The OpenWrt Project is a Linux operating system targeting embedded devices                                                    |
@@ -81,34 +74,17 @@ these tools, driving the adoption of cloud-native technologies and enabling proj
 | ThinkCentre Neo 50s Gen 5 | Proxmox | 16GB DDR5 | 1TB NVMe             | Node2    |
 | HP G4 600 SFF             | Proxmox | 32GB DDR4 | 500GB NVMe + 8TB HDD | Node3    |
 
-## 🤖 Automation
+## 🤖 Updates
 
 This repository is automatically managed by [Renovate](https://renovatebot.com/). Renovate will keep all of the
 container images within this repository up to date automatically. It can also be configured to keep Helm chart
 dependencies up to date as well.
 
-## Goals
+## 📜 Philosophy
 
-- Monthly updates ONLY to ensure high uptime
-
-## 👥 Contributing
-
-Our project welcomes contributions from any member of our community. To get started contributing, please see
-our [Contributor Guide](.github/CONTRIBUTING.md).
-
-### 🚫 Code of Conduct
-
-By participating in this project, you are expected to uphold the project's [**Code of Conduct
-**](.github/CODE_OF_CONDUCT.md). Please report any unacceptable behavior to the repository maintainer.
-
-### 💡 Reporting Issues and Requesting Features
-
-If you encounter any issues or would like to request new features, please create an issue on the repository's issue
-tracker. When reporting issues, include as much information as possible, such as error messages, logs, and steps to
-reproduce the issue.
-
-Thank you for your interest in contributing to this project! Your contributions help make it better for everyone.
-
-## 📄 License
-
-This repository is [Apache 2.0 licensed](./LICENSE) Cilium fluxcd
+- Update monthly to balance security, uptime and time
+- Support IPv6 (Coming soon)
+- Testing via Actions (Coming soon)
+- DRY
+- 100% IaC so that it can be recreated in the event of disaster recovery
+- Monitoring and alerting
