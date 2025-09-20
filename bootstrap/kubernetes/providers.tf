@@ -4,6 +4,10 @@ terraform {
       source = "bpg/proxmox"
       version = "0.83.0"
     }
+    ct = {
+      source = "poseidon/ct"
+      version = "0.13.0"
+    }
   }
 
   backend "s3" {
@@ -15,7 +19,7 @@ terraform {
 }
 
 provider "proxmox" {
-  endpoint = var.endpoint
+  endpoint = var.proxmox_endpoint
   insecure = true
 
   ssh {
