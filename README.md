@@ -61,7 +61,7 @@ these tools, driving the adoption of cloud-native technologies and enabling proj
 | <img width="62" src="https://raw.githubusercontent.com/navaneeth-dev/fluxcd-homelab/refs/heads/main/.github/assets/vm.jpg">          | [VictoriaMetrics](https://victoriametrics.com) | Open source metrics and logging storage                                                                                       |
 | <img width="62" src="https://velero.io/img/Velero.svg">                                                                              | [Velero](https://velero.io/)                   | Backup and restore, perform disaster recovery, and migrate Kubernetes cluster resources and persistent volumes                |
 
-## Hardware
+## ⚙ Hardware
 
 ### Networking / Misc
 
