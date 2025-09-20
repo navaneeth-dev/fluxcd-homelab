@@ -9,7 +9,6 @@
 
 <div align="center">
 
-[![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label=discord&logo=discord&logoColor=white&color=blue)](https://discord.gg/home-operations)&nbsp;&nbsp;
 [![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.raspbernetes.com%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=blue)](https://kubernetes.io/)&nbsp;&nbsp;
 [![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.raspbernetes.com%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue)](https://talos.dev)&nbsp;&nbsp;
 [![FluxCD](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.raspbernetes.com%2Fflux_version&style=for-the-badge&logo=flux&logoColor=white&color=blue)](https://fluxcd.io/)&nbsp;&nbsp;
@@ -55,16 +54,19 @@ The Cloud Native Computing Foundation (CNCF) has played a crucial role in the de
 
 ### Network
 
-**TP-Link Omanda Switch SG3210**
-
-**MI 4A Gigabit Access Point**
+| Device | OS | Function |
+| ------ | -- | -------- |
+| TP-Link Omanda Switch SG3210 | Proprietary | Switch |
+| MI 4A Gigabit Access Point | OpenWRT | Access Point |
+| NanoPi R2S | OpenWRT | Firewall/Router |
 
 ### Servers
 
-**Custom built PC**
-
-- 16GB Ram
-
+| Device | OS | RAM | Function |
+| ------ | -- | --- | -------- |
+| Custom Built | Proxmox | 16GB DDR4 | Switch |
+| ThinkCentre Neo 50s Gen 5 | 16GB DDR5 | Proxmox | Access Point |
+| HP G4 600 SFF | Proxmox | 32GB DDR4 | Firewall/Router |
 
 ## 🤖 Automation
 
