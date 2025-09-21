@@ -15,9 +15,9 @@ resource "proxmox_virtual_environment_file" "ignition_config" {
   datastore_id = "local"
   node_name    = local.nodes[count.index]
 
-  source_file {
-    path = "files/config.ign"
+  source_raw {
     file_name = "config.ign"
+    data = data.ct_config.machine-ignition[count.index].rendered
   }
 }
 
@@ -28,6 +28,7 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   node_name = local.nodes[count.index]
   vm_id     = 4300 + count.index
   boot_order = ["virtio0", "ide3"]
+  protection = true
 
   agent { enabled = true }
 
@@ -111,3 +112,16 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
 #     size         = 60
 #   }
 # }
+
+data "ct_config" "machine-ignition" {
+  count = length(local.nodes)
+
+  content = data.template_file.machine-cl-config[count.index].rendered
+}
+
+data "template_file" "machine-cl-config" {
+  count = length(local.nodes)
+
+  template = file("${path.module}/templates/config.yaml.tmpl")
+  vars = { hostname = local.nodes[count.index] }
+}
