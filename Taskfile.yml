@@ -1,0 +1,11 @@
+# https://taskfile.dev
+
+version: '3'
+
+includes:
+  proxmox: ./bootstrap/proxmox
+
+tasks:
+  default:
+    cmds:
+      - task: proxmox:default -- apply

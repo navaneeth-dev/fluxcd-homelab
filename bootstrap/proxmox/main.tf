@@ -1,14 +1,27 @@
-# resource "proxmox_virtual_environment_download_file" "flatcar_img" {
+resource "proxmox_virtual_environment_download_file" "debian_cloud_image" {
+  count = length(local.nodes)
+
+  content_type = "import"
+  datastore_id = "local"
+  node_name    = local.nodes[count.index]
+  url          = "https://cdimage.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"
+  file_name    = "debian-12-generic-amd64.qcow2"
+}
+
+# resource "proxmox_virtual_environment_file" "ignition_config" {
 #   count = length(local.nodes)
 #
-#   content_type = "import"
+#   content_type = "snippets"
 #   datastore_id = "local"
 #   node_name    = local.nodes[count.index]
-#   url          = "https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_proxmoxve_image.img"
-#   file_name    = "flatcar.qcow2"
+#
+#   source_raw {
+#     file_name = "config.ign"
+#     data = data.ct_config.machine-ignition[count.index].rendered
+#   }
 # }
 
-resource "proxmox_virtual_environment_file" "ignition_config" {
+resource "proxmox_virtual_environment_file" "cloud_init_config" {
   count = length(local.nodes)
 
   content_type = "snippets"
@@ -16,8 +29,28 @@ resource "proxmox_virtual_environment_file" "ignition_config" {
   node_name    = local.nodes[count.index]
 
   source_raw {
-    file_name = "config.ign"
-    data = data.ct_config.machine-ignition[count.index].rendered
+    data = <<-EOF
+    #cloud-config
+    package_reboot_if_required: true
+    package_update: true
+    package_upgrade: true
+    hostname: ${local.nodes[count.index]}
+    packages:
+      - qemu-guest-agent
+      - neovim
+      - software-properties-common
+    users:
+      - name: rize
+        groups: sudo
+        shell: /bin/bash
+        ssh-authorized-keys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
+        sudo: ALL=(ALL) NOPASSWD:ALL
+    runcmd:
+      - reboot
+    EOF
+
+    file_name = "${local.nodes[count.index]}.cloud-config.yaml"
   }
 }
 
@@ -28,7 +61,7 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   node_name = local.nodes[count.index]
   vm_id     = 4300 + count.index
   boot_order = ["virtio0", "ide3"]
-  protection = true
+  protection = false
 
   agent { enabled = true }
 
@@ -47,7 +80,7 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   serial_device {}
 
   initialization {
-    user_data_file_id = proxmox_virtual_environment_file.ignition_config[count.index].id
+    user_data_file_id = proxmox_virtual_environment_file.cloud_init_config[count.index].id
     ip_config {
       ipv4 {
         address = "192.168.2.3${count.index}/24"
@@ -61,8 +94,8 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
 
   disk {
     datastore_id = "local-lvm"
-    # import_from  = proxmox_virtual_environment_download_file.flatcar_img[count.index].id
-    import_from = "local:import/flatcar.qcow2"
+    import_from  = proxmox_virtual_environment_download_file.debian_cloud_image[count.index].id
+    # import_from = "local:import/flatcar.qcow2"
     file_format  = "raw"
     interface    = "virtio0"
     discard      = "on"

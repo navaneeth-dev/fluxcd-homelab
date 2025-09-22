@@ -1,0 +1,9 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - infisical run --path=/proxmox -- terraform {{.CLI_ARGS}}
+    silent: true
