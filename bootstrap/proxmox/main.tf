@@ -8,19 +8,6 @@ resource "proxmox_virtual_environment_download_file" "debian_cloud_image" {
   file_name    = "debian-12-generic-amd64.qcow2"
 }
 
-# resource "proxmox_virtual_environment_file" "ignition_config" {
-#   count = length(local.nodes)
-#
-#   content_type = "snippets"
-#   datastore_id = "local"
-#   node_name    = local.nodes[count.index]
-#
-#   source_raw {
-#     file_name = "config.ign"
-#     data = data.ct_config.machine-ignition[count.index].rendered
-#   }
-# }
-
 resource "proxmox_virtual_environment_file" "cloud_init_config" {
   count = length(local.nodes)
 
@@ -57,11 +44,12 @@ resource "proxmox_virtual_environment_file" "cloud_init_config" {
 resource "proxmox_virtual_environment_vm" "controlplane" {
   count = length(local.nodes)
 
-  name      = "controlplane-${local.nodes[count.index]}"
-  node_name = local.nodes[count.index]
-  vm_id     = 4300 + count.index
+  name       = "controlplane-${local.nodes[count.index]}"
+  node_name  = local.nodes[count.index]
+  vm_id      = 4300 + count.index
   boot_order = ["virtio0", "ide3"]
-  protection = false
+  protection = local.protection
+  tags = ["k8s", "controlplane"]
 
   agent { enabled = true }
 
@@ -75,7 +63,10 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
     floating  = 4096
   }
 
-  network_device { enabled = true }
+  network_device {
+    enabled = true
+    vlan_id = local.vlan_id
+  }
 
   serial_device {}
 
@@ -83,8 +74,8 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
     user_data_file_id = proxmox_virtual_environment_file.cloud_init_config[count.index].id
     ip_config {
       ipv4 {
-        address = "192.168.2.3${count.index}/24"
-        gateway = "192.168.2.1"
+        address = "${cidrhost(local.ipv4.prefix, count.index+2)}/24"
+        gateway = local.ipv4.gateway
       }
       ipv6 {
         address = "dhcp"
@@ -94,7 +85,7 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
 
   disk {
     datastore_id = "local-lvm"
-    import_from  = proxmox_virtual_environment_download_file.debian_cloud_image[count.index].id
+    import_from = proxmox_virtual_environment_download_file.debian_cloud_image[count.index].id
     # import_from = "local:import/flatcar.qcow2"
     file_format  = "raw"
     interface    = "virtio0"
@@ -104,57 +95,67 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   }
 }
 
-# Worker VMs
-# resource "proxmox_virtual_environment_vm" "worker" {
-#   for_each  = var.nodes
-#   name      = "worker-${each.key}"
-#   node_name = each.value
-#   vm_id     = var.node_vm_offsets[each.key] + 2
-#   boot_order = ["virtio0", "ide3"]
-#
-#   agent { enabled = true }
-#
-#   serial_device {}
-#
-#   cpu {
-#     cores = 4
-#     type = "x86-64-v2-AES"
-#   }
-#
-#   memory {
-#     dedicated = 8192
-#     floating  = 8192
-#   }
-#
-#   network_device { enabled = true }
-#
-#   cdrom {
-#     file_id = proxmox_virtual_environment_download_file.talos_iso[each.key].id
-#   }
-#
-#   hostpci {
-#     device = "hostpci0"
-#     id     = "0000:00:02.0"
-#   }
-#
-#   disk {
-#     datastore_id = "local-lvm"
-#     interface    = "virtio0"
-#     discard      = "on"
-#     ssd          = true
-#     size         = 60
-#   }
-# }
-
-data "ct_config" "machine-ignition" {
+resource "proxmox_virtual_environment_vm" "worker" {
   count = length(local.nodes)
 
-  content = data.template_file.machine-cl-config[count.index].rendered
+  name       = "worker-${local.nodes[count.index]}"
+  node_name  = local.nodes[count.index]
+  vm_id      = 4500 + count.index
+  boot_order = ["virtio0", "ide3"]
+  protection = local.protection
+  tags = ["k8s", "worker"]
+
+  agent { enabled = true }
+
+  cpu {
+    cores = 2
+    type  = "x86-64-v2-AES"
+  }
+
+  memory {
+    dedicated = 4096
+    floating  = 4096
+  }
+
+  network_device {
+    enabled = true
+    vlan_id = local.vlan_id
+  }
+
+  serial_device {}
+
+  initialization {
+    user_data_file_id = proxmox_virtual_environment_file.cloud_init_config[count.index].id
+    ip_config {
+      ipv4 {
+        # 10 = Controlplane ip space between worker
+        address = "${cidrhost(local.ipv4.prefix, (count.index+2) + 10 + length(local.nodes))}/24"
+        gateway = local.ipv4.gateway
+      }
+      ipv6 {
+        address = "dhcp"
+      }
+    }
+  }
+
+  disk {
+    datastore_id = "local-lvm"
+    import_from = proxmox_virtual_environment_download_file.debian_cloud_image[count.index].id
+    # import_from = "local:import/flatcar.qcow2"
+    file_format  = "raw"
+    interface    = "virtio0"
+    discard      = "on"
+    ssd          = false
+    size         = 32
+  }
 }
 
-data "template_file" "machine-cl-config" {
-  count = length(local.nodes)
+resource "local_file" "ansible_inventory" {
+  filename = "${path.module}/../inventory/inventory.ini"
+  content = templatefile("templates/inventory.ini.tftpl", { nodes = local.nodes, ipv4 = local.ipv4 })
 
-  template = file("${path.module}/templates/config.yaml.tmpl")
-  vars = { hostname = local.nodes[count.index] }
+  depends_on = [
+    proxmox_virtual_environment_vm.controlplane,
+    proxmox_virtual_environment_vm.worker
+  ]
 }

@@ -3,9 +3,19 @@
 version: '3'
 
 includes:
-  proxmox: ./bootstrap/proxmox
+  proxmox:
+    taskfile: ./bootstrap/proxmox
+    dir: ./bootstrap/proxmox
 
 tasks:
   default:
     cmds:
-      - task: proxmox:default -- apply
+      - task: proxmox:default
+        vars:
+          CLI_ARGS: apply
+#      - task: kubespray
+
+  kubespray:
+    dir: bootstrap/kubespray
+    cmds:
+      - ansible-playbook -i ../inventory/inventory.ini cluster.yml -b -v
