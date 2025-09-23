@@ -78,7 +78,10 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
         gateway = local.ipv4.gateway
       }
       ipv6 {
-        address = "dhcp"
+        address = ""
+        gateway = ""
+        # address = "${cidrhost(local.ipv6.prefix, count.index+2)}/64"
+        # gateway = local.ipv6.gateway
       }
     }
   }
@@ -133,7 +136,10 @@ resource "proxmox_virtual_environment_vm" "worker" {
         gateway = local.ipv4.gateway
       }
       ipv6 {
-        address = "dhcp"
+        address = ""
+        gateway = ""
+        # address = "${cidrhost(local.ipv6.prefix, (count.index+2) + 10 + length(local.nodes))}/64"
+        # gateway = local.ipv6.gateway
       }
     }
   }

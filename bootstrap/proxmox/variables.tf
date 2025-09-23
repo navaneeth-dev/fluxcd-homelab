@@ -10,6 +10,11 @@ locals {
     gateway = "192.168.3.1"
   }
 
+  ipv6 = {
+    prefix = "fd47:6ac8:e64c::/64"
+    gateway = "fd47:6ac8:e64c::1"
+  }
+
   vlan_id = 2
 
   protection = true
