@@ -4,10 +4,9 @@ resources:
 #  - cilium
   - nfs-subdir-external-provisioner
 #  - metallb
-  - victoria-metrics
-  - cloudflare-tunnel.yaml
-  - bjw-s-helmrepository.yaml
   - envoy-gateway
+  - victoria-metrics
+  - bjw-s-helmrepository.yaml
   - intel-device-plugins-for-kubernetes
   - cert-manager
   - fluent-bit
