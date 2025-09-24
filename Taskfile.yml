@@ -14,11 +14,24 @@ tasks:
         vars:
           CLI_ARGS: apply
       - task: kubespray
+#      - |
+#        infisical run --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 -- flux bootstrap github \
+#          --context=admin@hoopa \
+#          --owner=navaneeth-dev \
+#          --repository=fluxcd-homelab \
+#          --branch=main \
+#          --personal \
+#          --path=k8s/clusters/kubespray
 
   kubespray:
     dir: bootstrap/kubespray
     cmds:
       - kubespray-venv/bin/ansible-playbook -i ../inventory/inventory.ini cluster.yml -b -v
+
+  kubespray-reset:
+    dir: bootstrap/kubespray
+    cmds:
+      - kubespray-venv/bin/ansible-playbook -i ../inventory/inventory.ini reset.yml -b -v
 
   install:
     dir: bootstrap/kubespray
