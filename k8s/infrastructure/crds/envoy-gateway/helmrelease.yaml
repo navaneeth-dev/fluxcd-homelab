@@ -32,7 +32,7 @@ spec:
   values:
     crds:
       gatewayAPI:
-        enabled: true
-        channel: standard
+        enabled: false
+        channel: experimental
       envoyGateway:
         enabled: true
