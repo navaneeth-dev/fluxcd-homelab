@@ -16,6 +16,13 @@ tasks:
       - task: kubespray
       - task: kubernetes-bootstrap
 
+  upgrade:
+    dir: bootstrap/kubespray
+    cmds:
+      - |
+        kubespray-venv/bin/ansible-playbook -i ../inventory/inventory.ini upgrade-cluster.yml \
+          -b -v -e system_upgrade=true -e system_upgrade_reboot=always
+
   kubernetes-bootstrap:
     cmds:
       - kubectl get ns flux-system || kubectl create ns flux-system

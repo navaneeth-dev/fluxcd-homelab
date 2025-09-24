@@ -65,7 +65,7 @@ local_volume_provisioner_enabled: false
 # snapshot_controller_namespace: kube-system
 
 # Gateway API CRDs
-gateway_api_enabled: true
+gateway_api_enabled: false
 
 # Nginx ingress controller deployment
 ingress_nginx_enabled: false
