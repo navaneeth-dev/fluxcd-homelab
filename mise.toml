@@ -1,7 +1,6 @@
 [env]
-KUBECONFIG = "{{config_root}}/kubeconfig"
+KUBECONFIG = "{{config_root}}/bootstrap/inventory/artifacts/admin.conf"
 SOPS_AGE_KEY_FILE = "/home/rize/.ssh/key.txt"
-TALOSCONFIG = "{{config_root}}/talosconfig"
 
 [tools]
 helmfile = "1.1.4"

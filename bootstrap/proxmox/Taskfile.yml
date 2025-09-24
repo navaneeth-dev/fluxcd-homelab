@@ -5,5 +5,6 @@ version: '3'
 tasks:
   default:
     cmds:
+      - aws sts get-caller-identity || aws configure sso
       - infisical run --path=/proxmox -- terraform {{.CLI_ARGS}}
-    silent: true
+    silent: false

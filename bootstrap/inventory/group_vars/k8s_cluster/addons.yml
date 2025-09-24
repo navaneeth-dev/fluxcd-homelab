@@ -222,15 +222,16 @@ argocd_enabled: false
 # The plugin manager for kubectl
 
 # Kube VIP
-kube_vip_enabled: false
-# kube_vip_arp_enabled: true
-# kube_vip_controlplane_enabled: true
-# kube_vip_address: 192.168.56.120
-# loadbalancer_apiserver:
-#   address: "{{ kube_vip_address }}"
-#   port: 6443
+kube_vip_enabled: true
+kube_vip_arp_enabled: true
+kube_vip_controlplane_enabled: true
+kube_vip_address: 192.168.3.200
+loadbalancer_apiserver:
+  address: "{{ kube_vip_address }}"
+  port: 6443
 # kube_vip_interface: eth0
-# kube_vip_services_enabled: false
+kube_vip_services_enabled: true
+kube_vip_lb_enable: true
 # kube_vip_dns_mode: first
 # kube_vip_cp_detect: false
 # kube_vip_leasename: plndr-cp-lock
