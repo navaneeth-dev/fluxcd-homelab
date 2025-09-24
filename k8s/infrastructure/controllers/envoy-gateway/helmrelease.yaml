@@ -10,7 +10,7 @@ spec:
     kind: OCIRepository
     name: eg
   install:
-    crds: Skip
+    crds: CreateReplace
   dependsOn:
     - namespace: observability
       name: victoria-metrics-k8s-stack
@@ -34,7 +34,7 @@ spec:
     mode: enabled
   maxHistory: 3
   timeout: 30m
-#  values:
-#    crds:
-#      envoyGateway:
-#        enabled: true
+  values:
+    crds:
+      envoyGateway:
+        enabled: true
