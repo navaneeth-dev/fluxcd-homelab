@@ -27,8 +27,6 @@ spec:
     cleanupOnFail: true
   uninstall:
     keepHistory: false
-  driftDetection:
-    mode: false
   maxHistory: 3
   timeout: 30m
   values:
