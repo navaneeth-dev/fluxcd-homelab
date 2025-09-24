@@ -6,3 +6,4 @@ resources:
   - gateway.yaml
   - certificate.yaml
   - clienttrafficpolicy.yaml
+  - vmpodscrape.yaml
