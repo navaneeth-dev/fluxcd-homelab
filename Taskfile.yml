@@ -14,14 +14,14 @@ tasks:
         vars:
           CLI_ARGS: apply
       - task: kubespray
-#      - |
-#        infisical run --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 -- flux bootstrap github \
-#          --context=admin@hoopa \
-#          --owner=navaneeth-dev \
-#          --repository=fluxcd-homelab \
-#          --branch=main \
-#          --personal \
-#          --path=k8s/clusters/kubespray
+      - |
+        infisical run --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 -- flux bootstrap github \
+          --context=admin@hoopa \
+          --owner=navaneeth-dev \
+          --repository=fluxcd-homelab \
+          --branch=main \
+          --personal \
+          --path=k8s/clusters/kubespray
 
   kubespray:
     dir: bootstrap/kubespray
