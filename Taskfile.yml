@@ -18,4 +18,10 @@ tasks:
   kubespray:
     dir: bootstrap/kubespray
     cmds:
-      - ansible-playbook -i ../inventory/inventory.ini cluster.yml -b -v
+      - kubespray-venv/bin/ansible-playbook -i ../inventory/inventory.ini cluster.yml -b -v
+
+  install:
+    dir: bootstrap/kubespray
+    cmds:
+      - python3 -m venv kubespray-venv
+      - kubespray-venv/bin/pip3 install -r requirements.txt
