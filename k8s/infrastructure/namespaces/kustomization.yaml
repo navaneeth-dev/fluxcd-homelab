@@ -6,3 +6,4 @@ resources:
   - cert-manager.yaml
   - envoy-gateway-system.yaml
   - homepage.yaml
+  - observability.yaml
