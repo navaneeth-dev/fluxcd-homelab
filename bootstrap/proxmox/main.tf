@@ -152,6 +152,13 @@ resource "proxmox_virtual_environment_vm" "worker" {
     ssd          = false
     size         = 32
   }
+
+  disk {
+    datastore_id = "local-lvm"
+    interface    = "virtio1"
+    discard      = "on"
+    size         = 32
+  }
 }
 
 resource "local_file" "ansible_inventory" {
