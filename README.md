@@ -68,17 +68,22 @@
 
 ### Servers
 
-| Device                    | OS      | RAM       | Storage              | Function |
-|---------------------------|---------|-----------|----------------------|----------|
-| Custom Built              | Proxmox | 16GB DDR4 | 500GB NVMe           | Node1    |
-| ThinkCentre Neo 50s Gen 5 | Proxmox | 16GB DDR5 | 1TB NVMe             | Node2    |
-| HP G4 600 SFF             | Proxmox | 32GB DDR4 | 500GB NVMe + 8TB HDD | Node3    |
+| Device                    | OS      | CPU      | RAM       | Storage              | Function |
+|---------------------------|---------|----------|-----------|----------------------|----------|
+| Custom Built              | Proxmox | i7-7700k | 16GB DDR4 | 500GB NVMe           | Node1    |
+| ThinkCentre Neo 50s Gen 5 | Proxmox | i3-14100 | 16GB DDR5 | 1TB NVMe             | Node2    |
+| HP G4 600 SFF             | Proxmox | i5-8500T | 32GB DDR4 | 500GB NVMe + 8TB HDD | Node3    |
 
 ## 🤖 Updates
 
 This repository is automatically managed by [Renovate](https://renovatebot.com/). Renovate will keep all of the
 container images within this repository up to date automatically. It can also be configured to keep Helm chart
 dependencies up to date as well.
+
+## Requirements
+
+- Separate VLAN for Kubernetes (default is 2)
+- NFS NAS for HDD running at `192.168.2.180`
 
 ## 📜 Philosophy
 
