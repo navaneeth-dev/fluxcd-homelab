@@ -110,7 +110,7 @@ resource "proxmox_virtual_environment_vm" "worker" {
   agent { enabled = true }
 
   cpu {
-    cores = 2
+    cores = 3
     type  = "x86-64-v2-AES"
   }
 
