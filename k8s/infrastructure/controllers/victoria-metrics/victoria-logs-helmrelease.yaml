@@ -25,7 +25,7 @@ spec:
     server:
       persistentVolume:
         enabled: true
-        storageClassName: nas
-        size: 50Gi
+        storageClassName: ceph-block
+        size: 32Gi
       serviceMonitor:
         enabled: true
