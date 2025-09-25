@@ -140,6 +140,10 @@ resource "proxmox_virtual_environment_vm" "worker" {
         # gateway = local.ipv6.gateway
       }
     }
+    dns {
+      domain = ""
+      servers = ["192.168.2.1"]
+    }
   }
 
   disk {
