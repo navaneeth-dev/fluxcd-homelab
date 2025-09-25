@@ -4,6 +4,7 @@ resources:
   - envoy-gateway
   - victoria-metrics
   - bjw-s-helmrepository.yaml
+  - rook-ceph
   - intel-device-plugins-for-kubernetes
   - cert-manager
   - fluent-bit
