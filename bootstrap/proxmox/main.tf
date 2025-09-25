@@ -28,13 +28,11 @@ resource "proxmox_virtual_environment_file" "cloud_init_config" {
       - software-properties-common
     users:
       - name: rize
-        groups: sudo
+        groups: [sudo]
         shell: /bin/bash
         ssh-authorized-keys:
           - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
         sudo: ALL=(ALL) NOPASSWD:ALL
-    runcmd:
-      - reboot
     EOF
 
     file_name = "${local.nodes[count.index]}.cloud-config.yaml"
@@ -78,10 +76,15 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
         gateway = local.ipv4.gateway
       }
       ipv6 {
-        address = "dhcp"
-        # address = "${cidrhost(local.ipv6.prefix, count.index+2)}/64"
-        # gateway = local.ipv6.gateway
+        # address = "dhcp"
+        address = "${cidrhost(local.ipv6.prefix, count.index+2)}/64"
+        gateway = local.ipv6.gateway
       }
+    }
+
+    dns {
+      domain = ""
+      servers = ["192.168.2.1"]
     }
   }
 
@@ -135,9 +138,9 @@ resource "proxmox_virtual_environment_vm" "worker" {
         gateway = local.ipv4.gateway
       }
       ipv6 {
-        address = "dhcp"
-        # address = "${cidrhost(local.ipv6.prefix, (count.index+2) + 10 + length(local.nodes))}/64"
-        # gateway = local.ipv6.gateway
+        # address = "dhcp"
+        address = "${cidrhost(local.ipv6.prefix, (count.index+2) + 10 + length(local.nodes))}/64"
+        gateway = local.ipv6.gateway
       }
     }
     dns {
