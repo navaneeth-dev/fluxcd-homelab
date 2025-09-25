@@ -10,6 +10,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: victoria-logs-single
+  dependsOn:
+    - name: victoria-metrics-k8s-stack
   driftDetection:
     mode: enabled
   install:
