@@ -27,12 +27,11 @@ resource "proxmox_virtual_environment_file" "cloud_init_config" {
       - neovim
       - software-properties-common
     users:
-      - name: rize
-        groups: [sudo]
-        shell: /bin/bash
-        ssh-authorized-keys:
+      - name: default
+        ssh_authorized_keys:
           - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
-        sudo: ALL=(ALL) NOPASSWD:ALL
+    runcmd:
+      - reboot
     EOF
 
     file_name = "${local.nodes[count.index]}.cloud-config.yaml"

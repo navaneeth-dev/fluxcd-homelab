@@ -17,7 +17,7 @@ locals {
 
   vlan_id = 2
 
-  protection = true
+  protection = false
 }
 
 variable "proxmox_endpoint" {
