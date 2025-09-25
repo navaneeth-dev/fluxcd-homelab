@@ -52,7 +52,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
       persistence:
         enabled: true
-        storageClassName: &storageClassName nas
+        storageClassName: &storageClassName ceph-block
         size: 2Gi
     vmsingle:
       enabled: true
