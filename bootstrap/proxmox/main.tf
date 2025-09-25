@@ -115,8 +115,8 @@ resource "proxmox_virtual_environment_vm" "worker" {
   }
 
   memory {
-    dedicated = 4096
-    floating  = 4096
+    dedicated = 8192
+    floating  = 8192
   }
 
   network_device {
