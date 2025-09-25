@@ -14,6 +14,9 @@
                   <Item>
                     <option name="path" value="k8s/infrastructure/controllers/victoria-metrics/helmrelease.yaml" />
                   </Item>
+                  <Item>
+                    <option name="path" value="k8s/infrastructure/controllers/fluent-bit/helmrelease.yaml" />
+                  </Item>
                 </list>
               </option>
             </SchemaInfo>
