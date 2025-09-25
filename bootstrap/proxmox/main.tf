@@ -157,7 +157,7 @@ resource "proxmox_virtual_environment_vm" "worker" {
     datastore_id = "local-lvm"
     interface    = "virtio1"
     discard      = "on"
-    size         = 32
+    size         = 64
   }
 }
 
