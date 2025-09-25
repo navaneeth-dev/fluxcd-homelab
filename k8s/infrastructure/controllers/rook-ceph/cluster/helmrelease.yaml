@@ -20,7 +20,7 @@ spec:
       retries: 3
   values:
     toolbox:
-      enabled: true
+      enabled: false
     route:
       dashboard:
         parentRefs:
