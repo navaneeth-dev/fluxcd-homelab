@@ -84,6 +84,8 @@ dependencies up to date as well.
 
 - Separate VLAN for Kubernetes (default is 2)
 - NFS NAS for HDD running at `192.168.2.180`
+- Infisical Secrets Management
+- SOPS
 
 ## 📜 Philosophy
 
