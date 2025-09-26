@@ -46,3 +46,7 @@ spec:
       - kind: ConfigMap
         name: variables
   prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
