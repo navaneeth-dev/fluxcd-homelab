@@ -30,4 +30,4 @@ spec:
         storageClassName: ceph-block
         size: 32Gi
       serviceMonitor:
-        enabled: true
+        enabled: false
