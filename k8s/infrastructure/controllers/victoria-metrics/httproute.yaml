@@ -11,7 +11,7 @@ spec:
     - 'grafana.${DOMAIN}'
   rules:
     - backendRefs:
-        - name: victoria-metrics-k8s-stack-grafana
+        - name: stack-grafana
           port: 80
 ---
 apiVersion: gateway.networking.k8s.io/v1
@@ -27,5 +27,5 @@ spec:
     - 'vm.${DOMAIN}'
   rules:
     - backendRefs:
-        - name: vmsingle-victoria-metrics-k8s-stack
+        - name: vmsingle-stack
           port: 8428

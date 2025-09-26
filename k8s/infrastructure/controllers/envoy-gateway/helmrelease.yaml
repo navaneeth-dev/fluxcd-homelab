@@ -13,7 +13,7 @@ spec:
     crds: CreateReplace
   dependsOn:
     - namespace: observability
-      name: victoria-metrics-k8s-stack
+      name: victoria-metrics
   upgrade:
     remediation:
       remediateLastFailure: true

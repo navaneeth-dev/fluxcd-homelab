@@ -11,7 +11,7 @@ spec:
     kind: OCIRepository
     name: victoria-logs-single
   dependsOn:
-    - name: victoria-metrics-k8s-stack
+    - name: victoria-metrics
   driftDetection:
     mode: enabled
   install:

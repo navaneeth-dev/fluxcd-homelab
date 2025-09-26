@@ -169,7 +169,7 @@ spec:
   targets:
     staticConfig:
       targets:
-        - http://victoria-metrics-k8s-stack-grafana.observability.svc.cluster.local:80
+        - http://stack-grafana.observability.svc.cluster.local:80
       labels:
         name: Grafana
         category: Observability
