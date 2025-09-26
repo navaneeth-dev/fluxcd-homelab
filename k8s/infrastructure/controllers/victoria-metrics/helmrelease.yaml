@@ -24,8 +24,9 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  releaseName: stack
   values:
-    fullnameOverride: stack
+#    fullnameOverride: stack
     grafana:
       initChownData:
         enabled: false
