@@ -7,6 +7,3 @@ controlplane-${node} ansible_host=${cidrhost(ipv4.prefix, i + 2)} etcd_member_na
 kube_control_plane
 
 [kube_node]
-%{ for i, node in nodes ~}
-worker-${node} ansible_host=${cidrhost(ipv4.prefix, (i + 2) + 10 + length(nodes))} ansible_user=debian
-%{ endfor ~}

@@ -9,3 +9,9 @@
 # system_cpu_reserved: 250m
 # system_ephemeral_storage_reserved: 2Gi
 # system_pid_reserved: "1000"
+
+node_taints:
+  - "node-role.kubernetes.io/control-plane:NoSchedule-"
+
+node_labels:
+  intel.feature.node.kubernetes.io/gpu: "true"

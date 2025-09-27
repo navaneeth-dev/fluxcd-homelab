@@ -49,15 +49,23 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   tags = ["k8s", "controlplane"]
 
   agent { enabled = true }
+  machine = "q35"
+  bios = "ovmf"
+  efi_disk {}
+
+  hostpci {
+    device = "hostpci0"
+    id = "00:02.0"
+  }
 
   cpu {
-    cores = 2
+    cores = 4
     type  = "x86-64-v2-AES"
   }
 
   memory {
-    dedicated = 4096
-    floating  = 4096
+    dedicated = 12288
+    floating  = 12288
   }
 
   network_device {
@@ -97,68 +105,8 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
     ssd          = false
     size         = 32
   }
-}
 
-resource "proxmox_virtual_environment_vm" "worker" {
-  count = length(local.nodes)
-
-  name       = "worker-${local.nodes[count.index]}"
-  node_name  = local.nodes[count.index]
-  vm_id      = 4500 + count.index
-  boot_order = ["virtio0", "ide3"]
-  protection = local.protection
-  tags = ["k8s", "worker"]
-
-  agent { enabled = true }
-
-  cpu {
-    cores = 4
-    type  = "x86-64-v2-AES"
-  }
-
-  memory {
-    dedicated = 8192
-    floating  = 8192
-  }
-
-  network_device {
-    enabled = true
-    vlan_id = local.vlan_id
-  }
-
-  serial_device {}
-
-  initialization {
-    user_data_file_id = proxmox_virtual_environment_file.cloud_init_config[count.index].id
-    ip_config {
-      ipv4 {
-        # 10 = Controlplane ip space between worker
-        address = "${cidrhost(local.ipv4.prefix, (count.index+2) + 10 + length(local.nodes))}/24"
-        gateway = local.ipv4.gateway
-      }
-      ipv6 {
-        # address = "dhcp"
-        address = "${cidrhost(local.ipv6.prefix, (count.index+2) + 10 + length(local.nodes))}/64"
-        gateway = local.ipv6.gateway
-      }
-    }
-    dns {
-      domain = ""
-      servers = ["192.168.2.1"]
-    }
-  }
-
-  disk {
-    datastore_id = "local-lvm"
-    import_from = proxmox_virtual_environment_download_file.debian_cloud_image[count.index].id
-    # import_from = "local:import/flatcar.qcow2"
-    file_format  = "raw"
-    interface    = "virtio0"
-    discard      = "on"
-    ssd          = false
-    size         = 32
-  }
-
+  # rook ceph
   disk {
     datastore_id = "local-lvm"
     interface    = "virtio1"
@@ -167,12 +115,79 @@ resource "proxmox_virtual_environment_vm" "worker" {
   }
 }
 
+# resource "proxmox_virtual_environment_vm" "worker" {
+#   count = length(local.nodes)
+#
+#   name       = "worker-${local.nodes[count.index]}"
+#   node_name  = local.nodes[count.index]
+#   vm_id      = 4500 + count.index
+#   boot_order = ["virtio0", "ide3"]
+#   protection = local.protection
+#   tags = ["k8s", "worker"]
+#
+#   agent { enabled = true }
+#
+#   cpu {
+#     cores = 4
+#     type  = "x86-64-v2-AES"
+#   }
+#
+#   memory {
+#     dedicated = 8192
+#     floating  = 8192
+#   }
+#
+#   network_device {
+#     enabled = true
+#     vlan_id = local.vlan_id
+#   }
+#
+#   serial_device {}
+#
+#   initialization {
+#     user_data_file_id = proxmox_virtual_environment_file.cloud_init_config[count.index].id
+#     ip_config {
+#       ipv4 {
+#         # 10 = Controlplane ip space between worker
+#         address = "${cidrhost(local.ipv4.prefix, (count.index+2) + 10 + length(local.nodes))}/24"
+#         gateway = local.ipv4.gateway
+#       }
+#       ipv6 {
+#         # address = "dhcp"
+#         address = "${cidrhost(local.ipv6.prefix, (count.index+2) + 10 + length(local.nodes))}/64"
+#         gateway = local.ipv6.gateway
+#       }
+#     }
+#     dns {
+#       domain = ""
+#       servers = ["192.168.2.1"]
+#     }
+#   }
+#
+#   disk {
+#     datastore_id = "local-lvm"
+#     import_from = proxmox_virtual_environment_download_file.debian_cloud_image[count.index].id
+#     # import_from = "local:import/flatcar.qcow2"
+#     file_format  = "raw"
+#     interface    = "virtio0"
+#     discard      = "on"
+#     ssd          = false
+#     size         = 32
+#   }
+#
+#   disk {
+#     datastore_id = "local-lvm"
+#     interface    = "virtio1"
+#     discard      = "on"
+#     size         = 64
+#   }
+# }
+
 resource "local_file" "ansible_inventory" {
   filename = "${path.module}/../inventory/inventory.ini"
   content = templatefile("templates/inventory.ini.tftpl", { nodes = local.nodes, ipv4 = local.ipv4 })
 
   depends_on = [
     proxmox_virtual_environment_vm.controlplane,
-    proxmox_virtual_environment_vm.worker
   ]
 }

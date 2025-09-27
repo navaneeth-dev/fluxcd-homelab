@@ -223,7 +223,7 @@ argocd_enabled: false
 
 # Kube VIP
 kube_vip_enabled: true
-kube_vip_arp_enabled: false
+kube_vip_arp_enabled: true
 kube_vip_controlplane_enabled: true
 kube_vip_address: 192.168.3.200
 loadbalancer_apiserver:
