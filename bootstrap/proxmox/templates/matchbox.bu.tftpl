@@ -1,5 +1,12 @@
 variant: flatcar
 version: 1.0.0
+
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
+
 storage:
   directories:
     - path: /var/lib/matchbox/profiles
