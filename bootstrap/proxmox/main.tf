@@ -114,13 +114,3 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
     size         = 64
   }
 }
-
-
-resource "local_file" "ansible_inventory" {
-  filename = "${path.module}/../inventory/inventory.ini"
-  content = templatefile("templates/inventory.ini.tftpl", { nodes = local.nodes, ipv4 = local.ipv4 })
-
-  depends_on = [
-    proxmox_virtual_environment_vm.controlplane,
-  ]
-}

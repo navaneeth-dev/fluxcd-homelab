@@ -1,6 +1,6 @@
 resource "proxmox_virtual_environment_vm" "omni" {
   name       = "omni"
-  node_name  = "pve-minipc"
+  node_name  = local.nodes[1]
   vm_id      = 5531
   boot_order = ["virtio0", "ide3"]
   protection = local.protection
@@ -29,7 +29,7 @@ resource "proxmox_virtual_environment_vm" "omni" {
   serial_device {}
 
   initialization {
-    user_data_file_id = proxmox_virtual_environment_file.omni_cloud_init.id
+    user_data_file_id = proxmox_virtual_environment_file.omni_ignition.id
     ip_config {
       ipv4 {
         address = "192.168.3.69/24"
@@ -45,7 +45,7 @@ resource "proxmox_virtual_environment_vm" "omni" {
 
   disk {
     datastore_id = "local-lvm"
-    import_from = proxmox_virtual_environment_download_file.debian_cloud_image[1].id
+    import_from = proxmox_virtual_environment_download_file.flatcar_cloud_image.id
     file_format  = "raw"
     interface    = "virtio0"
     discard      = "on"
@@ -54,30 +54,30 @@ resource "proxmox_virtual_environment_vm" "omni" {
   }
 }
 
-resource "proxmox_virtual_environment_file" "omni_cloud_init" {
+resource "proxmox_virtual_environment_file" "omni_ignition" {
   content_type = "snippets"
   datastore_id = "local"
   node_name    = local.nodes[1]
 
   source_raw {
-    data = <<-EOF
-    #cloud-config
-    package_reboot_if_required: true
-    package_update: true
-    package_upgrade: true
-    hostname: omni
-    packages:
-      - qemu-guest-agent
-      - neovim
-      - software-properties-common
-    users:
-      - name: default
-        ssh_authorized_keys:
-          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
-    runcmd:
-      - reboot
-    EOF
-
-    file_name = "omni.cloud-config.yaml"
+    data = data.ct_config.machine-ignition.rendered
+    file_name = "omni.ign"
   }
+}
+
+data "ct_config" "machine-ignition" {
+  content = data.template_file.machine-cl-config.rendered
+  strict = true
+}
+
+data "template_file" "machine-cl-config" {
+  template = file("${path.module}/templates/matchbox.bu.tftpl")
+}
+
+resource "proxmox_virtual_environment_download_file" "flatcar_cloud_image" {
+  content_type = "import"
+  datastore_id = "local"
+  node_name    = local.nodes[1]
+  url          = "https://stable.release.flatcar-linux.net/amd64-usr/current/flatcar_production_proxmoxve_image.img"
+  file_name    = "flarcar.qcow2"
 }

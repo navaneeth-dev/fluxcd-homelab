@@ -13,7 +13,6 @@ tasks:
       - task: proxmox:default
         vars:
           CLI_ARGS: apply
-      - task: kubespray
       - task: kubernetes-bootstrap
 
   upgrade:

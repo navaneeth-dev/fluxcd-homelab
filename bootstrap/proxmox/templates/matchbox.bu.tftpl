@@ -1,0 +1,111 @@
+variant: flatcar
+version: 1.0.0
+storage:
+  directories:
+    - path: /var/lib/matchbox/profiles
+      mode: 0755
+    - path: /var/lib/matchbox/groups
+      mode: 0755
+    - path: /var/lib/matchbox/assets
+      mode: 0755
+  files:
+    - path: /etc/systemd/network/00-eth0.network
+      contents:
+        inline: |
+          [Match]
+          Name=eth0
+          
+          [Network]
+          DNS=192.168.3.1
+          Address=192.168.3.69/24
+          Gateway=192.168.3.1
+    - path: /var/lib/matchbox/profiles/control-plane.json
+      mode: 0644
+      contents:
+        inline: |
+          {
+            "id": "control-plane",
+            "name": "control-plane",
+            "boot": {
+              "kernel": "/assets/vmlinuz",
+              "initrd": ["/assets/initramfs.xz"],
+              "args": [
+                "initrd=initramfs.xz",
+                "init_on_alloc=1",
+                "slab_nomerge",
+                "pti=on",
+                "console=tty0",
+                "console=ttyS0,115200n8",
+                "printk.devkmsg=on",
+                "talos.platform=metal",
+                "talos.config=http://matchbox.example.com:8080/assets/controlplane.yaml"
+              ]
+            }
+          }
+    - path: /var/lib/matchbox/profiles/worker.json
+      mode: 0644
+      contents:
+        inline: |
+          {
+            "id": "worker",
+            "name": "worker",
+            "boot": {
+              "kernel": "/assets/vmlinuz",
+              "initrd": ["/assets/initramfs.xz"],
+              "args": [
+                "initrd=initramfs.xz",
+                "init_on_alloc=1",
+                "slab_nomerge",
+                "pti=on",
+                "console=tty0",
+                "console=ttyS0,115200n8",
+                "printk.devkmsg=on",
+                "talos.platform=metal",
+                "talos.config=http://matchbox.example.com:8080/assets/worker.yaml"
+              ]
+            }
+          }
+    - path: /var/lib/matchbox/groups/default.json
+      mode: 0644
+      contents:
+        inline: |
+          {
+            "id": "default",
+            "name": "default",
+            "profile": "worker"
+          }
+    - path: /var/lib/matchbox/assets/vmlinuz
+      mode: 0644
+      contents:
+        source: https://github.com/siderolabs/talos/releases/latest/download/vmlinuz-amd64
+    - path: /var/lib/matchbox/assets/initramfs.xz
+      mode: 0644
+      contents:
+        source: https://github.com/siderolabs/talos/releases/latest/download/initramfs-amd64.xz
+systemd:
+  units:
+    - name: matchbox.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Matchbox Server
+        Documentation=https://github.com/poseidon/matchbox
+        Wants=network-online.target
+        After=network-online.target
+
+        [Service]
+        ExecStartPre=-/usr/bin/docker pull quay.io/poseidon/matchbox:latest
+        ExecStart=/usr/bin/docker run \
+          --name matchbox \
+          --net=host \
+          --rm \
+          -v /var/lib/matchbox:/var/lib/matchbox:Z \
+          quay.io/poseidon/matchbox:latest \
+          -address=0.0.0.0:8080 \
+          -log-level=debug
+        ExecStop=/usr/bin/docker stop matchbox
+        Restart=always
+        RestartSec=10
+
+        [Install]
+        WantedBy=multi-user.target

@@ -1,2 +1,0 @@
-#node_labels:
-#  intel.feature.node.kubernetes.io/gpu: "true"
