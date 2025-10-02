@@ -1,9 +1,0 @@
-[kube_control_plane]
-%{ for i, node in nodes ~}
-controlplane-${node} ansible_host=${cidrhost(ipv4.prefix, i + 2)} etcd_member_name=etcd${i + 1} ansible_user=debian
-%{ endfor }
-
-[etcd:children]
-kube_control_plane
-
-[kube_node]

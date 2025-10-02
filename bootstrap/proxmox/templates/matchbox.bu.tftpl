@@ -116,3 +116,10 @@ systemd:
 
         [Install]
         WantedBy=multi-user.target
+
+kernelArguments:
+  shouldExist:
+    - "ip=192.168.3.69"
+    - "netmask=255.255.255.0"
+    - "gateway=192.168.3.1"
+    - "ksdevice=eth0"
