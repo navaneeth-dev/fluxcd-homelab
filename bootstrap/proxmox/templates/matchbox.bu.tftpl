@@ -32,6 +32,12 @@ storage:
         name: core
       group:
         name: core
+    - path: /docker/appdata/lego
+      mode: 0755
+      user:
+        name: core
+      group:
+        name: core
     - path: /var/lib/matchbox/profiles
       mode: 0755
     - path: /var/lib/matchbox/groups
@@ -125,20 +131,20 @@ systemd:
         After=network-online.target
 
         [Service]
-        Environment=CF_DNS_API_TOKEN=$secret
         ExecStartPre=-/usr/bin/docker pull docker.io/goacme/lego:latest
         ExecStart=/usr/bin/docker run \
           --name lego \
-          --user 1000:1000 \
-          --rm -e CF_DNS_API_TOKEN=$CF_DNS_API_TOKEN \
+          --user 500:500 \
+          --rm -e CF_DNS_API_TOKEN=${secret} \
           -v /docker/appdata/lego:/data:Z \
-          goacme/lego:latest \
+          docker.io/goacme/lego:latest \
           --accept-tos \
           --email certs@rizexor.com \
           --dns cloudflare \
           --domains '*.fossindia.ovh' \
           --domains fossindia.ovh \
           --path /data \
+          --dns.resolvers 1.1.1.1,1.0.0.1 \
           run
         ExecStop=/usr/bin/docker stop lego
 
