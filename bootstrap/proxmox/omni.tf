@@ -30,17 +30,18 @@ resource "proxmox_virtual_environment_vm" "omni" {
 
   initialization {
     user_data_file_id = proxmox_virtual_environment_file.omni_ignition.id
-    # ip_config {
-    #   ipv4 {
-    #     address = "192.168.3.69/24"
-    #     gateway = local.ipv4.gateway
-    #   }
-    #   ipv6 {
-    #     # address = "dhcp"
-    #     address = "${cidrhost(local.ipv6.prefix, 15)}/64"
-    #     gateway = local.ipv6.gateway
-    #   }
-    # }
+    ip_config {
+      ipv4 {
+        address = "dhcp"
+        # address = "192.168.3.69/24"
+        # gateway = local.ipv4.gateway
+      }
+      ipv6 {
+        address = "dhcp"
+        # address = "${cidrhost(local.ipv6.prefix, 15)}/64"
+        # gateway = local.ipv6.gateway
+      }
+    }
   }
 
   disk {
