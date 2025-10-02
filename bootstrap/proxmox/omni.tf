@@ -28,6 +28,10 @@ resource "proxmox_virtual_environment_vm" "omni" {
 
   serial_device {}
 
+  vga {
+    type = "serial0"
+  }
+
   initialization {
     user_data_file_id = proxmox_virtual_environment_file.omni_ignition.id
     ip_config {
