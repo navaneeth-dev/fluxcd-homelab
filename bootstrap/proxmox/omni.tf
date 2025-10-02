@@ -55,7 +55,37 @@ resource "proxmox_virtual_environment_vm" "omni" {
     interface    = "virtio0"
     discard      = "on"
     ssd          = false
-    size         = 32
+    size         = 12
+  }
+
+  dynamic "disk" {
+    for_each = { for idx, val in proxmox_virtual_environment_vm.data_vm.disk : idx => val }
+    iterator = data_disk
+    content {
+      datastore_id      = data_disk.value["datastore_id"]
+      path_in_datastore = data_disk.value["path_in_datastore"]
+      file_format       = data_disk.value["file_format"]
+      size              = data_disk.value["size"]
+      interface         = "virtio${data_disk.key + 1}"
+    }
+  }
+}
+
+resource "proxmox_virtual_environment_vm" "data_vm" {
+  name = "omni-data"
+  description = "DO NOT DELETE"
+  node_name = local.nodes[1]
+  started = false
+  on_boot = false
+
+  disk {
+    datastore_id = "local-lvm"
+    interface    = "scsi0"
+    size         = 1
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
 
