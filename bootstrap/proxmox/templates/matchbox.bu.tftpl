@@ -8,16 +8,30 @@ passwd:
         - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF rize@legion
 
 storage:
+  links:
+    - path: /etc/systemd/system/multi-user.target.wants/docker.service
+      target: /usr/lib/systemd/system/docker.service
+      hard: false
+      overwrite: true
   filesystems:
     - device: /dev/vdb
+      path: /docker/appdata
       format: ext4
-      wipe_filesystem: false
       label: DATA
+      with_mount_unit: true
   directories:
     - path: /docker
       mode: 0755
+      user:
+        name: core
+      group:
+        name: core
     - path: /docker/appdata
       mode: 0755
+      user:
+        name: core
+      group:
+        name: core
     - path: /var/lib/matchbox/profiles
       mode: 0755
     - path: /var/lib/matchbox/groups
@@ -101,27 +115,46 @@ storage:
 
 systemd:
   units:
-    - name: docker-appdata.mount
+    - name: lego.service
       enabled: true
       contents: |
         [Unit]
-        Before=local-fs.target
-        [Mount]
-        What=/dev/disk/by-label/DATA
-        Where=/docker/appdata
-        Type=ext4
+        Description=Lego Certificate
+        Type=oneshot
+        Wants=network-online.target
+        After=network-online.target
+
+        [Service]
+        Environment=CF_DNS_API_TOKEN=$secret
+        ExecStartPre=-/usr/bin/docker pull docker.io/goacme/lego:latest
+        ExecStart=/usr/bin/docker run \
+          --name lego \
+          --user 1000:1000 \
+          --rm -e CF_DNS_API_TOKEN=$CF_DNS_API_TOKEN \
+          -v /docker/appdata/lego:/data:Z \
+          goacme/lego:latest \
+          --accept-tos \
+          --email certs@rizexor.com \
+          --dns cloudflare \
+          --domains '*.fossindia.ovh' \
+          --domains fossindia.ovh \
+          --path /data \
+          run
+        ExecStop=/usr/bin/docker stop lego
+
         [Install]
-        WantedBy=local-fs.target
+        WantedBy=multi-user.target
     - name: matchbox.service
       enabled: true
       contents: |
         [Unit]
         Description=Matchbox Server
         Documentation=https://github.com/poseidon/matchbox
-        Wants=network-online.target
-        After=network-online.target
+        After=docker.service
+        Requires=docker.service
 
         [Service]
+        TimeoutStartSec=0
         ExecStartPre=-/usr/bin/docker pull quay.io/poseidon/matchbox:latest
         ExecStart=/usr/bin/docker run \
           --name matchbox \
@@ -133,10 +166,12 @@ systemd:
           -log-level=debug
         ExecStop=/usr/bin/docker stop matchbox
         Restart=always
-        RestartSec=10
+        RestartSec=10s
 
         [Install]
         WantedBy=multi-user.target
+    - name: docker.service
+      enabled: true
 
 kernel_arguments:
   should_exist:

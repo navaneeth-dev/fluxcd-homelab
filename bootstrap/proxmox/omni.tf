@@ -37,13 +37,9 @@ resource "proxmox_virtual_environment_vm" "omni" {
     ip_config {
       ipv4 {
         address = "dhcp"
-        # address = "192.168.3.69/24"
-        # gateway = local.ipv4.gateway
       }
       ipv6 {
         address = "dhcp"
-        # address = "${cidrhost(local.ipv6.prefix, 15)}/64"
-        # gateway = local.ipv6.gateway
       }
     }
   }
@@ -107,6 +103,9 @@ data "ct_config" "machine-ignition" {
 
 data "template_file" "machine-cl-config" {
   template = file("${path.module}/templates/matchbox.bu.tftpl")
+  vars = {
+    secret = var.CF_DNS_API_TOKEN
+  }
 }
 
 resource "proxmox_virtual_environment_download_file" "flatcar_cloud_image" {

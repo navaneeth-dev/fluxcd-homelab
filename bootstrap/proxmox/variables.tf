@@ -23,3 +23,7 @@ locals {
 variable "proxmox_endpoint" {
   description = "Proxmox endpoint"
 }
+
+variable "CF_DNS_API_TOKEN" {
+  sensitive = true
+}
