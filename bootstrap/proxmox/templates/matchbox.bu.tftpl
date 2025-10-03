@@ -353,7 +353,7 @@ systemd:
           -e INFISICAL_TOKEN=$INFISICAL_TOKEN \
           infisical/cli:latest export --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 \
           --path=/omni --domain https://eu.infisical.com \
-          --format=dotenv > /opt/infisical.env && \
+          --format=dotenv | sed "s/='\(.*\)'$/=\1/" > /opt/infisical.env && \
           docker run --rm \
           -e INFISICAL_TOKEN=$INFISICAL_TOKEN \
           infisical/cli:latest --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 \
