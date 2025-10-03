@@ -62,12 +62,12 @@ storage:
   files:
     - path: /home/core/compose.yaml
       contents:
-        source: https://github.com/siderolabs/omni/raw/refs/heads/main/deploy/env.template
+        source: https://github.com/siderolabs/omni/raw/refs/heads/main/deploy/compose.yaml
       user:
         name: core
       group:
         name: core
-    - path: /home/core/compose.yaml
+    - path: /home/core/omni.env
       contents:
         inline: |
           OMNI_IMG_TAG=latest
@@ -100,7 +100,7 @@ storage:
           #Auth0
           AUTH='--auth-auth0-enabled=true \
           --auth-auth0-domain=${AUTH0_DOMAIN} \
-          --auth-auth0-client-id=${AUTH0_CLIENT_ID}
+          --auth-auth0-client-id=${AUTH0_CLIENT_ID}'
       user:
         name: core
       group:
@@ -191,6 +191,18 @@ storage:
 
 systemd:
   units:
+    - name: omni.service
+      enabled: true
+      contents: |
+        [Unit]
+        After=docker.service systemd-sysext.service lego.service
+        Requires=docker.service systemd-sysext.service
+
+        [Service]
+        ExecStart=/usr/bin/docker compose -f /home/core/compose.yaml --env-file /home/core/omni.env up
+
+        [Install]
+        WantedBy=multi-user.target
     - name: systemd-sysupdate.timer
       enabled: true
     - name: systemd-sysupdate.service
