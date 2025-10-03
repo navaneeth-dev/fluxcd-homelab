@@ -191,9 +191,9 @@ storage:
           ETCD_ENCRYPTION_KEY=/docker/appdata/omni/omni.asc
           
           ## Binding
-          BIND_ADDR=0.0.0.0:443
-          MACHINE_API_BIND_ADDR=0.0.0.0:8090
-          K8S_PROXY_BIND_ADDR=0.0.0.0:8100
+          BIND_ADDR=127.0.0.1:8080
+          MACHINE_API_BIND_ADDR=127.0.0.1:8090
+          K8S_PROXY_BIND_ADDR=127.0.0.1:8100
           
           ## Domains and Advertisements
           OMNI_DOMAIN_NAME="${OMNI_DOMAIN_NAME}"
