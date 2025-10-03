@@ -90,7 +90,7 @@ storage:
           	server {
           		listen 0.0.0.0:80;
           		listen [::0]:80;
-          		server_name $OMNI_DOMAIN;
+          		server_name ${OMNI_DOMAIN_NAME};
           		location / {
           			return 301 https://$host$request_uri;
           		}
@@ -105,7 +105,7 @@ storage:
           	server {
           		listen 0.0.0.0:443 http2 ssl;
           		listen [::0]:443 http2 ssl;
-          		server_name $OMNI_DOMAIN;
+          		server_name ${OMNI_DOMAIN_NAME};
           		ssl_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.crt;
           		ssl_certificate_key /docker/appdata/lego/certificates/_.fossindia.ovh.key;
           		ssl_trusted_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.issuer.crt;
@@ -140,7 +140,7 @@ storage:
           	server {
           		listen 0.0.0.0:443 http2 ssl;
           		listen [::0]:443 http2 ssl;
-          		server_name api.$OMNI_DOMAIN;
+          		server_name api.${OMNI_DOMAIN_NAME};
           		ssl_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.crt;
           		ssl_certificate_key /docker/appdata/lego/certificates/_.fossindia.ovh.key;
           		ssl_trusted_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.issuer.crt;
@@ -156,7 +156,7 @@ storage:
           	server {
           		listen 0.0.0.0:443 http2 ssl;
           		listen [::0]:443 http2 ssl;
-          		server_name kube.$OMNI_DOMAIN;
+          		server_name kube.${OMNI_DOMAIN_NAME};
           		ssl_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.crt;
           		ssl_certificate_key /docker/appdata/lego/certificates/_.fossindia.ovh.key;
           		ssl_trusted_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.issuer.crt;
@@ -297,7 +297,7 @@ systemd:
         [Unit]
         Description=Nginx Docker container
         After=network-online.target docker.service
-        Wants=network-online.target docker.service
+        Requires=network-online.target docker.service
 
         [Service]
         ExecStartPre=docker pull docker.io/nginx:latest
