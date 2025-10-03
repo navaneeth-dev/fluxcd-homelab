@@ -62,6 +62,8 @@ storage:
     - path: /var/lib/matchbox/assets
       mode: 0755
   files:
+    - path: /opt/infisical.env
+      mode: 0700
     - path: /etc/hostname
       mode: 0644
       overwrite: true
@@ -349,11 +351,11 @@ systemd:
           --client-id=2669d7a3-883f-4a0b-a52e-e1b715709bc1 \
           --client-secret=${INFISICAL_CLIENT_SECRET} \
           --domain https://eu.infisical.com --silent --plain) && \
-          docker run --rm \
+          docker run --rm -v /opt/infisical.env:/opt/infisical.env:Z \
           -e INFISICAL_TOKEN=$INFISICAL_TOKEN \
           infisical/cli:latest export --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 \
           --path=/omni --domain https://eu.infisical.com \
-          --format=dotenv | sed "s/='\(.*\)'$/=\1/" > /opt/infisical.env && \
+          --format=dotenv --output-file=/opt/infisical.env && \
           docker run --rm \
           -e INFISICAL_TOKEN=$INFISICAL_TOKEN \
           infisical/cli:latest --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 \
@@ -372,11 +374,12 @@ systemd:
         Requires=docker.service
 
         [Service]
+        EnvironmentFile=/opt/infisical.env
         ExecStartPre=-/usr/bin/docker pull docker.io/goacme/lego:latest
         ExecStart=/usr/bin/docker run \
           --name lego \
           --user 500:500 \
-          --rm --env-file /opt/infisical.env \
+          --rm -e CF_DNS_API_TOKEN \
           -v /docker/appdata/lego:/data:Z \
           docker.io/goacme/lego:latest \
           --accept-tos \
