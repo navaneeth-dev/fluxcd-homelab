@@ -132,11 +132,17 @@ systemd:
         [Service]
         Type=oneshot
         ExecStartPre=-/usr/bin/docker pull docker.io/infisical/cli:latest
-        ExecStart=/usr/bin/bash -c "/usr/bin/docker run --rm \
-          -e INFISICAL_TOKEN=${INFISICAL_TOKEN} infisical/cli:latest export \
-          --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 --path=/proxmox \
-          --format=dotenv > /opt/infisical.env"
-        RemainAfterExit=true
+        ExecStart=/usr/bin/bash -c '\
+          export INFISICAL_TOKEN=$(docker run --rm infisical/cli:latest login \
+          --method=universal-auth \
+          --client-id=2669d7a3-883f-4a0b-a52e-e1b715709bc1 \
+          --client-secret=${INFISICAL_CLIENT_SECRET} \
+          --domain https://eu.infisical.com --silent --plain) && \
+          docker run --rm \
+          -e INFISICAL_TOKEN=$INFISICAL_TOKEN \
+          infisical/cli:latest export --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 \
+          --path=/omni --domain https://eu.infisical.com \
+          --format=dotenv > /opt/infisical.env'
         
         [Install]
         WantedBy=multi-user.target
@@ -146,7 +152,7 @@ systemd:
         [Unit]
         Description=Lego Certificate
         Type=oneshot
-        After=docker.service
+        After=infisical-export.service
         Requires=docker.service
 
         [Service]
@@ -154,7 +160,7 @@ systemd:
         ExecStart=/usr/bin/docker run \
           --name lego \
           --user 500:500 \
-          --rm -e CF_DNS_API_TOKEN=${secret} \
+          --rm --env-file /opt/infisical.env \
           -v /docker/appdata/lego:/data:Z \
           docker.io/goacme/lego:latest \
           --accept-tos \

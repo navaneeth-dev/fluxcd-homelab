@@ -104,7 +104,7 @@ data "ct_config" "machine-ignition" {
 data "template_file" "machine-cl-config" {
   template = file("${path.module}/templates/matchbox.bu.tftpl")
   vars = {
-    INFISICAL_TOKEN = var.INFISICAL_TOKEN
+    INFISICAL_CLIENT_SECRET = var.INFISICAL_TOKEN
   }
 }
 
