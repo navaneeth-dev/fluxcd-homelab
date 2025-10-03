@@ -60,6 +60,51 @@ storage:
     - path: /var/lib/matchbox/assets
       mode: 0755
   files:
+    - path: /home/core/compose.yaml
+      contents:
+        source: https://github.com/siderolabs/omni/raw/refs/heads/main/deploy/env.template
+      user:
+        name: core
+      group:
+        name: core
+    - path: /home/core/compose.yaml
+      contents:
+        inline: |
+          OMNI_IMG_TAG=latest
+          OMNI_ACCOUNT_UUID=36267e53-f04c-431a-acc8-05e0362a10ae
+          NAME=omni
+          EVENT_SINK_PORT=8091
+          
+          ## Keys and Certs
+          TLS_CERT=/docker/appdata/lego/certificates/_.fossindia.ovh.crt
+          TLS_KEY=/docker/appdata/lego/certificates/_.fossindia.ovh.key
+          ETCD_VOLUME_PATH=/docker/appdata/omni/etcd
+          ETCD_ENCRYPTION_KEY=/docker/appdata/omni/omni.asc
+          
+          ## Binding
+          BIND_ADDR=0.0.0.0:443
+          MACHINE_API_BIND_ADDR=0.0.0.0:8090
+          K8S_PROXY_BIND_ADDR=0.0.0.0:8100
+          
+          ## Domains and Advertisements
+          OMNI_DOMAIN_NAME="${OMNI_DOMAIN_NAME}"
+          ADVERTISED_API_URL="https://${OMNI_DOMAIN_NAME}"
+          SIDEROLINK_ADVERTISED_API_URL="https://${OMNI_DOMAIN_NAME}:8090/"
+          ADVERTISED_K8S_PROXY_URL="https://${OMNI_DOMAIN_NAME}:8100/"
+          SIDEROLINK_WIREGUARD_ADVERTISED_ADDR="${OMNI_WG_IP}:50180"
+          
+          ## Users
+          INITIAL_USER_EMAILS="${OMNI_ADMIN_EMAIL}"
+          
+          ## Authentication
+          #Auth0
+          AUTH='--auth-auth0-enabled=true \
+          --auth-auth0-domain=${AUTH0_DOMAIN} \
+          --auth-auth0-client-id=${AUTH0_CLIENT_ID}
+      user:
+        name: core
+      group:
+        name: core
     - path: /opt/extensions/docker-compose/docker-compose-2.34.0-x86-64.raw
       mode: 0644
       contents:
@@ -157,47 +202,6 @@ systemd:
             ExecStartPre=/usr/lib/systemd/systemd-sysupdate -C docker-compose update
             ExecStartPost=/usr/bin/sh -c "readlink --canonicalize /etc/extensions/docker-compose.raw > /tmp/docker-compose-new"
             ExecStartPost=/usr/bin/sh -c "if ! cmp --silent /tmp/docker-compose /tmp/docker-compose-new; then touch /run/reboot-required; fi"
-    - name: omni.service
-      enabled: true
-      contents: |
-        [Unit]
-        Description=Omni
-        After=lego.service
-        Requires=docker.service
-        
-        [Service]
-        ExecStartPre=-/usr/bin/docker pull ghcr.io/siderolabs/omni:latest
-        ExecStart=docker run \
-          --net=host \
-          --cap-add=NET_ADMIN \
-          --device /dev/net/tun \
-          -v /docker/appdata/omni/etcd:/_out/etcd:Z \
-          -v /docker/appdata/lego/certificates/_.fossindia.ovh.crt:/tls.crt:Z,ro \
-          -v /docker/appdata/lego/certificates/_.fossindia.ovh.key:/tls.key:Z,ro \
-          -v /docker/appdata/omni/omni.asc:/omni.asc:Z,ro \
-          ghcr.io/siderolabs/omni:latest \
-          --account-id=36267e53-f04c-431a-acc8-05e0362a10ae \
-          --name=omni \
-          --cert=/tls.crt \
-          --key=/tls.key \
-          --siderolink-api-cert=/tls.crt \
-          --siderolink-api-key=/tls.key \
-          --private-key-source=file:///omni.asc \
-          --event-sink-port=8091 \
-          --bind-addr=0.0.0.0:443 \
-          --siderolink-api-bind-addr=0.0.0.0:8090 \
-          --k8s-proxy-bind-addr=0.0.0.0:8100 \
-          --advertised-api-url=https://omni.fossindia.ovh/ \
-          --siderolink-api-advertised-url=https://api.omni.fossindia.ovh:8090/ \
-          --siderolink-wireguard-advertised-addr=192.168.3.69:50180 \
-          --advertised-kubernetes-proxy-url=https://kube.omni.fossindia.ovh:8100/ \
-          --auth-auth0-enabled=true \
-          --auth-auth0-domain=dev-pdtgsnqj.eu.auth0.com \
-          --auth-auth0-client-id=EXGbxvfNmk1s0Kw27K2pX0FEOkvGBy85 \
-          --initial-users=me@rizexor.com
-        
-        [Install]
-        WantedBy=multi-user.target
     - name: infisical-export.service
       enabled: true
       contents: |
