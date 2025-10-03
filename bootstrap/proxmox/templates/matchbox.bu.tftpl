@@ -147,10 +147,10 @@ systemd:
           --net=host \
           --cap-add=NET_ADMIN \
           --device /dev/net/tun \
-          -v /docker/appdata/omni/etcd:/_out/etcd \
-          -v /docker/appdata/lego/certificates/_.fossindia.ovh.crt:/tls.crt \
-          -v /docker/appdata/lego/certificates/_.fossindia.ovh.key:/tls.key \
-          -v /docker/appdata/omni/omni.asc:/omni.asc \
+          -v /docker/appdata/omni/etcd:/_out/etcd:Z \
+          -v /docker/appdata/lego/certificates/_.fossindia.ovh.crt:/tls.crt:Z,ro \
+          -v /docker/appdata/lego/certificates/_.fossindia.ovh.key:/tls.key:Z,ro \
+          -v /docker/appdata/omni/omni.asc:/omni.asc:Z,ro \
           ghcr.io/siderolabs/omni:latest \
           --account-id=36267e53-f04c-431a-acc8-05e0362a10ae \
           --name=omni \
@@ -199,7 +199,7 @@ systemd:
           docker run --rm \
           -e INFISICAL_TOKEN=$INFISICAL_TOKEN \
           infisical/cli:latest --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 \
-          --path=/omni --domain https://eu.infisical.com secrets get OMNI_ASC --silent \
+          --path=/omni/asc --domain https://eu.infisical.com secrets get OMNI_ASC --silent \
           --plain > /docker/appdata/omni/omni.asc'
         
         [Install]
