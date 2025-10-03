@@ -291,6 +291,28 @@ storage:
 
 systemd:
   units:
+    - name: nginx.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Nginx Docker container
+        After=network-online.target docker.service
+        Wants=network-online.target docker.service
+
+        [Service]
+        ExecStartPre=docker pull docker.io/nginx:latest
+        ExecStart=docker run \
+          --rm \
+          --name nginx \
+          -p 80:80 -p 443:443 \
+          -v /home/core/nginx.conf:/etc/nginx/nginx.conf:ro,Z \
+          -v /docker/appdata/lego/certificates:/docker/appdata/lego/certificates:ro,Z \
+          nginx:latest
+        Restart=always
+        RestartSec=5
+
+        [Install]
+        WantedBy=multi-user.target
     - name: omni.service
       enabled: true
       contents: |
