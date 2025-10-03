@@ -105,6 +105,7 @@ data "template_file" "machine-cl-config" {
   template = file("${path.module}/templates/matchbox.bu.tftpl")
   vars = {
     INFISICAL_CLIENT_SECRET = var.INFISICAL_TOKEN
+    OMNI_DOMAIN = "omni.fossindia.ovh"
     OMNI_DOMAIN_NAME = "omni.fossindia.ovh"
     OMNI_ADMIN_EMAIL = "me@rizexor.com"
     AUTH0_DOMAIN = "dev-pdtgsnqj.eu.auth0.com"
