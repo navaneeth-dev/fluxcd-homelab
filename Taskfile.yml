@@ -13,14 +13,8 @@ tasks:
       - task: proxmox:default
         vars:
           CLI_ARGS: apply
-      - task: kubernetes-bootstrap
-
-  upgrade:
-    dir: bootstrap/kubespray
-    cmds:
-      - |
-        kubespray-venv/bin/ansible-playbook -i ../inventory/inventory.ini upgrade-cluster.yml \
-          -b -v -e system_upgrade=true -e system_upgrade_reboot=always
+      - omnictl get clusters
+#      - task: kubernetes-bootstrap
 
   kubernetes-bootstrap:
     cmds:
@@ -37,19 +31,3 @@ tasks:
           --branch=main \
           --personal \
           --path=k8s/clusters/kubespray
-
-  kubespray:
-    dir: bootstrap/kubespray
-    cmds:
-      - kubespray-venv/bin/ansible-playbook -i ../inventory/inventory.ini cluster.yml -b -v
-
-  kubespray-reset:
-    dir: bootstrap/kubespray
-    cmds:
-      - kubespray-venv/bin/ansible-playbook -i ../inventory/inventory.ini reset.yml -b -v
-
-  install:
-    dir: bootstrap/kubespray
-    cmds:
-      - python3 -m venv kubespray-venv
-      - kubespray-venv/bin/pip3 install -r requirements.txt
