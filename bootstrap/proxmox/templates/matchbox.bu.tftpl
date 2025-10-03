@@ -117,9 +117,9 @@ storage:
           		listen 0.0.0.0:443 http2 ssl;
           		listen [::0]:443 http2 ssl;
           		server_name ${OMNI_DOMAIN_NAME};
-          		ssl_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.crt;
-          		ssl_certificate_key /docker/appdata/lego/certificates/_.fossindia.ovh.key;
-          		ssl_trusted_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.issuer.crt;
+          		ssl_certificate /docker/appdata/lego/certificates/_.omni.fossindia.ovh.crt;
+          		ssl_certificate_key /docker/appdata/lego/certificates/_.omni.fossindia.ovh.key;
+          		ssl_trusted_certificate /docker/appdata/lego/certificates/_.omni.fossindia.ovh.issuer.crt;
           		location / {
           			error_page 418 = @grpc;
           			error_page 419 = @http;
@@ -152,9 +152,9 @@ storage:
           		listen 0.0.0.0:443 http2 ssl;
           		listen [::0]:443 http2 ssl;
           		server_name api.${OMNI_DOMAIN_NAME};
-          		ssl_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.crt;
-          		ssl_certificate_key /docker/appdata/lego/certificates/_.fossindia.ovh.key;
-          		ssl_trusted_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.issuer.crt;
+          		ssl_certificate /docker/appdata/lego/certificates/_.omni.fossindia.ovh.crt;
+          		ssl_certificate_key /docker/appdata/lego/certificates/_.omni.fossindia.ovh.key;
+          		ssl_trusted_certificate /docker/appdata/lego/certificates/_.omni.fossindia.ovh.issuer.crt;
           		location / {
           			# Omni needs long timeouts for the long-lived GRPC stream connections
           			grpc_read_timeout 1h;
@@ -168,9 +168,9 @@ storage:
           		listen 0.0.0.0:443 http2 ssl;
           		listen [::0]:443 http2 ssl;
           		server_name kube.${OMNI_DOMAIN_NAME};
-          		ssl_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.crt;
-          		ssl_certificate_key /docker/appdata/lego/certificates/_.fossindia.ovh.key;
-          		ssl_trusted_certificate /docker/appdata/lego/certificates/_.fossindia.ovh.issuer.crt;
+          		ssl_certificate /docker/appdata/lego/certificates/_.omni.fossindia.ovh.crt;
+          		ssl_certificate_key /docker/appdata/lego/certificates/_.omni.fossindia.ovh.key;
+          		ssl_trusted_certificate /docker/appdata/lego/certificates/_.omni.fossindia.ovh.issuer.crt;
           		location / {
           			proxy_pass http://127.0.0.1:8100;
           			proxy_set_header Upgrade $http_upgrade;
@@ -187,8 +187,8 @@ storage:
           EVENT_SINK_PORT=8091
           
           ## Keys and Certs
-          TLS_CERT=/docker/appdata/lego/certificates/_.fossindia.ovh.crt
-          TLS_KEY=/docker/appdata/lego/certificates/_.fossindia.ovh.key
+          TLS_CERT=/docker/appdata/lego/certificates/_.omni.fossindia.ovh.crt
+          TLS_KEY=/docker/appdata/lego/certificates/_.omni.fossindia.ovh.key
           ETCD_VOLUME_PATH=/docker/appdata/omni/etcd
           ETCD_ENCRYPTION_KEY=/docker/appdata/omni/omni.asc
           
