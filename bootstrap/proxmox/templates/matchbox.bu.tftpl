@@ -70,6 +70,8 @@ storage:
     - path: /home/core/nginx.conf
       contents:
         inline: |
+          events {}
+          
           http {
           	proxy_redirect off;
           	proxy_http_version 1.1;
