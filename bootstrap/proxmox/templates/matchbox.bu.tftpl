@@ -191,9 +191,9 @@ storage:
           ETCD_ENCRYPTION_KEY=/docker/appdata/omni/omni.asc
           
           ## Binding
-          BIND_ADDR=127.0.0.1:8080
-          MACHINE_API_BIND_ADDR=127.0.0.1:8090
-          K8S_PROXY_BIND_ADDR=127.0.0.1:8100
+          BIND_ADDR=0.0.0.0:443
+          MACHINE_API_BIND_ADDR=0.0.0.0:8090
+          K8S_PROXY_BIND_ADDR=0.0.0.0:8100
           
           ## Domains and Advertisements
           OMNI_DOMAIN_NAME="${OMNI_DOMAIN_NAME}"
@@ -299,7 +299,7 @@ storage:
 systemd:
   units:
     - name: nginx.service
-      enabled: true
+      enabled: false
       contents: |
         [Unit]
         Description=Nginx Docker container
@@ -329,6 +329,7 @@ systemd:
 
         [Service]
         ExecStart=/usr/bin/docker compose -f /home/core/compose.yaml --env-file /home/core/omni.env up
+        ExecStop=/usr/bin/docker compose -f /home/core/compose.yaml --env-file /home/core/omni.env down
 
         [Install]
         WantedBy=multi-user.target
@@ -419,7 +420,7 @@ systemd:
           --rm \
           -v /var/lib/matchbox:/var/lib/matchbox:Z \
           quay.io/poseidon/matchbox:latest \
-          -address=0.0.0.0:8080 \
+          -address=0.0.0.0:8099 \
           -log-level=debug
         ExecStop=/usr/bin/docker stop matchbox
         Restart=always
