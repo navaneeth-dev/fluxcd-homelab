@@ -38,6 +38,18 @@ storage:
         name: core
       group:
         name: core
+    - path: /docker/appdata/omni
+      mode: 0755
+      user:
+        name: core
+      group:
+        name: core
+    - path: /docker/appdata/omni/etcd
+      mode: 0755
+      user:
+        name: core
+      group:
+        name: core
     - path: /var/lib/matchbox/profiles
       mode: 0755
     - path: /var/lib/matchbox/groups
@@ -121,6 +133,47 @@ storage:
 
 systemd:
   units:
+    - name: omni.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Omni
+        After=docker.service
+        Requires=docker.service
+        
+        [Service]
+        ExecStartPre=-/usr/bin/docker pull ghcr.io/siderolabs/omni:latest
+        ExecStart=docker run \
+          --net=host \
+          --cap-add=NET_ADMIN \
+          --device /dev/net/tun \
+          -v /docker/appdata/omni/etcd:/_out/etcd \
+          -v /docker/appdata/lego/certificates/_.fossindia.ovh.crt:/tls.crt \
+          -v /docker/appdata/lego/certificates/_.fossindia.ovh.key:/tls.key \
+          -v /docker/appdata/omni/omni.asc:/omni.asc \
+          ghcr.io/siderolabs/omni:latest \
+          --account-id=36267e53-f04c-431a-acc8-05e0362a10ae \
+          --name=omni \
+          --cert=/tls.crt \
+          --key=/tls.key \
+          --siderolink-api-cert=/tls.crt \
+          --siderolink-api-key=/tls.key \
+          --private-key-source=file:///omni.asc \
+          --event-sink-port=8091 \
+          --bind-addr=0.0.0.0:443 \
+          --siderolink-api-bind-addr=0.0.0.0:8090 \
+          --k8s-proxy-bind-addr=0.0.0.0:8100 \
+          --advertised-api-url=https://omni.fossindia.ovh/ \
+          --siderolink-api-advertised-url=https://api.omni.fossindia.ovh:8090/ \
+          --siderolink-wireguard-advertised-addr=192.168.3.69:50180 \
+          --advertised-kubernetes-proxy-url=https://kube.omni.fossindia.ovh:8100/ \
+          --auth-auth0-enabled=true \
+          --auth-auth0-domain=dev-pdtgsnqj.eu.auth0.com \
+          --auth-auth0-client-id=EXGbxvfNmk1s0Kw27K2pX0FEOkvGBy85 \
+          --initial-users=me@rizexor.com
+        
+        [Install]
+        WantedBy=multi-user.target
     - name: infisical-export.service
       enabled: true
       contents: |
@@ -142,7 +195,12 @@ systemd:
           -e INFISICAL_TOKEN=$INFISICAL_TOKEN \
           infisical/cli:latest export --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 \
           --path=/omni --domain https://eu.infisical.com \
-          --format=dotenv > /opt/infisical.env'
+          --format=dotenv > /opt/infisical.env && \
+          docker run --rm \
+          -e INFISICAL_TOKEN=$INFISICAL_TOKEN \
+          infisical/cli:latest --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 \
+          --path=/omni --domain https://eu.infisical.com secrets get OMNI_ASC --silent \
+          --plain > /docker/appdata/omni/omni.asc'
         
         [Install]
         WantedBy=multi-user.target
