@@ -9,6 +9,8 @@ passwd:
 
 storage:
   links:
+    - path: /etc/localtime
+      target: ../usr/share/zoneinfo/Asia/Kolkata
     - target: /opt/extensions/docker-compose/docker-compose-2.34.0-x86-64.raw
       path: /etc/extensions/docker-compose.raw
       hard: false
@@ -60,6 +62,11 @@ storage:
     - path: /var/lib/matchbox/assets
       mode: 0755
   files:
+    - path: /etc/hostname
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: omni
     - path: /home/core/compose.yaml
       contents:
         source: https://github.com/siderolabs/omni/raw/refs/heads/main/deploy/compose.yaml
