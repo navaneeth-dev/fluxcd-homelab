@@ -241,13 +241,13 @@ storage:
           DNS=192.168.3.1
           Address=192.168.3.69/24
           Gateway=192.168.3.1
-    - path: /var/lib/matchbox/profiles/control-plane.json
+    - path: /var/lib/matchbox/profiles/default.json
       mode: 0644
       contents:
         inline: |
           {
-            "id": "control-plane",
-            "name": "control-plane",
+            "id": "default",
+            "name": "default",
             "boot": {
               "kernel": "/assets/vmlinuz",
               "initrd": ["/assets/initramfs.xz"],
@@ -257,33 +257,12 @@ storage:
                 "slab_nomerge",
                 "pti=on",
                 "console=tty0",
-                "console=ttyS0,115200n8",
+                "console=ttyS0",
                 "printk.devkmsg=on",
                 "talos.platform=metal",
-                "talos.config=http://matchbox.example.com:8080/assets/controlplane.yaml"
-              ]
-            }
-          }
-    - path: /var/lib/matchbox/profiles/worker.json
-      mode: 0644
-      contents:
-        inline: |
-          {
-            "id": "worker",
-            "name": "worker",
-            "boot": {
-              "kernel": "/assets/vmlinuz",
-              "initrd": ["/assets/initramfs.xz"],
-              "args": [
-                "initrd=initramfs.xz",
-                "init_on_alloc=1",
-                "slab_nomerge",
-                "pti=on",
-                "console=tty0",
-                "console=ttyS0,115200n8",
-                "printk.devkmsg=on",
-                "talos.platform=metal",
-                "talos.config=http://matchbox.example.com:8080/assets/worker.yaml"
+                "talos.events.sink=[fdae:41e4:649b:9303::1]:8091",
+                "talos.logging.kernel=tcp://[fdae:41e4:649b:9303::1]:8092"
+                "siderolink.api=<your siderolink.api value>",
               ]
             }
           }
@@ -294,7 +273,7 @@ storage:
           {
             "id": "default",
             "name": "default",
-            "profile": "worker"
+            "profile": "default"
           }
     - path: /var/lib/matchbox/assets/vmlinuz
       mode: 0644
@@ -403,8 +382,8 @@ systemd:
           --accept-tos \
           --email certs@rizexor.com \
           --dns cloudflare \
-          --domains '*.fossindia.ovh' \
-          --domains fossindia.ovh \
+          --domains '*.omni.fossindia.ovh' \
+          --domains omni.fossindia.ovh \
           --path /data \
           --dns.resolvers 1.1.1.1,1.0.0.1 \
           run
