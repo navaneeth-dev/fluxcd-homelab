@@ -222,6 +222,15 @@ storage:
     - path: /etc/sysupdate.d/noop.conf
       contents:
         source: https://extensions.flatcar.org/extensions/noop.conf
+    - path: /etc/systemd/network/10-siderolink.network
+      mode: 0644
+      contents:
+        inline: |
+          [Match]
+          Name=siderolink
+          
+          [Link]
+          Unmanaged=yes
     - path: /etc/systemd/network/00-eth0.network
       contents:
         inline: |
