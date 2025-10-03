@@ -24,6 +24,6 @@ variable "proxmox_endpoint" {
   description = "Proxmox endpoint"
 }
 
-variable "CF_DNS_API_TOKEN" {
+variable "INFISICAL_TOKEN" {
   sensitive = true
 }

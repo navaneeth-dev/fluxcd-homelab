@@ -121,14 +121,33 @@ storage:
 
 systemd:
   units:
+    - name: infisical-export.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Export secrets from Infisical to env file
+        After=docker.service
+        Requires=docker.service
+        
+        [Service]
+        Type=oneshot
+        ExecStartPre=-/usr/bin/docker pull docker.io/infisical/cli:latest
+        ExecStart=/usr/bin/bash -c "/usr/bin/docker run --rm \
+          -e INFISICAL_TOKEN=${INFISICAL_TOKEN} infisical/cli:latest export \
+          --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 --path=/proxmox \
+          --format=dotenv > /opt/infisical.env"
+        RemainAfterExit=true
+        
+        [Install]
+        WantedBy=multi-user.target
     - name: lego.service
       enabled: true
       contents: |
         [Unit]
         Description=Lego Certificate
         Type=oneshot
-        Wants=network-online.target
-        After=network-online.target
+        After=docker.service
+        Requires=docker.service
 
         [Service]
         ExecStartPre=-/usr/bin/docker pull docker.io/goacme/lego:latest
@@ -146,7 +165,6 @@ systemd:
           --path /data \
           --dns.resolvers 1.1.1.1,1.0.0.1 \
           run
-        ExecStop=/usr/bin/docker stop lego
 
         [Install]
         WantedBy=multi-user.target

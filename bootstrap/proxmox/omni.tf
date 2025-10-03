@@ -104,7 +104,7 @@ data "ct_config" "machine-ignition" {
 data "template_file" "machine-cl-config" {
   template = file("${path.module}/templates/matchbox.bu.tftpl")
   vars = {
-    secret = var.CF_DNS_API_TOKEN
+    INFISICAL_TOKEN = var.INFISICAL_TOKEN
   }
 }
 
