@@ -1,4 +1,6 @@
 resource "proxmox_virtual_environment_vm" "controlplane" {
+  depends_on = [proxmox_virtual_environment_vm.omni]
+
   count = length(local.nodes)
 
   name       = "controlplane-${local.nodes[count.index]}"
