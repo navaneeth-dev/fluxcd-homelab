@@ -35,24 +35,23 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
 
   serial_device {}
 
-  # initialization {
-  #   ip_config {
-  #     ipv4 {
-  #       address = "${cidrhost(local.ipv4.prefix, count.index+2)}/24"
-  #       gateway = local.ipv4.gateway
-  #     }
-  #     ipv6 {
-  #       # address = "dhcp"
-  #       address = "${cidrhost(local.ipv6.prefix, count.index+2)}/64"
-  #       gateway = local.ipv6.gateway
-  #     }
-  #   }
-  #
-  #   dns {
-  #     domain = ""
-  #     servers = ["192.168.2.1"]
-  #   }
-  # }
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "${cidrhost(local.ipv4.prefix, count.index+2)}/24"
+        gateway = local.ipv4.gateway
+      }
+      ipv6 {
+        # address = "dhcp"
+        address = "${cidrhost(local.ipv6.prefix, count.index+2)}/64"
+        gateway = local.ipv6.gateway
+      }
+    }
+
+    dns {
+      servers = [local.ipv4.gateway]
+    }
+  }
 
   disk {
     datastore_id = "local-lvm"

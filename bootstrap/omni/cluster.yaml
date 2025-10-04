@@ -1,0 +1,11 @@
+kind: Cluster
+name: my-cluster
+kubernetes:
+  version: v1.26.0
+talos:
+  version: v1.3.2
+---
+kind: ControlPlane
+machineClass:
+  name: proxmox
+  size: 3
