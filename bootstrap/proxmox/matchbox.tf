@@ -1,10 +1,10 @@
 resource "proxmox_virtual_environment_vm" "omni" {
-  name       = "omni"
+  name       = "matchbox"
   node_name  = local.nodes[1]
   vm_id      = 5531
   boot_order = ["virtio0", "ide3"]
   protection = local.protection
-  tags = ["k8s", "omni"]
+  tags = ["k8s", "matchbox"]
 
   agent { enabled = true }
   machine = "q35"
@@ -105,12 +105,6 @@ data "template_file" "machine-cl-config" {
   template = file("${path.module}/templates/matchbox.bu.tftpl")
   vars = {
     INFISICAL_CLIENT_SECRET = var.INFISICAL_TOKEN
-    OMNI_DOMAIN = "omni.fossindia.ovh"
-    OMNI_DOMAIN_NAME = "omni.fossindia.ovh"
-    OMNI_ADMIN_EMAIL = "me@rizexor.com"
-    AUTH0_DOMAIN = "dev-pdtgsnqj.eu.auth0.com"
-    AUTH0_CLIENT_ID = "EXGbxvfNmk1s0Kw27K2pX0FEOkvGBy85"
-    OMNI_WG_IP = "192.168.3.69"
   }
 }
 

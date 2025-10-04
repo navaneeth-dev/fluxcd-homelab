@@ -43,18 +43,6 @@ storage:
         name: core
       group:
         name: core
-    - path: /docker/appdata/omni
-      mode: 0755
-      user:
-        name: core
-      group:
-        name: core
-    - path: /docker/appdata/omni/etcd
-      mode: 0755
-      user:
-        name: core
-      group:
-        name: core
     - path: /var/lib/matchbox/profiles
       mode: 0755
     - path: /var/lib/matchbox/groups
@@ -68,50 +56,7 @@ storage:
       mode: 0644
       overwrite: true
       contents:
-        inline: omni
-    - path: /home/core/compose.yaml
-      contents:
-        source: https://github.com/siderolabs/omni/raw/refs/heads/main/deploy/compose.yaml
-      user:
-        name: core
-      group:
-        name: core
-    - path: /home/core/omni.env
-      contents:
-        inline: |
-          OMNI_IMG_TAG=latest
-          OMNI_ACCOUNT_UUID=36267e53-f04c-431a-acc8-05e0362a10ae
-          NAME=omni
-          EVENT_SINK_PORT=8091
-          
-          ## Keys and Certs
-          TLS_CERT=/docker/appdata/lego/certificates/_.omni.fossindia.ovh.crt
-          TLS_KEY=/docker/appdata/lego/certificates/_.omni.fossindia.ovh.key
-          ETCD_VOLUME_PATH=/docker/appdata/omni/etcd
-          ETCD_ENCRYPTION_KEY=/docker/appdata/omni/omni.asc
-          
-          ## Binding
-          BIND_ADDR=0.0.0.0:443
-          MACHINE_API_BIND_ADDR=0.0.0.0:8090
-          K8S_PROXY_BIND_ADDR=0.0.0.0:8100
-          
-          ## Domains and Advertisements
-          OMNI_DOMAIN_NAME="${OMNI_DOMAIN_NAME}"
-          ADVERTISED_API_URL="https://${OMNI_DOMAIN_NAME}"
-          SIDEROLINK_ADVERTISED_API_URL="https://api.${OMNI_DOMAIN_NAME}:8090/"
-          ADVERTISED_K8S_PROXY_URL="https://kube.${OMNI_DOMAIN_NAME}:8100/"
-          SIDEROLINK_WIREGUARD_ADVERTISED_ADDR="${OMNI_WG_IP}:50180"
-          
-          ## Users
-          INITIAL_USER_EMAILS="${OMNI_ADMIN_EMAIL}"
-          
-          ## Authentication
-          #Auth0
-          AUTH='--auth-auth0-enabled=true --auth-auth0-domain=${AUTH0_DOMAIN} --auth-auth0-client-id=${AUTH0_CLIENT_ID}'
-      user:
-        name: core
-      group:
-        name: core
+        inline: matchbox
     - path: /opt/extensions/docker-compose/docker-compose-2.34.0-x86-64.raw
       mode: 0644
       contents:
@@ -189,19 +134,6 @@ storage:
 
 systemd:
   units:
-    - name: omni.service
-      enabled: true
-      contents: |
-        [Unit]
-        After=docker.service systemd-sysext.service lego.service
-        Requires=docker.service systemd-sysext.service
-
-        [Service]
-        ExecStart=/usr/bin/docker compose -f /home/core/compose.yaml --env-file /home/core/omni.env up
-        ExecStop=/usr/bin/docker compose -f /home/core/compose.yaml --env-file /home/core/omni.env down
-
-        [Install]
-        WantedBy=multi-user.target
     - name: systemd-sysupdate.timer
       enabled: true
     - name: systemd-sysupdate.service
@@ -241,35 +173,6 @@ systemd:
           --path=/omni/asc --domain https://eu.infisical.com secrets get OMNI_ASC --silent \
           --plain > /docker/appdata/omni/omni.asc'
         
-        [Install]
-        WantedBy=multi-user.target
-    - name: lego.service
-      enabled: true
-      contents: |
-        [Unit]
-        Description=Lego Certificate
-        Type=oneshot
-        After=infisical-export.service
-        Requires=docker.service
-
-        [Service]
-        EnvironmentFile=/opt/infisical.env
-        ExecStartPre=-/usr/bin/docker pull docker.io/goacme/lego:latest
-        ExecStart=/usr/bin/docker run \
-          --name lego \
-          --user 500:500 \
-          --rm -e CF_DNS_API_TOKEN \
-          -v /docker/appdata/lego:/data:Z \
-          docker.io/goacme/lego:latest \
-          --accept-tos \
-          --email certs@rizexor.com \
-          --dns cloudflare \
-          --domains '*.omni.fossindia.ovh' \
-          --domains omni.fossindia.ovh \
-          --path /data \
-          --dns.resolvers 1.1.1.1,1.0.0.1 \
-          run
-
         [Install]
         WantedBy=multi-user.target
     - name: matchbox.service
