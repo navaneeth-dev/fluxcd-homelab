@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+---
+clusterName: home-cluster
+talosVersion: "${talosVersion}"
+kubernetesVersion: "${kubernetesVersion}"
+endpoint: https://192.168.3.2:6443
+allowSchedulingOnMasters: true
+additionalMachineCertSans:
+  - 192.168.3.2
+additionalApiServerCertSans:
+  - home-cluster.local
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.96.0.0/12
+cniConfig:
+  name: none
+nodes:
+  - hostname: controlplane-pve
+    ipAddress: 192.168.3.2
+    controlPlane: true
+    installDisk: /dev/vda
+  - hostname: controlplane-pve-minipc
+    ipAddress: 192.168.3.3
+    controlPlane: true
+    installDisk: /dev/vda
+  - hostname: controlplane-pve-thinkcentre
+    ipAddress: 192.168.3.4
+    controlPlane: true
+    installDisk: /dev/vda
+controlPlane:
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/qemu-guest-agent
