@@ -26,8 +26,13 @@ tasks:
 
   replace-matchbox:
     cmds:
-      - task: default
-      - task: replace-kubernetes
+      - task: proxmox:default
+        vars:
+          CLI_ARGS: |
+            apply -replace='proxmox_virtual_environment_vm.controlplane[0]' \
+              -replace='proxmox_virtual_environment_vm.controlplane[1]' \
+              -replace='proxmox_virtual_environment_vm.controlplane[2]' \
+              -replace='proxmox_virtual_environment_vm.omni'
 
   kubernetes-bootstrap:
     cmds:
