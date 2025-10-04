@@ -156,10 +156,13 @@ storage:
                 "init_on_alloc=1",
                 "slab_nomerge",
                 "pti=on",
-                "console=tty0",
+                "console=tty1",
                 "console=ttyS0",
+                "consoleblank=0",
                 "printk.devkmsg=on",
-                "talos.platform=metal",
+                "talos.platform=nocloud",
+                "selinux=1",
+                "nvme_core.io_timeout=4294967295",
                 "talos.events.sink=[fdae:41e4:649b:9303::1]:8091",
                 "talos.logging.kernel=tcp://[fdae:41e4:649b:9303::1]:8092",
                 "siderolink.api=<your siderolink.api value>"
@@ -178,11 +181,11 @@ storage:
     - path: /var/lib/matchbox/assets/vmlinuz
       mode: 0644
       contents:
-        source: https://github.com/siderolabs/talos/releases/latest/download/vmlinuz-amd64
+        source: https://pxe.factory.talos.dev/image/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515/v1.11.2/kernel-amd64
     - path: /var/lib/matchbox/assets/initramfs.xz
       mode: 0644
       contents:
-        source: https://github.com/siderolabs/talos/releases/latest/download/initramfs-amd64.xz
+        source: https://pxe.factory.talos.dev/image/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515/v1.11.2/initramfs-amd64.xz
 
 systemd:
   units:
