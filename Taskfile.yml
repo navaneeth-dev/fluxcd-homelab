@@ -13,8 +13,16 @@ tasks:
       - task: proxmox:default
         vars:
           CLI_ARGS: apply
-      - omnictl get clusters
 #      - task: kubernetes-bootstrap
+
+  replace-vms:
+    cmds:
+      - task: proxmox:default
+        vars:
+          CLI_ARGS: |
+            apply -replace='proxmox_virtual_environment_vm.controlplane[0]' \
+              -replace='proxmox_virtual_environment_vm.controlplane[1]' \
+              -replace='proxmox_virtual_environment_vm.controlplane[2]'
 
   kubernetes-bootstrap:
     cmds:

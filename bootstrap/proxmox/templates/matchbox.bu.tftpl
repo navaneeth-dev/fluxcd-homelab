@@ -11,38 +11,11 @@ storage:
   links:
     - path: /etc/localtime
       target: ../usr/share/zoneinfo/Asia/Kolkata
-    - target: /opt/extensions/docker-compose/docker-compose-2.34.0-x86-64.raw
-      path: /etc/extensions/docker-compose.raw
-      hard: false
     - path: /etc/systemd/system/multi-user.target.wants/docker.service
       target: /usr/lib/systemd/system/docker.service
       hard: false
       overwrite: true
-  filesystems:
-    - device: /dev/vdb
-      path: /docker/appdata
-      format: ext4
-      label: DATA
-      with_mount_unit: true
   directories:
-    - path: /docker
-      mode: 0755
-      user:
-        name: core
-      group:
-        name: core
-    - path: /docker/appdata
-      mode: 0755
-      user:
-        name: core
-      group:
-        name: core
-    - path: /docker/appdata/lego
-      mode: 0755
-      user:
-        name: core
-      group:
-        name: core
     - path: /var/lib/matchbox/profiles
       mode: 0755
     - path: /var/lib/matchbox/groups
@@ -57,25 +30,6 @@ storage:
       overwrite: true
       contents:
         inline: matchbox
-    - path: /opt/extensions/docker-compose/docker-compose-2.34.0-x86-64.raw
-      mode: 0644
-      contents:
-        source: https://extensions.flatcar.org/extensions/docker-compose-2.34.0-x86-64.raw
-    - path: /etc/sysupdate.docker-compose.d/docker-compose.conf
-      contents:
-        source: https://extensions.flatcar.org/extensions/docker-compose.conf
-    - path: /etc/sysupdate.d/noop.conf
-      contents:
-        source: https://extensions.flatcar.org/extensions/noop.conf
-    - path: /etc/systemd/network/10-siderolink.network
-      mode: 0644
-      contents:
-        inline: |
-          [Match]
-          Name=siderolink
-          
-          [Link]
-          Unmanaged=yes
     - path: /etc/systemd/network/00-eth0.network
       contents:
         inline: |
@@ -131,19 +85,8 @@ storage:
 
 systemd:
   units:
-    - name: systemd-sysupdate.timer
-      enabled: true
-    - name: systemd-sysupdate.service
-      dropins:
-        - name: docker-compose.conf
-          contents: |
-            [Service]
-            ExecStartPre=/usr/bin/sh -c "readlink --canonicalize /etc/extensions/docker-compose.raw > /tmp/docker-compose"
-            ExecStartPre=/usr/lib/systemd/systemd-sysupdate -C docker-compose update
-            ExecStartPost=/usr/bin/sh -c "readlink --canonicalize /etc/extensions/docker-compose.raw > /tmp/docker-compose-new"
-            ExecStartPost=/usr/bin/sh -c "if ! cmp --silent /tmp/docker-compose /tmp/docker-compose-new; then touch /run/reboot-required; fi"
     - name: infisical-export.service
-      enabled: true
+      enabled: false
       contents: |
         [Unit]
         Description=Export secrets from Infisical to env file
