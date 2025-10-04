@@ -61,3 +61,23 @@ AUTH='--auth-auth0-enabled=true \
 #       --auth-saml-url=<saml-url>'
 #Only one AUTH version can be used at a time, so ensure to remove the one you don't use.```
 ```
+
+Openwrt enable TFTP
+/etc/dnsmasq.conf
+```
+# Legacy PXE
+#dhcp-match=set:bios,option:client-arch,0
+#dhcp-boot=tag:bios,undionly.kpxe
+
+# UEFI
+dhcp-match=set:efi32,option:client-arch,6
+dhcp-boot=tag:efi32,ipxe.efi
+dhcp-match=set:efibc,option:client-arch,7
+dhcp-boot=tag:efibc,ipxe.efi
+dhcp-match=set:efi64,option:client-arch,9
+dhcp-boot=tag:efi64,ipxe.efi
+
+# iPXE - chainload to matchbox ipxe boot script
+dhcp-userclass=set:ipxe,iPXE
+dhcp-boot=tag:ipxe,http://192.168.3.69:8099/boot.ipxe
+```
