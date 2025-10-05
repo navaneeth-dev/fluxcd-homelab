@@ -38,6 +38,7 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   serial_device {}
 
   initialization {
+    user_data_file_id = proxmox_virtual_environment_file.talos_config[count.index].id
     ip_config {
       ipv4 {
         address = "${cidrhost(local.ipv4.prefix, count.index+2)}/24"
@@ -69,5 +70,17 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
     interface    = "virtio1"
     discard      = "on"
     size         = 64
+  }
+}
+
+resource "proxmox_virtual_environment_file" "talos_config" {
+  count = length(local.nodes)
+
+  content_type = "snippets"
+  datastore_id = "local"
+  node_name    = local.nodes[count.index]
+
+  source_file {
+    path = "${path.module}/../talos/clusterconfig/home-cluster-controlplane-${local.nodes[count.index]}.yaml"
   }
 }
