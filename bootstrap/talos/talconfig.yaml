@@ -20,38 +20,40 @@ nodes:
     ipAddress: 192.168.3.2
     controlPlane: true
     installDisk: /dev/vda
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.3.2/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.3.1
+#    networkInterfaces:
+#      - interface: eth0
+#        addresses:
+#          - 192.168.3.2/24
+#        routes:
+#          - network: 0.0.0.0/0
+#            gateway: 192.168.3.1
   - hostname: controlplane-pve-minipc
     ipAddress: 192.168.3.3
     controlPlane: true
     installDisk: /dev/vda
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.3.3/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.3.1
+#    networkInterfaces:
+#      - interface: eth0
+#        addresses:
+#          - 192.168.3.3/24
+#        routes:
+#          - network: 0.0.0.0/0
+#            gateway: 192.168.3.1
   - hostname: controlplane-pve-thinkcentre
     ipAddress: 192.168.3.4
     controlPlane: true
     installDisk: /dev/vda
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.3.4/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.3.1
+#    networkInterfaces:
+#      - interface: eth0
+#        addresses:
+#          - 192.168.3.4/24
+#        routes:
+#          - network: 0.0.0.0/0
+#            gateway: 192.168.3.1
 controlPlane:
-  nameservers:
-    - 192.168.3.1
+  machineSpec:
+    mode: nocloud
+#  nameservers:
+#    - 192.168.3.1
   schematic:
     customization:
       systemExtensions:

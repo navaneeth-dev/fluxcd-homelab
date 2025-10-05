@@ -22,7 +22,10 @@ tasks:
           CLI_ARGS: |
             apply -replace='proxmox_virtual_environment_vm.controlplane[0]' \
               -replace='proxmox_virtual_environment_vm.controlplane[1]' \
-              -replace='proxmox_virtual_environment_vm.controlplane[2]'
+              -replace='proxmox_virtual_environment_vm.controlplane[2]' \
+              -replace='proxmox_virtual_environment_file.talos_config[0]' \
+              -replace='proxmox_virtual_environment_file.talos_config[1]' \
+              -replace='proxmox_virtual_environment_file.talos_config[2]'
 
   replace-matchbox:
     cmds:
