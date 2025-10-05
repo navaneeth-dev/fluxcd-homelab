@@ -4,7 +4,7 @@ clusterName: home-cluster
 talosVersion: "${talosVersion}"
 kubernetesVersion: "${kubernetesVersion}"
 endpoint: https://192.168.3.200:6443
-allowSchedulingOnMasters: true
+allowSchedulingOnControlPlanes: true
 additionalMachineCertSans:
   - 192.168.3.2
   - 192.168.3.3
@@ -71,3 +71,11 @@ controlPlane:
         officialExtensions:
           - siderolabs/qemu-guest-agent
 #          - siderolabs/i915
+
+patches:
+  - |-
+    cluster:
+      proxy:
+        disabled: true
+      extraManifests:
+        - "
