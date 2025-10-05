@@ -70,7 +70,7 @@ controlPlane:
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
-#          - siderolabs/i915
+          - siderolabs/i915
 
 patches:
   - |-

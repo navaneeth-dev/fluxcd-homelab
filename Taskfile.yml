@@ -24,7 +24,7 @@ tasks:
     dir: ./bootstrap/talos
     cmds:
       - talosctl -n 192.168.3.2 bootstrap
-      - sleep 120
+      - echo Wait for Kubernetes nodes && sleep 300
       - talosctl -n 192.168.3.200 kubeconfig ../../ --force
       - |
         helm install \
@@ -40,6 +40,7 @@ tasks:
           --set cgroup.hostRoot=/sys/fs/cgroup \
           --set k8sServiceHost=localhost \
           --set k8sServicePort=7445
+      - cilium status --wait
 
   replace-kubernetes:
     cmds:
@@ -55,7 +56,6 @@ tasks:
               -replace='proxmox_virtual_environment_file.talos_config[2]'
       - sleep 30
       - task: kubeconfig
-      - kubectl get nodes
 
   replace-matchbox:
     cmds:
@@ -67,7 +67,7 @@ tasks:
               -replace='proxmox_virtual_environment_vm.controlplane[2]' \
               -replace='proxmox_virtual_environment_vm.omni'
 
-  kubernetes-bootstrap:
+  bootstrap:flux:
     cmds:
       - kubectl get ns flux-system || kubectl create ns flux-system
       - |

@@ -15,10 +15,10 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
   bios = "ovmf"
   efi_disk {}
 
-  # hostpci {
-  #   device = "hostpci0"
-  #   id = "00:02.0"
-  # }
+  hostpci {
+    device = "hostpci0"
+    id = "00:02.0"
+  }
 
   cpu {
     cores = 4
