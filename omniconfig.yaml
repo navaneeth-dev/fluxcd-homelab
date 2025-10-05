@@ -1,7 +1,0 @@
-contexts:
-    default:
-        url: https://omni.fossindia.ovh
-        auth:
-            siderov1:
-                identity: me@rizexor.com
-context: default
