@@ -15,6 +15,11 @@ tasks:
           CLI_ARGS: apply
 #      - task: kubernetes-bootstrap
 
+  apply-config:
+    dir: ./bootstrap/talos
+    cmds:
+      - talhelper gencommand apply | zsh
+
   genconfig:
     dir: ./bootstrap/talos
     cmds:
@@ -67,7 +72,7 @@ tasks:
               -replace='proxmox_virtual_environment_vm.controlplane[2]' \
               -replace='proxmox_virtual_environment_vm.omni'
 
-  bootstrap:flux:
+  bootstrap-flux:
     cmds:
       - kubectl get ns flux-system || kubectl create ns flux-system
       - |
