@@ -3,14 +3,14 @@
 clusterName: home-cluster
 talosVersion: "${talosVersion}"
 kubernetesVersion: "${kubernetesVersion}"
-endpoint: https://192.168.3.2:6443
+endpoint: https://192.168.3.200:6443
 allowSchedulingOnMasters: true
 additionalMachineCertSans:
   - 192.168.3.2
   - 192.168.3.3
   - 192.168.3.4
 additionalApiServerCertSans:
-  - 192.168.3.2
+  - 192.168.3.200
 clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
@@ -22,14 +22,44 @@ nodes:
     ipAddress: 192.168.3.2
     controlPlane: true
     installDisk: /dev/vda
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.3.2/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.3.1
+        dhcp: false
+        vip:
+          ip: 192.168.3.200
   - hostname: controlplane-pve-minipc
     ipAddress: 192.168.3.3
     controlPlane: true
     installDisk: /dev/vda
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.3.3/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.3.1
+        dhcp: false
+        vip:
+          ip: 192.168.3.200
   - hostname: controlplane-pve-thinkcentre
     ipAddress: 192.168.3.4
     controlPlane: true
     installDisk: /dev/vda
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.3.4/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.3.1
+        dhcp: false
+        vip:
+          ip: 192.168.3.200
 controlPlane:
   machineSpec:
     mode: nocloud
