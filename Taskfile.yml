@@ -15,6 +15,16 @@ tasks:
           CLI_ARGS: apply
 #      - task: kubernetes-bootstrap
 
+  genconfig:
+    dir: ./bootstrap/talos
+    cmds:
+      - talhelper genconfig
+
+  kubeconfig:
+    dir: ./bootstrap/talos
+    cmds:
+      - talosctl -n 192.168.3.200 kubeconfig ../../
+
   replace-kubernetes:
     cmds:
       - task: proxmox:default
