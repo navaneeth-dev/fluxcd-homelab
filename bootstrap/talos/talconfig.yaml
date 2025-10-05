@@ -77,5 +77,11 @@ patches:
     cluster:
       proxy:
         disabled: true
-      extraManifests:
-        - "https://raw.githubusercontent.com/navaneeth-dev/fluxcd-homelab/refs/heads/main/bootstrap/cilium.yaml"
+
+  - &hostDNS |
+    machine:
+      features:
+        hostDNS:
+          enabled: true
+          resolveMemberNames: true
+          forwardKubeDNSToHost: false

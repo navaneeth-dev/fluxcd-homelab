@@ -26,6 +26,20 @@ tasks:
       - talosctl -n 192.168.3.2 bootstrap
       - sleep 15
       - talosctl -n 192.168.3.200 kubeconfig ../../ --force
+      - |
+        helm install \
+          cilium \
+          cilium/cilium \
+          --version 1.18.0 \
+          --namespace kube-system \
+          --set ipam.mode=kubernetes \
+          --set kubeProxyReplacement=true \
+          --set securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
+          --set securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
+          --set cgroup.autoMount.enabled=false \
+          --set cgroup.hostRoot=/sys/fs/cgroup \
+          --set k8sServiceHost=localhost \
+          --set k8sServicePort=7445
 
   replace-kubernetes:
     cmds:
@@ -39,7 +53,7 @@ tasks:
               -replace='proxmox_virtual_environment_file.talos_config[0]' \
               -replace='proxmox_virtual_environment_file.talos_config[1]' \
               -replace='proxmox_virtual_environment_file.talos_config[2]'
-      - sleep 5
+      - sleep 10
       - task: kubeconfig
       - kubectl get nodes
 
