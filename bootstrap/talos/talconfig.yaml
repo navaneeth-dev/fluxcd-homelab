@@ -73,6 +73,11 @@ controlPlane:
           - siderolabs/i915
 
 patches:
+  - |
+    machine:
+      nodeLabels:
+        intel.feature.node.kubernetes.io/gpu: "true"
+
   - |-
     cluster:
       proxy:
