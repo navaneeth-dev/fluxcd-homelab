@@ -12,12 +12,13 @@ resource "proxmox_virtual_environment_vm" "controlplane" {
 
   agent { enabled = true }
   machine = "q35"
-  bios = "ovmf"
+  # bios = "ovmf"
   efi_disk {}
 
   hostpci {
     device = "hostpci0"
     id = "00:02.0"
+    pcie = true
   }
 
   cpu {
