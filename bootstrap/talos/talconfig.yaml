@@ -78,4 +78,4 @@ patches:
       proxy:
         disabled: true
       extraManifests:
-        - "
+        - "https://raw.githubusercontent.com/navaneeth-dev/fluxcd-homelab/refs/heads/main/bootstrap/cilium.yaml"
