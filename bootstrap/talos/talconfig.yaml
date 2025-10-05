@@ -7,8 +7,10 @@ endpoint: https://192.168.3.2:6443
 allowSchedulingOnMasters: true
 additionalMachineCertSans:
   - 192.168.3.2
+  - 192.168.3.3
+  - 192.168.3.4
 additionalApiServerCertSans:
-  - home-cluster.local
+  - 192.168.3.2
 clusterPodNets:
   - 10.244.0.0/16
 clusterSvcNets:
