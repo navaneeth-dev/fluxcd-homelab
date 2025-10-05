@@ -24,7 +24,7 @@ tasks:
     dir: ./bootstrap/talos
     cmds:
       - talosctl -n 192.168.3.2 bootstrap
-      - sleep 15
+      - sleep 120
       - talosctl -n 192.168.3.200 kubeconfig ../../ --force
       - |
         helm install \
@@ -53,7 +53,7 @@ tasks:
               -replace='proxmox_virtual_environment_file.talos_config[0]' \
               -replace='proxmox_virtual_environment_file.talos_config[1]' \
               -replace='proxmox_virtual_environment_file.talos_config[2]'
-      - sleep 10
+      - sleep 30
       - task: kubeconfig
       - kubectl get nodes
 
