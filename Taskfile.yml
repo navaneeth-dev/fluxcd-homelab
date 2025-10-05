@@ -23,7 +23,9 @@ tasks:
   kubeconfig:
     dir: ./bootstrap/talos
     cmds:
-      - talosctl -n 192.168.3.200 kubeconfig ../../
+      - talosctl -n 192.168.3.2 bootstrap
+      - sleep 15
+      - talosctl -n 192.168.3.200 kubeconfig ../../ --force
 
   replace-kubernetes:
     cmds:
@@ -37,7 +39,7 @@ tasks:
               -replace='proxmox_virtual_environment_file.talos_config[0]' \
               -replace='proxmox_virtual_environment_file.talos_config[1]' \
               -replace='proxmox_virtual_environment_file.talos_config[2]'
-      - sleep 30
+      - sleep 5
       - task: kubeconfig
       - kubectl get nodes
 
