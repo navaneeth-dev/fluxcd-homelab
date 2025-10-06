@@ -10,5 +10,6 @@ resources:
 #  - ../base/plex
   - ../base/radarr
   - ../base/sonarr
+  - ../base/recyclarr
   - ../base/homepage
   - ../base/prowlarr

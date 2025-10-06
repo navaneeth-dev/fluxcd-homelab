@@ -32,26 +32,11 @@ spec:
               mountPath: /config
             - name: data
               mountPath: /data
-        - name: recyclarr
-          image: ghcr.io/recyclarr/recyclarr:7.4
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-          env:
-            - name: TZ
-              value: "Asia/Kolkata"
-          volumeMounts:
-            - name: recyclarr-config
-              mountPath: /config
       volumes:
         - name: data
           nfs:
             server: 'nas.home.arpa'
             path: "/srv/nfs4/data"
-        - name: recyclarr-config
-          nfs:
-            server: "nas2.home.arpa"
-            path: "/config/recyclarr"
         - name: sabnzbd-config
           nfs:
             server: "nas2.home.arpa"
