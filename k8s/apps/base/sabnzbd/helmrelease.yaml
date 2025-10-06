@@ -45,7 +45,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
+                    path: /api?mode=version
                     port: &port 8080
                   initialDelaySeconds: 20
                   periodSeconds: 10
