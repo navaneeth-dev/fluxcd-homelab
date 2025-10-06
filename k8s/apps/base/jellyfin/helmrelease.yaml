@@ -26,8 +26,11 @@ spec:
       jellyfin:
         pod:
           securityContext:
+            runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
             image:
@@ -55,10 +58,10 @@ spec:
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
-              privileged: true
-#              allowPrivilegeEscalation: false
-#              readOnlyRootFilesystem: true
-#              capabilities: { drop: ["ALL"] }
+#              privileged: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               limits:
                 gpu.intel.com/i915: "1"
