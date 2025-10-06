@@ -19,5 +19,5 @@ spec:
       namespace: kube-system
   values:
     name: i915
-    sharedDevNum: 99
+#    sharedDevNum: 99
     nodeFeatureRule: false
