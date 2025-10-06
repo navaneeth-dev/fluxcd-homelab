@@ -63,6 +63,7 @@ spec:
                 memory: 500Mi
               requests:
                 cpu: 10m
+                memory: 100Mi
 
     service:
       app:
