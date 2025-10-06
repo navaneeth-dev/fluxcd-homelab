@@ -61,6 +61,7 @@ spec:
                 memory: 2Gi
               requests:
                 cpu: 100m
+                memory: 100Mi
 
     service:
       app:
