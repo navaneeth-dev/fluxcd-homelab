@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.17.8
+      version: 1.18.0
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -38,6 +38,9 @@ spec:
   maxHistory: 3
   timeout: 30m
   values:
+    bgpControlPlane:
+      enabled: true
+
     nodePort:
       directRoutingDevice: eth0
 
@@ -62,8 +65,8 @@ spec:
 #      qps: 10
 #      burst: 15
 
-#    ipam:
-#      mode: kubernetes
+    ipam:
+      mode: kubernetes
 
     kubeProxyReplacement: true
 
@@ -95,7 +98,7 @@ spec:
     k8sServicePort: 7445
 
     ipv6:
-      enabled: true
+      enabled: false
 
 #    gatewayAPI:
 #      enabled: false
