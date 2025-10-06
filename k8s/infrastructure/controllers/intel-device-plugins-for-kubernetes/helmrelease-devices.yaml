@@ -16,7 +16,7 @@ spec:
         name: intel
   dependsOn:
     - name: intel-device-plugins-operator
-      namespace: system
+      namespace: kube-system
   values:
     name: i915
     sharedDevNum: 99
