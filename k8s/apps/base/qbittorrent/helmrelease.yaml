@@ -120,9 +120,9 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: "nas2.home.arpa"
-        path: "/config"
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 100Mi
         globalMounts:
           - path: /config
       data:
