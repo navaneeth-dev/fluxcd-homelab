@@ -34,8 +34,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/hotio/sabnzbd
-              tag: sha256:aff501a8144b64f8bd318768e37987d7d6c02c41b95917519343eb960c41ae0a
+              repository: ghcr.io/home-operations/sabnzbd
+              tag: 4.5.3@sha256:ecb57bd6257fbfbd9aee70d8ef3df8814b7270ae793fd1f44219ae73cacd519a
             env:
               TZ: "${TZ}"
               WEBUI_PORTS: "8080/tcp,8080/udp"
