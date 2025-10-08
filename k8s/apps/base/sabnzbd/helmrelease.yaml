@@ -99,7 +99,6 @@ spec:
         path: "/srv/nfs4/data"
         globalMounts:
           - path: /data
-            readOnly: true
 
       tmp:
         type: emptyDir
