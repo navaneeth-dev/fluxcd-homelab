@@ -91,5 +91,15 @@ spec:
         size: 100Mi
         globalMounts:
           - path: /config
+
+      media:
+        enabled: true
+        type: nfs
+        server: "nas.home.arpa"
+        path: "/srv/nfs4/data"
+        globalMounts:
+          - path: /data
+            readOnly: true
+
       tmp:
         type: emptyDir
