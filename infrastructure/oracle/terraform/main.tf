@@ -545,12 +545,3 @@ resource "oci_core_instance" "controlplane" {
     user_data = base64encode(data.talos_machine_configuration.this.machine_configuration)
   }
 }
-
-locals {
-  loadbalancer_cloud_init = yamlencode({
-    runcmd = [
-      "curl -L https://github.com/nix-community/nixos-images/releases/latest/download/nixos-kexec-installer-noninteractive-x86_64-linux.tar.gz | tar -xzf- -C /root",
-      "/root/kexec/run"
-    ]
-  })
-}
