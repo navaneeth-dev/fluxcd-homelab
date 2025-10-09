@@ -1,0 +1,56 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+tasks:
+  default:
+    preconditions:
+      - test -f terraform.auto.tfvars
+    cmds:
+      - terraform apply -auto-approve
+      - task: configs
+    silent: true
+
+  destroy:
+    cmds:
+      - terraform destroy -auto-approve
+    silent: true
+
+  recreate:
+    cmds:
+      - task: destory
+      - task: default
+    silent: true
+
+  export-secrets:
+    cmds:
+      - infisical --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 --path=/oracle export -o=./terraform.auto.tfvars
+
+  bootstrap:
+    cmds:
+      - task: portfwd
+      - talosctl --talosconfig ./talosconfig dashboard
+      - talosctl --talosconfig ./talosconfig bootstrap -n 10.0.10.2
+      - talosctl --talosconfig ./talosconfig health -n 10.0.10.2
+      - defer: cancelportfwd
+    silent: true
+
+  portfwd:
+    cmds:
+      - ssh -M -S bastion_session_talos -fNL 50000:10.0.60.200:50000 $(terraform output -raw bastion_session_talos)
+      - task: bastion_k8s
+
+  bastion_k8s:
+    cmd: ssh -M -S bastion_session_k8s_api -fNL 6443:10.0.60.200:6443 $(terraform output -raw bastion_session_k8s_api)
+    silent: true
+
+  cancelportfwd:
+    cmds:
+      - ssh -S bastion_session_talos -O exit $(terraform output -raw bastion_session_talos)
+      - ssh -S bastion_session_k8s_api -O exit $(terraform output -raw bastion_session_k8s_api)
+
+  configs:
+    cmds:
+      - terraform output -raw talosconfig > ./talosconfig
+      - terraform output -raw kubeconfig > ./kubeconfig
+      - mv ./kubeconfig ~/.kube/config
