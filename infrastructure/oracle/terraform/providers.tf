@@ -6,12 +6,24 @@ terraform {
   }
 
   required_providers {
+    talos = {
+      source  = "siderolabs/talos"
+      version = "0.8.1"
+    }
+
     oci = {
       source  = "oracle/oci"
-      version = "7.14.0"
+      version = "7.22.0"
+    }
+
+    local = {
+      source = "hashicorp/local"
+      version = "2.5.3"
     }
   }
 }
+
+provider "talos" {}
 
 provider "oci" {
   config_file_profile = "AKASH"

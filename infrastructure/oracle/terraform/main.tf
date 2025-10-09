@@ -511,9 +511,6 @@ resource "oci_bastion_session" "k8s_api_session" {
 }
 
 /* Instances */
-variable "talos_image_ocid" {
-}
-
 resource "oci_core_instance" "controlplane" {
   count = var.control_plane_count
 
@@ -538,7 +535,8 @@ resource "oci_core_instance" "controlplane" {
 
   source_details {
     source_type = "image"
-    source_id   = var.talos_image_ocid
+    source_id   = oci_core_image.talos_image.id
+    boot_volume_size_in_gbs = "50"
   }
 
   metadata = {
