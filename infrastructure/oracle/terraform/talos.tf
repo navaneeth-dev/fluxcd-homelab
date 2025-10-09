@@ -106,7 +106,6 @@ data "talos_client_configuration" "this" {
   client_configuration = talos_machine_secrets.this.client_configuration
 
   endpoints = [local.endpoint]
-  nodes     = [for instance in oci_core_instance.controlplane : instance.private_ip]
 }
 
 resource "local_sensitive_file" "talosconfig" {
@@ -125,24 +124,4 @@ resource "talos_cluster_kubeconfig" "this" {
 
   endpoint = local.endpoint
   node     = oci_core_instance.controlplane[0].private_ip
-}
-
-output "kubeconfig" {
-  value     = talos_cluster_kubeconfig.this.kubeconfig_raw
-  sensitive = true
-}
-
-output "talosconfig" {
-  value     = data.talos_client_configuration.this.talos_config
-  sensitive = true
-}
-
-output "bastion_session_talos" {
-  value       = "${oci_bastion_session.talos_session.bastion_user_name}@host.bastion.${var.region}.oci.oraclecloud.com"
-  description = "Bastion Talos SSH host"
-}
-
-output "bastion_session_k8s_api" {
-  value       = "${oci_bastion_session.k8s_api_session.bastion_user_name}@host.bastion.${var.region}.oci.oraclecloud.com"
-  description = "Bastion K8S API SSH host"
 }
