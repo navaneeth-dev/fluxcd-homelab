@@ -1,8 +1,0 @@
-cluster:
-  network:
-    podSubnets:
-      - 10.244.0.0/16
-      - fdba:9ac4:90d8::/56
-    serviceSubnets:
-      - 10.96.0.0/12
-      - fdd0:e642:6aad::/112
