@@ -4,11 +4,9 @@ version: '3'
 
 tasks:
   default:
-    preconditions:
-      - test -f terraform.auto.tfvars
     cmds:
-      - terraform apply -auto-approve
-      - task: configs
+      - terraform apply
+#      - task: configs
     silent: true
 
   destroy:
@@ -21,10 +19,6 @@ tasks:
       - task: destory
       - task: default
     silent: true
-
-  export-secrets:
-    cmds:
-      - infisical --env=prod --projectId=201b912b-40de-44bf-bb83-ab1bc77554b7 --path=/oracle export -o=./terraform.auto.tfvars
 
   bootstrap:
     cmds:

@@ -1,11 +1,3 @@
-variable "control_plane_count" {
-  default     = 3
-  description = "Number of control plane nodes"
-}
-variable "cluster_name" {
-  default = "rizexor"
-}
-
 resource "talos_machine_secrets" "this" {}
 
 locals {
