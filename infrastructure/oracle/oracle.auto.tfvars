@@ -1,3 +1,3 @@
 compartment_ocid = "ocid1.tenancy.oc1..aaaaaaaax6sm6osgjkcqfhpg4x447vby6iwtdiv3ezlho7xw6yl6kim5wheq"
-talos_image_ocid = "ocid1.image.oc1.ap-mumbai-1.aaaaaaaarnszfkaj3uklabwc6tocdt55ospzjozy7ww3yul7amdoqllrzgqq"
+talos_image_ocid = "ocid1.image.oc1.ap-hyderabad-1.aaaaaaaaf3gii6prl7blddn46efibxjuhqkyb7fva45up74cwenvdlyslboq"
 ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICiUB1MgFciQ63LsGGBwHVjCtf1cn50BdxN9jTtfTPGF"
