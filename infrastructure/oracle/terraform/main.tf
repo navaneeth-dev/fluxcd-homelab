@@ -529,7 +529,7 @@ resource "oci_core_instance" "controlplane" {
     subnet_id        = oci_core_subnet.nodes.id
     display_name     = "primaryvnic"
     assign_public_ip = false
-    hostname_label   = "bom-talos-${count.index + 1}"
+    hostname_label   = "talos-hyd-${count.index + 1}"
     private_ip       = "10.0.10.${count.index + 2}"
   }
 
