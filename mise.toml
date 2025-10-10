@@ -1,6 +1,6 @@
 [env]
-KUBECONFIG = "{{config_root}}/kubeconfig"
-TALOSCONFIG = "{{config_root}}/bootstrap/talos/clusterconfig/talosconfig"
+KUBECONFIG = "{{config_root}}/infrastructure/oracle/terraform/kubeconfig"
+TALOSCONFIG = "{{config_root}}/infrastructure/oracle/terraform/talosconfig"
 SOPS_AGE_KEY_FILE = "/home/rize/.ssh/key.txt"
 
 [tools]

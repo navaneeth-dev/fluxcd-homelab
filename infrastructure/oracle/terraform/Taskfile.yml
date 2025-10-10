@@ -47,4 +47,3 @@ tasks:
     cmds:
       - terraform output -raw talosconfig > ./talosconfig
       - terraform output -raw kubeconfig > ./kubeconfig
-      - mv ./kubeconfig ~/.kube/config
