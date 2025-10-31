@@ -1,12 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":disableRateLimiting",
+    ":semanticCommits"
   ],
   "timezone": "Asia/Kolkata",
-  "schedule": [
-    "* 0-3 1 * *"
-  ],
+  "helm-values": {
+    "managerFilePatterns": ["/k8s/apps/.+\\.yaml$/"]
+  },
   "kubernetes": {
     "managerFilePatterns": [
       "/\\.yaml$/"
@@ -17,4 +19,23 @@
       "/\\.yaml$/"
     ]
   },
+  "flux": {
+    "managerFilePatterns": ["/k8s/infrastructure/.+\\.yaml$/"]
+  },
+  suppressNotifications: [
+    "prEditedNotification",
+    "prIgnoreNotification",
+  ],
+  packageRules: [
+    {
+      description: "Auto-merge terraform",
+      matchDatasources: [
+        "terraform-module",
+        "terraform-provider"
+      ],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+    }
+  ],
 }
