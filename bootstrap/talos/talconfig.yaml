@@ -71,14 +71,14 @@ nodes:
                 gateway: 192.168.3.1
 controlPlane:
   machineSpec:
-    mode: nocloud
+    mode: metal
   nameservers:
     - 192.168.3.1
   schematic:
     customization:
       systemExtensions:
         officialExtensions:
-          - siderolabs/drdb
+          - siderolabs/drbd
           - siderolabs/intel-ucode
           - siderolabs/i915
 
@@ -110,13 +110,13 @@ patches:
           enabled: true
           resolveMemberNames: true
           forwardKubeDNSToHost: false
-    
-    - |
-      machine:
-        kernel:
-          modules:
-            - name: drbd
-              parameters:
-                - usermode_helper=disabled
-            - name: drbd_transport_tcp
-            - name: dm-thin-pool
+
+  - |-
+    machine:
+      kernel:
+        modules:
+          - name: drbd
+            parameters:
+              - usermode_helper=disabled
+          - name: drbd_transport_tcp
+          - name: dm-thin-pool
