@@ -2,11 +2,6 @@
 
 version: '3'
 
-includes:
-  proxmox:
-    taskfile: ./bootstrap/proxmox
-    dir: ./bootstrap/proxmox
-
 tasks:
   default:
     cmds:
@@ -28,8 +23,6 @@ tasks:
   kubeconfig:
     dir: ./bootstrap/talos
     cmds:
-      - talosctl -n 192.168.3.2 bootstrap
-      - echo Wait for Kubernetes nodes && sleep 300
       - talosctl -n 192.168.3.200 kubeconfig ../../ --force
       - |
         helm install \

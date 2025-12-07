@@ -26,13 +26,15 @@ nodes:
     networkInterfaces:
       - interface: eth0
         dhcp: false
-        addresses:
-          - 192.168.3.2/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.3.1
         vip:
           ip: 192.168.3.200
+        vlans:
+          - vlanId: 2
+            addresses:
+              - 192.168.3.2/24
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.3.1
   - hostname: controlplane-dell
     ipAddress: 192.168.3.3
     controlPlane: true
