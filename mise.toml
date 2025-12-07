@@ -6,3 +6,4 @@ SOPS_AGE_KEY_FILE = "/home/rize/.ssh/key.txt"
 [tools]
 sops = "3.10.2"
 talhelper = "3.0.36"
+talosctl = "latest"

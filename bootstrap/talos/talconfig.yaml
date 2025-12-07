@@ -18,48 +18,53 @@ clusterSvcNets:
 cniConfig:
   name: none
 nodes:
-  - hostname: controlplane-pve
+  - hostname: controlplane-deepcool
     ipAddress: 192.168.3.2
     controlPlane: true
-    installDisk: /dev/vda
+    installDiskSelector:
+      type: "nvme"
     networkInterfaces:
       - interface: eth0
+        dhcp: false
         addresses:
           - 192.168.3.2/24
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.3.1
-        dhcp: false
         vip:
           ip: 192.168.3.200
-  - hostname: controlplane-pve-minipc
+  - hostname: controlplane-dell
     ipAddress: 192.168.3.3
     controlPlane: true
-    installDisk: /dev/vda
+    installDiskSelector:
+      type: "nvme"
     networkInterfaces:
       - interface: eth0
+        dhcp: false
         addresses:
           - 192.168.3.3/24
         routes:
           - network: 0.0.0.0/0
             gateway: 192.168.3.1
-        dhcp: false
         vip:
           ip: 192.168.3.200
-  - hostname: controlplane-pve-thinkcentre
+  - hostname: controlplane-thinkcentre
     ipAddress: 192.168.3.4
     controlPlane: true
-    installDisk: /dev/vda
+    installDiskSelector:
+      type: "nvme"
     networkInterfaces:
       - interface: eth0
-        addresses:
-          - 192.168.3.4/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 192.168.3.1
         dhcp: false
         vip:
           ip: 192.168.3.200
+        vlans:
+          - vlanId: 2
+            addresses:
+              - 192.168.3.4/24
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 192.168.3.1
 controlPlane:
   machineSpec:
     mode: nocloud
@@ -69,7 +74,7 @@ controlPlane:
     customization:
       systemExtensions:
         officialExtensions:
-          - siderolabs/qemu-guest-agent
+          - siderolabs/intel-ucode
           - siderolabs/i915
 
 patches:
