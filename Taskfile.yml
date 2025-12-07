@@ -3,13 +3,6 @@
 version: '3'
 
 tasks:
-  default:
-    cmds:
-      - task: proxmox:default
-        vars:
-          CLI_ARGS: apply
-#      - task: kubernetes-bootstrap
-
   apply-config:
     dir: ./bootstrap/talos
     cmds:
@@ -40,31 +33,6 @@ tasks:
           --set k8sServicePort=7445
       - cilium status --wait
 
-  replace-kubernetes:
-    cmds:
-      - task: genconfig
-      - task: proxmox:default
-        vars:
-          CLI_ARGS: |
-            apply -replace='proxmox_virtual_environment_vm.controlplane[0]' \
-              -replace='proxmox_virtual_environment_vm.controlplane[1]' \
-              -replace='proxmox_virtual_environment_vm.controlplane[2]' \
-              -replace='proxmox_virtual_environment_file.talos_config[0]' \
-              -replace='proxmox_virtual_environment_file.talos_config[1]' \
-              -replace='proxmox_virtual_environment_file.talos_config[2]'
-      - sleep 30
-      - task: kubeconfig
-
-  replace-matchbox:
-    cmds:
-      - task: proxmox:default
-        vars:
-          CLI_ARGS: |
-            apply -replace='proxmox_virtual_environment_vm.controlplane[0]' \
-              -replace='proxmox_virtual_environment_vm.controlplane[1]' \
-              -replace='proxmox_virtual_environment_vm.controlplane[2]' \
-              -replace='proxmox_virtual_environment_vm.omni'
-
   bootstrap-flux:
     cmds:
       - kubectl get ns flux-system || kubectl create ns flux-system
@@ -79,4 +47,4 @@ tasks:
           --repository=fluxcd-homelab \
           --branch=main \
           --personal \
-          --path=k8s/clusters/kubespray
+          --path=k8s/clusters/primary
