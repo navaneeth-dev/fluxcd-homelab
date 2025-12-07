@@ -41,7 +41,7 @@ nodes:
     installDiskSelector:
       type: "nvme"
     networkInterfaces:
-      - interface: eno1
+      - interface: eth0
         dhcp: false
         vip:
           ip: 192.168.3.200
