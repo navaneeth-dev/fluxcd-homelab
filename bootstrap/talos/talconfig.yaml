@@ -79,8 +79,8 @@ controlPlane:
       systemExtensions:
         officialExtensions:
           - siderolabs/drbd
-          - siderolabs/intel-ucode
           - siderolabs/i915
+          - siderolabs/intel-ucode
 
 patches:
   - |
