@@ -41,8 +41,8 @@ spec:
     bgpControlPlane:
       enabled: true
 
-#    nodePort:
-#      directRoutingDevice: eth0
+    nodePort:
+      directRoutingDevice: enp+
 
     devices: eth0
 
