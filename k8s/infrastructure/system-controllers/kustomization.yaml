@@ -4,3 +4,4 @@ resources:
   - cert-manager
   - prometheus-operator-crds
   - local-path-provisioner
+  - piraeus
