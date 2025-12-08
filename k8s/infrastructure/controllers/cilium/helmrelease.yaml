@@ -44,8 +44,6 @@ spec:
     nodePort:
       directRoutingDevice: enp+
 
-    devices: enp+
-
     nodeIPAM:
       enabled: true
 
