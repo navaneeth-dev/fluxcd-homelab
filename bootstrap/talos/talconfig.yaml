@@ -41,12 +41,13 @@ nodes:
     installDiskSelector:
       type: "nvme"
     networkInterfaces:
-      - interface: eno1
+      - interface: enp3s0f0
         dhcp: false
-        vip:
-          ip: 192.168.3.200
         vlans:
           - vlanId: 2
+            dhcp: false
+            vip:
+              ip: 192.168.3.200
             addresses:
               - 192.168.3.3/24
             routes:
