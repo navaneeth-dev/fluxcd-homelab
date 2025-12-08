@@ -41,7 +41,7 @@ nodes:
     installDiskSelector:
       type: "nvme"
     networkInterfaces:
-      - interface: enp3s0f0
+      - interface: eno1
         dhcp: false
         vlans:
           - vlanId: 2
