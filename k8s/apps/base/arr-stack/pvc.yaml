@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data
+  namespace: homelab
+spec:
+  resources:
+    requests:
+      storage: 300Gi
+#  storageClassName: piraeus-replicated
+  accessModes:
+    - ReadWriteOnce
