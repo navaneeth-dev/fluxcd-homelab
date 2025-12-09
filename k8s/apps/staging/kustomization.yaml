@@ -12,4 +12,4 @@ resources:
   - ../base/recyclarr
   - ../base/homepage
   - ../base/prowlarr
-  - ../base/sabnzbd
+#  - ../base/sabnzbd
