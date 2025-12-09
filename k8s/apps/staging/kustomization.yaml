@@ -7,7 +7,6 @@ resources:
   - ../base/audiobookshelf
   - ../base/qbittorrent
   - ../base/jellyfin
-#  - ../base/plex
   - ../base/radarr
   - ../base/sonarr
   - ../base/recyclarr

@@ -92,12 +92,12 @@ spec:
         globalMounts:
           - path: /config
 
-      media:
+      data:
         enabled: true
         type: nfs
         server: "nas.home.arpa"
         path: "/srv/nfs4/data"
-        globalMounts:
+        globalmounts:
           - path: /data
 
       tmp:
