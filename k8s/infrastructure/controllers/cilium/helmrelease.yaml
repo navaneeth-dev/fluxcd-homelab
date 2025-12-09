@@ -41,10 +41,10 @@ spec:
     bgpControlPlane:
       enabled: true
 
-    nodePort:
-      directRoutingDevice: en+
+#    nodePort:
+#      directRoutingDevice: en+
 
-    devices: en+
+#    devices: en+
 
     nodeIPAM:
       enabled: true
