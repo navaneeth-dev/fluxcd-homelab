@@ -127,7 +127,7 @@ patches:
     kind: VolumeConfig
     name: EPHEMERAL
     provisioning:
-      maxSize: 200GiB
+      maxSize: 100GiB
       grow: false
 
   - |-
@@ -137,5 +137,4 @@ patches:
     provisioning:
       diskSelector:
         match: system_disk
-      minSize: 200GiB
-      maxSize: 200GiB
+      minSize: 300GiB
