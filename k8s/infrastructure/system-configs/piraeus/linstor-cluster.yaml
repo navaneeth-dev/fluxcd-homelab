@@ -3,4 +3,3 @@ kind: LinstorCluster
 metadata:
   name: linstorcluster
 spec: {}
-
