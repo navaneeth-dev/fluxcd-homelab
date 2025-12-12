@@ -121,3 +121,21 @@ patches:
               - usermode_helper=disabled
           - name: drbd_transport_tcp
           - name: dm-thin-pool
+
+  - |-
+    apiVersion: v1alpha1
+    kind: VolumeConfig
+    name: EPHEMERAL
+    provisioning:
+      maxSize: 200GiB
+      grow: false
+
+  - |-
+    apiVersion: v1alpha1
+    kind: RawVolumeConfig
+    name: csi-data
+    provisioning:
+      diskSelector:
+        match: system_disk
+      minSize: 200GiB
+      maxSize: 200GiB
