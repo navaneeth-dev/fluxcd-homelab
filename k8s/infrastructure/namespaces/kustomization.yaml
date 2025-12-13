@@ -8,3 +8,4 @@ resources:
   - envoy-gateway-system.yaml
   - homepage.yaml
   - observability.yaml
+  - snapshot-controller.yaml
