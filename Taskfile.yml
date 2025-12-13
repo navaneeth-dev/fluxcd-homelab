@@ -30,9 +30,13 @@ tasks:
           --set cgroup.autoMount.enabled=false \
           --set cgroup.hostRoot=/sys/fs/cgroup \
           --set k8sServiceHost=localhost \
-          --set k8sServicePort=7445
-#          --set devices="en+" \
-#          --set nodePort.directRoutingDevice="en+"
+          --set k8sServicePort=7445 \
+          --set envoy.enabled=false \
+          --set routingMode=native \
+          --set autoDirectNodeRoutes=true \
+          --set ipv4NativeRoutingCIDR="10.244.0.0/16" \
+          --set endpointRoutes.enabled=true \
+          --set bpf.masquerade=true
       - cilium status --wait
 
   bootstrap-flux:

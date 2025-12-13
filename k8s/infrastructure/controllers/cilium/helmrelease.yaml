@@ -38,6 +38,16 @@ spec:
   maxHistory: 3
   timeout: 30m
   values:
+    routingMode: native
+    autoDirectNodeRoutes: true
+    ipv4NativeRoutingCIDR: "10.244.0.0/16"
+
+    endpointRoutes:
+      enabled: true
+
+    bpf:
+      masquerade: true
+
     bgpControlPlane:
       enabled: true
 
@@ -49,26 +59,17 @@ spec:
     nodeIPAM:
       enabled: true
 
-#    loadBalancer:
-#      l7:
-#        backend: envoy
+    envoy:
+      enabled: false
 
-#    ingressController:
-#      enabled: true
-#      loadbalancerMode: shared
-#      default: true
-
-#    l2announcements:
-#      enabled: true
-
-#    k8sClientRateLimit:
-#      qps: 10
-#      burst: 15
+    dashboards:
+      enabled: true
 
     ipam:
       mode: kubernetes
 
     kubeProxyReplacement: true
+    kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 
     securityContext:
       capabilities:
