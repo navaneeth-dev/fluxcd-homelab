@@ -59,6 +59,7 @@ spec:
 
       storage:
         useAllNodes: true
+        useAllDevices: false
         deviceFilter: /dev/disk/by-partlabel/r-csi-data
         config:
           osdsPerDevice: "1"
