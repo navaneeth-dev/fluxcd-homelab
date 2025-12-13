@@ -33,7 +33,7 @@ spec:
         allowMultiplePerNode: false
       storage:
         useAllNodes: true
-        useAllDevices: true
+        deviceFilter: /dev/disk/by-partlabel/r-csi-data
     cephBlockPools:
       - name: ceph-blockpool
         spec:
