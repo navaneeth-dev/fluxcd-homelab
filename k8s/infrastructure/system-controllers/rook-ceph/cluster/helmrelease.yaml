@@ -9,6 +9,16 @@ spec:
   chartRef:
     kind: OCIRepository
     name: rook-ceph-cluster
+  install:
+    crds: CreateReplace
+  upgrade:
+    remediation:
+      remediateLastFailure: true
+      retries: 3
+      strategy: rollback
+    cleanupOnFail: true
+    crds: CreateReplace
+    force: true
   interval: 30m
   values:
     monitoring:
