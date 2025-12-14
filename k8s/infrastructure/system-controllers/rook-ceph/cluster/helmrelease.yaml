@@ -37,6 +37,10 @@ spec:
             name: reverse-proxy
             namespace: envoy-gateway-system
     cephClusterSpec:
+      dashboard:
+        enabled: true
+        urlPrefix: /
+        ssl: false
       cephConfig:
         global:
           bdev_enable_discard: "true" # quote
