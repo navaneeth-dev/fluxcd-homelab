@@ -7,6 +7,6 @@ spec:
   resources:
     requests:
       storage: 200Gi
-#  storageClassName: piraeus-replicated
+  storageClassName: ceph-filesystem
   accessModes:
     - ReadWriteMany
