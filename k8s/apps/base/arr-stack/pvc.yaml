@@ -6,7 +6,7 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 300Gi
+      storage: 200Gi
 #  storageClassName: piraeus-replicated
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
