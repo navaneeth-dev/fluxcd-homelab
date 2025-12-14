@@ -70,7 +70,17 @@ spec:
       storage:
         useAllNodes: true
         useAllDevices: false
-        deviceFilter: /dev/disk/by-partlabel/r-csi-data
+        nodes:
+          - name: "controlplane-deepcool"
+            devices:
+              - name: "/dev/disk/by-partlabel/r-csi-data"
+          - name: "controlplane-dell"
+            devices:
+              - name: "/dev/disk/by-partlabel/r-csi-data"
+          - name: "controlplane-thinkcentre"
+            devices:
+              - name: "/dev/disk/by-partlabel/r-csi-data"
+
         config:
           osdsPerDevice: "1"
 
