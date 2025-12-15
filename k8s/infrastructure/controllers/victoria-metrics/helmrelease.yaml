@@ -24,34 +24,20 @@ spec:
   releaseName: stack
   values:
     fullnameOverride: stack
-    grafana:
-      initChownData:
-        enabled: false
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
-          seccompProfile: { type: RuntimeDefault }
-      sidecar:
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
-          fsGroupChangePolicy: OnRootMismatch
-          seccompProfile: { type: RuntimeDefault }
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-        seccompProfile: { type: RuntimeDefault }
-      persistence:
+
+    defaultDashboards:
+      defaultTimezone: ist
+      grafanaOperator:
         enabled: true
-        size: 2Gi
+
+    defaultDatasources:
+      grafanaOperator:
+        enabled: true
+
+    grafana:
+      enabled: false
+      forceDeployDatasource: true
+
     vmsingle:
       enabled: true
       spec:
@@ -73,6 +59,8 @@ spec:
             memory: 500Mi
 
     kubeControllerManager:
+      endpoints: # required for k3s because kube services are not run as pods
+        - 10.0.10.2
       vmScrape:
         spec:
           endpoints:
@@ -88,6 +76,8 @@ spec:
       enabled: false
 
     kubeScheduler:
+      endpoints: # required for k3s because kube services are not run as pods
+        - 10.0.10.2
       vmScrape:
         spec:
           endpoints:
@@ -108,7 +98,7 @@ spec:
           group_interval: 5m
           repeat_interval: 4h
           routes:
-            - receiver: 'null'
+            - receiver: 'discord-info'
               matchers:
                 - alertname =~ "InfoInhibitor|Watchdog"
 
@@ -116,7 +106,7 @@ spec:
           - name: "discord-infra"
             discord_configs:
               - webhook_url: 'replacedfromvalues'
-                username: 'Homelab'
+                username: '${DOMAIN}'
                 title: |-
                   [{{ .Status | toUpper -}}
                    {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
@@ -142,8 +132,40 @@ spec:
                   {{- end }}
                   {{- end }}
           - name: "null"
+          - name: "discord-info"
+            discord_configs:
+              - webhook_url: 'replacedfromvalues'
+                username: '${DOMAIN}'
+                title: |-
+                  [{{ .Status | toUpper -}}
+                   {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+                  ]
+                  {{ if ne .Status "firing" -}}
+                  :white_check_mark: 
+                  {{- else if eq .CommonLabels.severity "critical" -}}
+                  :x:
+                  {{- else if eq .CommonLabels.severity "warning" -}}
+                  :warning:
+                  {{- else if eq .CommonLabels.severity "info" -}}
+                  :information_source:
+                  {{- else -}}
+                  :question:
+                  {{- end }}
+                message: |
+                  {{ range .Alerts }}
+                  {{- if .Annotations.summary }}
+                  Summary:  {{ .Annotations.summary }}
+                  {{- end }}
+                  {{- if .Annotations.description }}
+                  Description: {{ .Annotations.description }}
+                  {{- end }}
+                  {{- end }}
   valuesFrom:
     - kind: Secret
       name: discord-webhook
       valuesKey: token
       targetPath: alertmanager.config.receivers[0].discord_configs[0].webhook_url
+    - kind: Secret
+      name: discord-webhook
+      valuesKey: info
+      targetPath: alertmanager.config.receivers[2].discord_configs[0].webhook_url
