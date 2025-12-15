@@ -13,6 +13,7 @@ spec:
     - name: crds
     - name: system-controllers
     - name: system-configs
+    - name: shared-controllers
   sourceRef:
     kind: GitRepository
     name: flux-system
