@@ -11,9 +11,6 @@ spec:
     name: eg
   install:
     crds: CreateReplace
-  dependsOn:
-    - namespace: observability
-      name: victoria-metrics
   upgrade:
     remediation:
       remediateLastFailure: true
@@ -34,7 +31,7 @@ spec:
     mode: enabled
   maxHistory: 3
   timeout: 30m
-  values:
-    crds:
-      envoyGateway:
-        enabled: true
+#  values:
+#    crds:
+#      envoyGateway:
+#        enabled: true
