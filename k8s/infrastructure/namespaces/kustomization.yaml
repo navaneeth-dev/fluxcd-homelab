@@ -4,8 +4,5 @@ resources:
   - variables.yaml
   - rook-ceph.yaml
   - homelab.yaml
-  - cert-manager.yaml
-  - envoy-gateway-system.yaml
   - homepage.yaml
-  - observability.yaml
   - snapshot-controller.yaml
