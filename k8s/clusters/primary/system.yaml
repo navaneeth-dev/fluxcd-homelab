@@ -11,6 +11,7 @@ spec:
   timeout: 5m
   dependsOn:
     - name: crds
+    - name: shared-crds
   sourceRef:
     kind: GitRepository
     name: flux-system
