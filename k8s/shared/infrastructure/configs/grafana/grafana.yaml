@@ -32,8 +32,6 @@ spec:
                 allowPrivilegeEscalation: false
                 capabilities:
                   drop: [ "ALL" ]
-              strategy:
-                type: Recreate
               env:
                 - name: GF_SECURITY_ADMIN_USER
                   valueFrom:
@@ -49,5 +47,3 @@ spec:
             - name: grafana-data
               persistentVolumeClaim:
                 claimName: grafana-pvc
-      strategy:
-        type: Recreate
