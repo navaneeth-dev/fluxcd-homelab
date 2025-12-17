@@ -16,17 +16,24 @@ spec:
   config:
     log:
       mode: "console"
-    auth:
-      disable_login_form: "false"
   disableDefaultAdminSecret: true
   deployment:
     spec:
       template:
         spec:
+          securityContext:
+            fsGroup: 1001
           containers:
             - name: grafana
-              readinessProbe:
-                failureThreshold: 3
+              securityContext:
+                runAsUser: 1001
+                runAsGroup: 1001
+                runAsNonRoot: true
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop: [ "ALL" ]
+              strategy:
+                type: Recreate
               env:
                 - name: GF_SECURITY_ADMIN_USER
                   valueFrom:
@@ -44,4 +51,3 @@ spec:
                 claimName: grafana-pvc
       strategy:
         type: Recreate
-
