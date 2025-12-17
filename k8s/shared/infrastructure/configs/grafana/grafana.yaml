@@ -19,6 +19,8 @@ spec:
   disableDefaultAdminSecret: true
   deployment:
     spec:
+      strategy:
+        type: Recreate
       template:
         spec:
           securityContext:
