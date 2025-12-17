@@ -5,3 +5,4 @@ resources:
   - grafana.yaml
   - vmprobe.yaml
   - grafana-dashboard-pvc.yaml
+  - httproute.yaml
